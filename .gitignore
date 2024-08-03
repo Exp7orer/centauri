@@ -1,0 +1,95 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+
+# Maven build directory
+target/
+
+# Eclipse project files
+.classpath
+.project
+.settings/
+
+# IntelliJ IDEA project files
+.idea/
+*.iml
+
+# NetBeans project files
+nbproject/
+
+# VSCode project files
+.vscode/
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Maven wrapper files
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+
+# Build files
+*.jar
+*.war
+*.ear
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# IDE specific files
+*.project
+*.classpath
+*.settings/
+*.metadata/
+
+# Other common ignore rules
+*.classpath
+*.project
+*.settings/
+*.metadata/
+*.log
+*.tmp
+*.swp
+*.swo
+*.DS_Store
+*.idea/
+*.iml
+*.vscode/
