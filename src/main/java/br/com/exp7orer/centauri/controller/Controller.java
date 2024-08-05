@@ -1,9 +1,11 @@
 package br.com.exp7orer.centauri.controller;
 
+import br.com.exp7orer.centauri.entity.Usuario;
+import br.com.exp7orer.centauri.model.ModelMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import br.com.exp7orer.centauri.service.UserService;
 
@@ -11,9 +13,13 @@ import br.com.exp7orer.centauri.service.UserService;
 public class Controller {
 
 	private UserService userService;
+    private ModelMessage modelMessage;
 
-	public Controller(@Autowired UserService userService){
+
+	@Autowired
+	public Controller(UserService userService,ModelMessage modelMessage){
 		this.userService = userService;
+		this.modelMessage = modelMessage;
 	}
 	
 	@GetMapping("/centauri")
@@ -22,19 +28,25 @@ public class Controller {
 		model.addAttribute("texto","página principal");
 		return "index";
 	}
-	
-	@GetMapping("/login")
-	public String paginaLogin(Model model) {
-		model.addAttribute("pageTitle","Login");
-		model.addAttribute("texto","Página de Login");
-		return "login";
-	}
-	
+
+
 	@GetMapping("/centauriAdm")
 	public String paginaAdm(Model model) {
 		model.addAttribute("pageTitle","Adm");
 		model.addAttribute("texto","Página de Administração");
 		return "pgAdm";
 	}
-	
+
+	@GetMapping("/messageSystem")
+	public String message(Usuario usuario, String mensagem, Model model){
+		if(usuario == null && mensagem == null){
+			if(usuario.getId() > 0 && !mensagem.isBlank()){
+				modelMessage.send(usuario,mensagem);
+			}
+		}else{
+			model.addAttribute("messageError", "Verifique o Usuário e a Mensagem!");
+			return "index";
+		}
+		return "paginaTeste";
+	}
 }
