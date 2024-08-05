@@ -1,6 +1,7 @@
 package br.com.exp7orer.centauri.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -9,25 +10,31 @@ import br.com.exp7orer.centauri.service.UserService;
 @org.springframework.stereotype.Controller
 public class Controller {
 
-	@Autowired
-	UserService userService;
-	
-	@GetMapping(value = "/centauri")
-	public ModelAndView paginaInicial() {
-		ModelAndView model = new ModelAndView("index.html");
-		return model;
+	private UserService userService;
+
+	public Controller(@Autowired UserService userService){
+		this.userService = userService;
 	}
 	
-	@GetMapping(value = "/login")
-	public ModelAndView paginaLogin() {
-		ModelAndView model = new ModelAndView("login.html");
-		return model;
+	@GetMapping("/centauri")
+	public String paginaInicial(Model model ) {
+		model.addAttribute("pageTitle","Blog");
+		model.addAttribute("texto","página principal");
+		return "index";
 	}
 	
-	@GetMapping(value = "/centauriAdm")
-	public ModelAndView paginaAdm() {
-		ModelAndView model = new ModelAndView("pgAdm.html");
-		return model;
+	@GetMapping("/login")
+	public String paginaLogin(Model model) {
+		model.addAttribute("pageTitle","Login");
+		model.addAttribute("texto","Página de Login");
+		return "login";
+	}
+	
+	@GetMapping("/centauriAdm")
+	public String paginaAdm(Model model) {
+		model.addAttribute("pageTitle","Adm");
+		model.addAttribute("texto","Página de Administração");
+		return "pgAdm";
 	}
 	
 }
