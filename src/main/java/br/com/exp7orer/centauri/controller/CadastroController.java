@@ -19,22 +19,15 @@ public class CadastroController {
         this.usuarioModel = usuarioModel;
     }
 
-    @GetMapping
-    public String formularioCadastro(Model model){
-        model.addAttribute("pageTitle","Cadastro Usuário");
-        return "cadUsuario";
-    }
-
     @PostMapping
     public String cadastro(UsuarioRecord usuario, Model model){
         if(usuario != null){
             usuarioModel.salva(usuario);
             model.addAttribute("mensagem","Usuário cadastrado com sucesso!");
-            return "/login";
+            return "login";
         }
         model.addAttribute("mensagem","Erro ao Cadastrar Usuário!");
-        return "/cadastro";
+        return "cadastro";
     }
-
 
 }
