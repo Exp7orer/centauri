@@ -18,7 +18,7 @@ public class Publicacao implements Serializable {
     private String texto;
     private LocalDateTime dataPublicacao;
     private boolean ativa = true;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Usuario usuario;
 
     @Deprecated

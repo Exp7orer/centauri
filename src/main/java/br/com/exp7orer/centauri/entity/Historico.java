@@ -14,7 +14,7 @@ public class Historico implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(mappedBy = "historico")
+    @OneToMany(mappedBy = "historico", cascade = CascadeType.ALL)
     private List<Alteracao> alteracoes;
 
     @Deprecated
