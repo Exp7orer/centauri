@@ -18,7 +18,7 @@ public class Alteracao implements Serializable {
     private String campo;
     private String valorAnterior;
     private String alteracao;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Historico historico;
 
     @Deprecated

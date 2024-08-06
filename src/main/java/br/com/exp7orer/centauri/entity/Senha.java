@@ -13,7 +13,7 @@ public class Senha implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(length = 20, nullable = false)
+    @Column(length = 200, nullable = false)
     private String chave;
 
     @Deprecated
@@ -21,8 +21,7 @@ public class Senha implements Serializable {
         //Obrigatorio JPA
     }
 
-    public Senha(Long id, String chave) {
-        this.id = id;
+    public Senha(String chave) {
         this.chave = chave;
     }
 

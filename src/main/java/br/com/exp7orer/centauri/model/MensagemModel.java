@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ModelMessage {
+public class MensagemModel {
     private final UsuarioRepository usuarioRepository;
     private final MensagemRepository mensagemRepository;
 
     @Autowired
-    public ModelMessage(UsuarioRepository usuarioRepository, MensagemRepository mensagemRepository){
+    public MensagemModel(UsuarioRepository usuarioRepository, MensagemRepository mensagemRepository){
         this.usuarioRepository = usuarioRepository;
         this.mensagemRepository = mensagemRepository;
     }
