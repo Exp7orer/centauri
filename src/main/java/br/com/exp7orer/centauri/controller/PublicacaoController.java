@@ -34,7 +34,6 @@ public class PublicacaoController {
 		if(idUsuario != null) {
 			publicacaoModel.salvarPublicacao(idUsuario, texto, urlImagem);
 			 model.addAttribute("mensagem","Publicação registrada com sucesso!");
-	            //return "login";// Se postado com sucesso, vai para pagina inicial
 	            return "index";// Se postado com sucesso, vai para pagina inicial
 		}
 		model.addAttribute("mensagem","Erro ao postar publicação!");
