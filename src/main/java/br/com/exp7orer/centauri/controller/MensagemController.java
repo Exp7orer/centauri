@@ -1,6 +1,6 @@
 package br.com.exp7orer.centauri.controller;
 
-import br.com.exp7orer.centauri.entity.MensagemSistema;
+import br.com.exp7orer.centauri.beans.CaixaMensagem;
 import br.com.exp7orer.centauri.entity.Usuario;
 import br.com.exp7orer.centauri.model.MensagemModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +36,10 @@ public class MensagemController {
             return "redirect:/login";
         }
         mensagemModel.enviar(usuario, mensagem);
-        List<MensagemSistema> mensagens = mensagemModel.mensagens(usuario);
+        CaixaMensagem caixaMensagem = mensagemModel.criaCaixaMensagem(usuario);
+        model.addAttribute("caixaMensagem", caixaMensagem );
         model.addAttribute("mensagem", "Mensagem enviada com sucesso!");
-        model.addAttribute("mensagens", mensagens);
-
         return "testes/listaMensagem";
     }
-
 
 }
