@@ -18,8 +18,20 @@ public class Login implements Serializable {
     @Column(length = 100,nullable = false)
     private String nomeUsuario;
     private boolean ativo;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Senha senha;
+
+    @Deprecated
+    protected Login() {
+        //Obrigatorio JPA
+    }
+
+    public Login(String email, String nomeUsuario, boolean ativo, Senha senha) {
+        this.email = email;
+        this.nomeUsuario = nomeUsuario;
+        this.ativo = ativo;
+        this.senha = senha;
+    }
 
     public void setId(Long id) {
         this.id = id;

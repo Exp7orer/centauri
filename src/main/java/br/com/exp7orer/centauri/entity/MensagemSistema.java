@@ -14,7 +14,7 @@ public class MensagemSistema implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Usuario usuario;
     private String message;
     private LocalDateTime data;

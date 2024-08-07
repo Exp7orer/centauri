@@ -18,8 +18,11 @@ public class Publicacao implements Serializable {
     private String texto;
     private LocalDateTime dataPublicacao;
     private boolean ativa = true;
-    @ManyToOne
+    
+//    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Usuario usuario;
+    
 
     @Deprecated
     protected Publicacao() {

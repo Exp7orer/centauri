@@ -12,13 +12,18 @@ import br.com.exp7orer.centauri.service.UserService;
 @org.springframework.stereotype.Controller
 public class Controller {
 
-	private UserService userService;
+//	private UserService userService;
     private ModelMessage modelMessage;
 
 
+//	@Autowired
+//	public Controller(UserService userService,ModelMessage modelMessage){
+//		this.userService = userService;
+//		this.modelMessage = modelMessage;
+//	}
+	
 	@Autowired
-	public Controller(UserService userService,ModelMessage modelMessage){
-		this.userService = userService;
+	public Controller(ModelMessage modelMessage){
 		this.modelMessage = modelMessage;
 	}
 	
