@@ -25,6 +25,11 @@ public class MensagemSistema implements Serializable {
         this.data = LocalDateTime.now();
     }
 
+    public MensagemSistema(String message) {
+        this.message = message;
+        this.data = LocalDateTime.now();
+    }
+
     public MensagemSistema (Usuario usuario, String message) {
         this.usuario = usuario;
         this.message = message;
@@ -39,11 +44,11 @@ public class MensagemSistema implements Serializable {
         this.id = id;
     }
 
-    public Usuario getusuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setusuario(Usuario usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
