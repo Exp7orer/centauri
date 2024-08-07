@@ -1,7 +1,7 @@
 package br.com.exp7orer.centauri.repository;
 
-import br.com.exp7orer.centauri.entity.MensagemSistema;
+import br.com.exp7orer.centauri.entity.MensagemUsuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MensagemRepository extends JpaRepository<MensagemSistema,Long> {
+public interface MensagemRepository extends JpaRepository<MensagemUsuario,Long> {
 }

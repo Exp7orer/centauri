@@ -8,10 +8,12 @@
 <section>
 	<br>
 	<table>
-		<th:block th:each="msn :${mensagens}">
+		<
+		<th:block th:each="mensagem :${caixaMensagem.mensagens}">
 		<tr>
-			<td th:text="${#temporals.format(msn.data, 'dd-MM-yyyy HH:mm')}"></td>
-			<td th:text="${msn.message}"></td>
+			<td th:text="${#temporals.format(mensagem.data, 'dd-MM-yyyy HH:mm')}"></td>
+			<td th:text="${mensagem.texto}"></td>
+			<td th:text="${mensagem.isLida}?'sim':'não'"></td>
 		</tr>
 		</th:block >
 	</table>
