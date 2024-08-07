@@ -12,30 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(path = "/centauriAdm")
 public class AdminstracaoController {
 
-    private MensagemModel mensagemModel;
+    private final MensagemModel mensagemModel;
 
 
     @Autowired
-    public AdminstracaoController(MensagemModel mensagemModel){
+    public AdminstracaoController(MensagemModel mensagemModel) {
         this.mensagemModel = mensagemModel;
     }
+
     @PostMapping
     public String paginaAdm(Model model) {
-        model.addAttribute("pageTitle","Adm");
-        model.addAttribute("texto","Página de Administração");
+        model.addAttribute("pageTitle", "Adm");
+        model.addAttribute("texto", "Página de Administração");
         return "administracao/pgAdm";
-    }
-
-    @PostMapping("/messageSystem")
-    public String message(Usuario usuario, String mensagem, Model model){
-        if(usuario == null || usuario.getId() > 0 ){
-            if( mensagem == null || !mensagem.isBlank()){
-                mensagemModel.send(usuario,mensagem);
-            }
-        }else{
-            model.addAttribute("messageError", "Verifique o Usuário e a Mensagem!");
-            return "index";
-        }
-        return "testes/paginaTeste";
     }
 }

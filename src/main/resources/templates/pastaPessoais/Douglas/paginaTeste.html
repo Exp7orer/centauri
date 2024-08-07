@@ -7,10 +7,12 @@
 <div th:replace="~{template :: html_nav}"></div>
 <section>
     <br>
-    <form th:action="@{/enviar}" method="post">
+    <form th:action="@{messageSystem}" method="post">
+        <label for="user">Código do Usuário</label>
+        <input type="text" name="user" id="user" th:value="1" hidden>
         <label for="message">Mensagem Para o Usuário</label>
         <input type="text" name="message" id="message">
-        <button type="submit" th:value="${usuario?.id}" name="usuario" id="usuario">Enviar Mensagem</button>
+        <input type="submit" value="Enviar Mensagem">
     </form>
 </section>
 <br>

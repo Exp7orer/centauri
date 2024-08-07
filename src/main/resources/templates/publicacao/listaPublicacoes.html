@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Publicações</title>
+</head>
+<body>
+    <h1>Lista de publicações por usuário</h1>
+    <div th:if="${publicacoes != null}">
+        <ul>
+            <li th:each="publicacao : ${publicacoes}">
+                <p th:text="${publicacao.texto}"></p>
+                <img th:src="@{${publicacao.urlImagem}}" alt="Imagem" />
+                <p th:text="${publicacao.dataPublicacao}"></p>
+            </li>
+        </ul>
+    </div>
+    <div th:if="${error != null}">
+        <p th:text="${error}"></p>
+    </div>
+</body>
+</html>

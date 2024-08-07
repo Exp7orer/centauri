@@ -13,11 +13,6 @@
 	<p th:text="${usuario.login.senha.chave}"></p>
 	<p th:text="${usuario.login.email}"></p>
 </section>
-<section>
-	<form th:action="@{/sistema}" method="post">
-		<button name="usuario" th:value="${usuario?.id}" >Enviar Mensagem</button>
-	</form>
-</section>
 <br>
 <div class="container">
 	<div th:replace="~{template :: html_footer}"></div>
