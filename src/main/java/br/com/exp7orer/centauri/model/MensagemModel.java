@@ -4,8 +4,11 @@ import br.com.exp7orer.centauri.entity.MensagemSistema;
 import br.com.exp7orer.centauri.entity.Usuario;
 import br.com.exp7orer.centauri.repository.MensagemRepository;
 import br.com.exp7orer.centauri.repository.UsuarioRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,10 +32,11 @@ public class MensagemModel {
                     }
             );
         } catch (NullPointerException e) {
-            throw new RuntimeException("Verifique o usuário o a mensagem eles não podem ser nulos!");
+            throw new RuntimeException("Verifique o usuário o a mensagem eles não podem ser nulos! ");
         }
     }
 
+    @Transactional (propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
     public List<MensagemSistema> mensagens(Usuario usuario) {
        Usuario usuarioBanco = usuarioRepository.findById(usuario.getId()).orElseThrow();
        if(usuarioBanco.getMessagesSystem()==null||!usuarioBanco.getMessagesSystem().isEmpty()){

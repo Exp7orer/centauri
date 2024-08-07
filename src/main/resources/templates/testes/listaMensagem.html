@@ -10,8 +10,8 @@
 	<table>
 		<th:block th:each="msn :${mensagens}">
 		<tr>
-			<td th:text="${msn.data}"></td>
-			<td th:text="${msn.mensagem}"></td>
+			<td th:text="${#temporals.format(msn.data, 'dd-MM-yyyy HH:mm')}"></td>
+			<td th:text="${msn.message}"></td>
 		</tr>
 		</th:block >
 	</table>
