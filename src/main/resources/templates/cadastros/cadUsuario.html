@@ -1,36 +1,92 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-
-<head th:replace="~{template :: html_head}"/>
-
+<html lang="pt-br">
+<head>    
+    <meta charset="UTF-8"/>
+    <title>Blog de Receitas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" type="text/css" href="../../static/css/styles_cadastro_login.css" />
+</head>
 <body>
-<div th:replace="~{template :: html_nav}"></div>
-<section>
-    <br>
-    <h1>Cadastro Usuário</h1>
-    <form th:action="@{cadastro}" method="post">
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" id="nome">
-        <br>
-        <label for="sobreNome">Sobrenome:</label>
-        <input type="text" name="sobreNome" id="sobreNome">
-        <br>
-        <label for="nomeUsuario">Nome Usuário:</label>
-        <input type="text" name="nomeUsuario" id="nomeUsuario">
-        <br>
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email">
-        <br>
-        <label for="senha">Senha</label>
-        <input type="text" name="senha" id="senha">
-        <br>
-        <input type="submit" value="Casdastrar">
-    </form>
-    <p th:text="${mensagemSistema}"></p>
-</section>
-<br>
-<div class="container">
-    <div th:replace="~{template :: html_footer}"></div>
-</div>
+    <section class="container-topo">
+        <img class="logo-explorer" src="../../static/images/logo.jpg" alt="logo-explorer">
+        <h1 class="titulo">Blog de Receitas</h1>
+    </section>
+    <section class="container-centro" >
+        <a class="links" id="paracadastro"></a>
+        <a class="links" id="paralogin"></a>
+     
+        <div class="conteudo">
+            <!--FORMULÁRIO DE LOGIN-->
+            <div id="login">
+                <form method="post" action=""> 
+                    <h2>Login</h2> 
+                    <p> 
+                        <label for="nome_login">Seu nome</label>
+                        <input id="nome_login" name="nome_login" required="required" type="text" placeholder="ex. contato@htmlecsspro.com"/>
+                    </p>
+
+                    <p> 
+                        <label for="email_login">Seu e-mail</label>
+                        <input id="email_login" name="email_login" required="required" type="password" placeholder="ex. senha" /> 
+                    </p>
+            
+                    <p> 
+                        <input type="checkbox" name="manterlogado" id="manterlogado" value="" /> 
+                        <label for="manterlogado">Manter-me logado</label>
+                    </p>
+            
+                    <p> 
+                        <input type="submit" value="Entrar" /> 
+                    </p>
+            
+                    <p class="link">
+                        Ainda não tem conta?
+                        <a href="#paracadastro">Cadastre-se</a>
+                    </p>
+                </form>
+            </div>
+    
+            <!--FORMULÁRIO DE CADASTRO-->
+            <div id="cadastro">
+                <form method="post" action=""> 
+                    <h2>Cadastro</h2> 
+            
+                    <p> 
+                        <label for="nome_cad">Nome</label>
+                        <input id="nome_cad" name="nome_cad" required="required" type="text" placeholder="nome" />
+                    </p>
+
+                    <p>
+                        <label for="sobreNome_cad">Sobrenome</label> 
+                        <input id="sobreNome_cad" name="sobreNome" required="required" type="text" placeholder="sobrenome">
+                    </p>
+
+                    <p>
+                        <label for="nomeUsuario_cad">Usuário</label>
+                        <input id="nomeUsuario" name="nomeUsuario_cad" required="required" type="text" placeholder="nome de usuário" >
+                    </p>
+            
+                    <p> 
+                        <label for="email_cad">E-mail</label>
+                        <input id="email_cad" name="email_cad" required="required" type="email" placeholder="contato@htmlecsspro.com"/> 
+                    </p>
+            
+                    <p> 
+                        <label for="senha_cad">Senha</label>
+                        <input id="senha_cad" name="senha_cad" required="required" type="password" placeholder="ex. 1234"/>
+                    </p>
+            
+                    <p> 
+                        <input type="submit" value="Cadastrar"/> 
+                    </p>
+            
+                    <p class="link">  
+                        Já tem conta?
+                        <a href="#paralogin"> Ir para Login </a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>  
 </body>
 </html>
