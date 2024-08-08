@@ -26,7 +26,12 @@ public class PublicacaoController {
 		this.publicacaoModel = publicacaoModel;
 	}
 	
-	
+	 @GetMapping // inclusão metodo GET para pagina para criar Publicação
+	 public String criarPublicacao(@PathVariable("id") Long id, Model model) {
+	        return "publicacao/publicacao";
+	 }
+	       
+	        
 	@PostMapping
 	public String postarPublicacao (@PathVariable("id") Long idUsuario,@RequestParam String urlImagem
 			, @RequestParam String texto, Model model) {
