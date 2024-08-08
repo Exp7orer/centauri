@@ -1,5 +1,6 @@
 package br.com.exp7orer.centauri.entity;
 
+import br.com.exp7orer.centauri.repository.interfaces.Mensagem;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -8,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-public class MensagemSistema implements Serializable {
+public class MensagemUsuario implements Mensagem, Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     @Id
@@ -16,24 +17,28 @@ public class MensagemSistema implements Serializable {
     private Long id;
     @ManyToOne(cascade = CascadeType.ALL)
     private Usuario usuario;
-    private String message;
+    private String texto;
     private LocalDateTime data;
+    private boolean lida;
 
     @Deprecated
-    protected MensagemSistema () {
+    protected MensagemUsuario() {
         //Obrigatorio JPA
         this.data = LocalDateTime.now();
+        this.lida = false;
     }
 
-    public MensagemSistema(String message) {
-        this.message = message;
+    public MensagemUsuario(String texto) {
+        this.texto = texto;
         this.data = LocalDateTime.now();
+        this.lida = false;
     }
 
-    public MensagemSistema (Usuario usuario, String message) {
+    public MensagemUsuario(Usuario usuario, String texto) {
         this.usuario = usuario;
-        this.message = message;
+        this.texto = texto;
         this.data = LocalDateTime.now();
+        this.lida = false;
     }
 
     public Long getId() {
@@ -52,12 +57,12 @@ public class MensagemSistema implements Serializable {
         this.usuario = usuario;
     }
 
-    public String getMessage() {
-        return message;
+    public String getTexto() {
+        return texto;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setTexto(String message) {
+        this.texto = message;
     }
 
     public LocalDateTime getData() {
@@ -69,16 +74,25 @@ public class MensagemSistema implements Serializable {
     }
 
     @Override
+    public boolean isLida() {
+        return lida;
+    }
+
+    public void setLida(boolean lida) {
+        this.lida = lida;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MensagemSistema that = (MensagemSistema) o;
-        return Objects.equals(id, that.id) && Objects.equals(usuario, that.usuario) && Objects.equals(message, that.message) && Objects.equals(data, that.data);
+        MensagemUsuario that = (MensagemUsuario) o;
+        return lida == that.lida && Objects.equals(id, that.id) && Objects.equals(usuario, that.usuario) && Objects.equals(texto, that.texto) && Objects.equals(data, that.data);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, usuario, message, data);
+        return Objects.hash(id, usuario, texto, data, lida);
     }
 
     @Override
@@ -86,8 +100,9 @@ public class MensagemSistema implements Serializable {
         return "MensagemSistema{" +
                 "id=" + id +
                 ", usuario=" + usuario +
-                ", message='" + message + '\'' +
+                ", texto='" + texto + '\'' +
                 ", data=" + data +
+                ", lida=" + lida +
                 '}';
     }
 }

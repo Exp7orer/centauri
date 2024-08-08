@@ -83,7 +83,8 @@ public class Administrador implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Administrador that = (Administrador) o;
-        return Objects.equals(id, that.id) && Objects.equals(nome, that.nome) && Objects.equals(sobrenome, that.sobrenome) && Objects.equals(login, that.login) && Objects.equals(permissoes, that.permissoes) && Objects.equals(historico, that.historico);
+        return Objects.equals(id, that.id) && Objects.equals(nome, that.nome) && Objects.equals(sobrenome, that.sobrenome)
+                && Objects.equals(login, that.login) && Objects.equals(permissoes, that.permissoes) && Objects.equals(historico, that.historico);
     }
 
     @Override

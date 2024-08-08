@@ -3,7 +3,6 @@ package br.com.exp7orer.centauri.entity;
 import br.com.exp7orer.centauri.record.UsuarioRecord;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
-import org.springframework.beans.factory.support.ManagedList;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -32,7 +31,7 @@ public class Usuario implements Serializable {
     private List<Publicacao> publicacoes;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<MensagemSistema> messagesSystem;
+    private List<MensagemUsuario> messagesSystem;
 
     @Deprecated
     protected Usuario() {
@@ -114,11 +113,11 @@ public class Usuario implements Serializable {
         this.publicacoes = publicacoes;
     }
 
-    public List<MensagemSistema> getMessagesSystem() {
+    public List<MensagemUsuario> getMessagesSystem() {
         return messagesSystem;
     }
 
-    public void setMessagesSystem(List<MensagemSistema> messagesSystem) {
+    public void setMessagesSystem(List<MensagemUsuario> messagesSystem) {
         this.messagesSystem = messagesSystem;
     }
 
