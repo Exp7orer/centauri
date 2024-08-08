@@ -9,8 +9,9 @@
         <ul>
             <li th:each="publicacao : ${publicacoes}">
                 <p th:text="${publicacao.texto}"></p>
-                <img th:src="@{${publicacao.urlImagem}}" alt="Imagem" />
-                <p th:text="${publicacao.dataPublicacao}"></p>
+                <img th:src="@{${publicacao.urlImagem}}" alt="Imagem" />               
+                <p th:text="${#temporals.format(publicacao.dataPublicacao, 'dd-MM-yyyy HH:mm')}"></p>
+                
             </li>
         </ul>
     </div>
