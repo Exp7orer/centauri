@@ -32,7 +32,8 @@ a.links{
 .container-centro {
     width: 100%;
     height: auto;
-    background-image: url(../../static/images/fundo_cadastro_login.jpg);
+  /*  background-image: url(../../static/images/fundo_cadastro_login.jpg);*/
+    background-image: url(/images/fundo_cadastro_login.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
