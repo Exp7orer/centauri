@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{template :: html_head}">        
+<!-- <head th:replace="~{template :: html_head}"> -->   
+
+<head>	     
     <meta charset="UTF-8"/>
     <title>Blog de Receitas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <link rel="stylesheet" type="text/css" href="../../static/css/styles_cadastro_login.css" />
+  <!--  <link rel="stylesheet" type="text/css" href="../../static/css/styles_cadastro_login.css" /> -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles_cadastro_login.css}" />
+    
 </head>
 <body>
-    <div th:replace="~{template :: html_nav}"></div>
+ <!--   <div th:replace="~{template :: html_nav}"></div> -->
     <section class="container-topo">
-        <img class="logo-explorer" src="../../static/images/logo.jpg" alt="logo-explorer">
+        <img class="logo-explorer" th:src="@{/images/logo.jpg}" alt="logo-explorer">
         <h1 class="titulo">Blog de Receitas</h1>
     </section>
     <section class="container-centro" >
@@ -19,7 +23,7 @@
         <div class="conteudo">
             <!--FORMULÁRIO DE LOGIN-->
             <div id="login">
-                <form method="post" action=""> 
+                <form action="" method="post" > 
                     <h2>Login</h2> 
                     <p> 
                         <label for="nome_login">Seu nome</label>
@@ -50,32 +54,32 @@
     
             <!--FORMULÁRIO DE CADASTRO-->
             <div id="cadastro">
-                <form method="post" action=""> 
+                <form th:action="@{cadastro}" method="post" > 
                     <h2>Cadastro</h2> 
             
                     <p> 
-                        <label for="nome_cad">Nome</label>
-                        <input id="nome_cad" name="nome_cad" required="required" type="text" placeholder="nome" />
+                        <label for="nome">Nome</label>
+                        <input id="nome" name="nome" required="required" type="text" placeholder="nome" />
                     </p>
 
                     <p>
-                        <label for="sobreNome_cad">Sobrenome</label> 
-                        <input id="sobreNome_cad" name="sobreNome" required="required" type="text" placeholder="sobrenome">
+                        <label for="sobreNome">Sobrenome</label> 
+                        <input id="sobreNome" name="sobreNome" required="required" type="text" placeholder="sobrenome">
                     </p>
 
                     <p>
-                        <label for="nomeUsuario_cad">Usuário</label>
-                        <input id="nomeUsuario" name="nomeUsuario_cad" required="required" type="text" placeholder="nome de usuário" >
+                        <label for="nomeUsuario">Usuário</label>
+                        <input id="nomeUsuario" name="nomeUsuario" required="required" type="text" placeholder="nome de usuário" >
                     </p>
             
                     <p> 
-                        <label for="email_cad">E-mail</label>
-                        <input id="email_cad" name="email_cad" required="required" type="email" placeholder="contato@htmlecsspro.com"/> 
+                        <label for="email">E-mail</label>
+                        <input id="email" name="email" required="required" type="email" placeholder="contato@htmlecsspro.com"/> 
                     </p>
             
                     <p> 
-                        <label for="senha_cad">Senha</label>
-                        <input id="senha_cad" name="senha_cad" required="required" type="password" placeholder="ex. 1234"/>
+                        <label for="senha">Senha</label>
+                        <input id="senha" name="senha" required="required" type="password" placeholder="ex. 1234"/>
                     </p>
             
                     <p> 
@@ -91,7 +95,7 @@
         </div>
     </section>
     <div class="container">
-        <div th:replace="~{template :: html_footer}"></div>
+       <!-- <div th:replace="~{template :: html_footer}"></div> -->
     </div>  
 </body>
 </html>
