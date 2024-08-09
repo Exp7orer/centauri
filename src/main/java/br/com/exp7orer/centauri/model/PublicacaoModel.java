@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import br.com.exp7orer.centauri.entity.Publicacao;
 import br.com.exp7orer.centauri.entity.Usuario;
 import br.com.exp7orer.centauri.repository.PublicacaoRepository;
@@ -23,6 +25,7 @@ public class PublicacaoModel {
 		this.usuarioRepository = usuarioRepository;
 	}
 	
+	@Transactional
 	public Publicacao salvarPublicacao (Long idUsuario,String texto, String urlImagem) {	
 		Optional<Usuario> buscarIdUsuario = usuarioRepository.findById(idUsuario);
 		if (buscarIdUsuario.isPresent()) {			
