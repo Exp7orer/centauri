@@ -1,8 +1,10 @@
 package br.com.exp7orer.centauri.entity;
 
 import br.com.exp7orer.centauri.record.UsuarioRecord;
+import br.com.exp7orer.centauri.uteis.CodigoUtil;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -17,7 +19,8 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(length = 10)
+    @Column(unique = true)
+    @NotNull
     private String codigo;
     @Column(length = 20, nullable = false)
     private String nome;
@@ -36,10 +39,12 @@ public class Usuario implements Serializable {
     @Deprecated
     protected Usuario() {
         //Obrigatorio para JPA
+    	this.codigo = CodigoUtil.gerarCodigo();
     }
 
 
     public Usuario(@Nonnull String nome,@Nonnull String sobreNome, @Nonnull Login login) {
+    	this.codigo = CodigoUtil.gerarCodigo();
         this.nome = nome;
         this.sobreNome = sobreNome;
         this.login = login;
@@ -49,6 +54,7 @@ public class Usuario implements Serializable {
     }
 
     public Usuario(@Nonnull UsuarioRecord record, Senha senha){
+    	this.codigo = CodigoUtil.gerarCodigo();
         this.nome = record.nome();
         this.sobreNome = record.sobreNome();
         this.login = new Login(record.email(),record.nomeUsuario(),true,senha);
