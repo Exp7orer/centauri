@@ -11,4 +11,5 @@ public interface PublicacaoRepository extends JpaRepository<Publicacao,Long> {
     List<Publicacao> findByDataPublicacaoBetween(LocalDateTime dataInicio, LocalDateTime dataFim);
 
     List<Publicacao> findByUsuario(Usuario usuario);
+    
 }
