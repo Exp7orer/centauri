@@ -45,11 +45,10 @@ public class PublicacaoModel {
 		
 	}
 	
-	
-	public List<Publicacao> listarPublicacoesPorId(Long idUsuario){
-		Optional<Usuario> buscarIdUsuario = usuarioRepository.findById(idUsuario);
-		if(buscarIdUsuario.isPresent()) {
-			Usuario usuarioEncontrado = buscarIdUsuario.get();
+	public List<Publicacao> listarPublicacoesPorCodigoUsuario(String codigoUsuario){
+		Optional<Usuario> buscarCodigoUsuario = usuarioRepository.findByCodigo(codigoUsuario);
+		if(buscarCodigoUsuario.isPresent()) {
+			Usuario usuarioEncontrado = buscarCodigoUsuario.get();			
 			return publicacaoRepository.findByUsuario(usuarioEncontrado);
 		} else {
 			throw new IllegalArgumentException("Usuário não encontrado!");
@@ -57,7 +56,10 @@ public class PublicacaoModel {
 		
 	}
 	
-	// Não testado ainda 
+	
+	
+	
+	// Não testado ainda
 	public List<Publicacao> buscarPorData(LocalDateTime dataInicial , LocalDateTime daaFinal) {
 		return publicacaoRepository.findByDataPublicacaoBetween(dataInicial, daaFinal);
 	}
