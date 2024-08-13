@@ -7,6 +7,7 @@ import br.com.exp7orer.centauri.repository.UsuarioRepository;
 import br.com.exp7orer.centauri.uteis.SenhaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -19,11 +20,14 @@ public class UsuarioModel {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public void salva(UsuarioRecord record) {
+
+    public Usuario salva(UsuarioRecord record) {
         if(record != null){
             Usuario usuario = new Usuario(record, SenhaUtil.criar(record.senha()));
             usuarioRepository.save(usuario);
+            return usuario;
         }
+        return null;
     }
 
     public Usuario buscaPorId(Long id){
