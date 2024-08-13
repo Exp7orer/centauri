@@ -26,12 +26,11 @@ public class LoginController {
 
         Usuario usuarioLogado = loginModel.fazLogin(senha,email);
         if(usuarioLogado != null){
-          model.addAttribute("mensagem","Usuário logado com sucesso!");
           model.addAttribute("usuario",usuarioLogado);
-          return "testes/sucesso";
+          return "usuario";
         }else{
             model.addAttribute("mensagem","Verifique o email e a senha!");
-            return "login";
+            return "index";
         }
     }
 

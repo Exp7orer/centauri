@@ -21,12 +21,11 @@ public class CadastroController {
     @PostMapping
     public String cadastro(UsuarioRecord usuario, Model model){
         if(usuario != null){
-            usuarioModel.salva(usuario);
-            model.addAttribute("mensagem","Usuário cadastrado com sucesso!");
-            return "login";
+            model.addAttribute("usuario", usuarioModel.salva(usuario));
+            return "usuario";
         }
         model.addAttribute("mensagem","Erro ao Cadastrar Usuário!");
-        return "cadastros/cadUsuario";
+        return "index";
     }
 
 }
