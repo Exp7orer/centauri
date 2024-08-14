@@ -12,22 +12,27 @@ import br.com.exp7orer.centauri.entity.Publicacao;
 import br.com.exp7orer.centauri.entity.Usuario;
 import br.com.exp7orer.centauri.repository.PublicacaoRepository;
 import br.com.exp7orer.centauri.repository.UsuarioRepository;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class PublicacaoModel {
 	
 	private final PublicacaoRepository publicacaoRepository;
 	private final UsuarioRepository usuarioRepository;
-	
+	private final ImagemModel imagemModel;
+
 	@Autowired
-	public PublicacaoModel (PublicacaoRepository publicacaoRepository,UsuarioRepository usuarioRepository) {
+	public PublicacaoModel (PublicacaoRepository publicacaoRepository,
+							UsuarioRepository usuarioRepository, ImagemModel imagemModel) {
 		this.publicacaoRepository = publicacaoRepository;
 		this.usuarioRepository = usuarioRepository;
+		this.imagemModel = imagemModel;
 	}
 	
 	@Transactional
-	public Publicacao salvarPublicacao (Long idUsuario,String texto, String urlImagem) {	
-		Optional<Usuario> buscarIdUsuario = usuarioRepository.findById(idUsuario);
+	public void salvarPublicacao (Usuario usuario, String texto, MultipartFile imagem) {
+		String urlImagem = imagemModel.upload(imagem);
+		Optional<Usuario> buscarIdUsuario = usuarioRepository.findById(usuario.getId());
 		if (buscarIdUsuario.isPresent()) {			
 			Usuario usuarioEncontrado = buscarIdUsuario.get();
 			
@@ -36,39 +41,35 @@ public class PublicacaoModel {
 			Publicacao publicacao = new Publicacao(urlImagem, texto, dataPublicacao, true);
 			publicacao.setUsuario(usuarioEncontrado);
 			
-			return publicacaoRepository.save(publicacao);
-			
 		} else {
 			throw new IllegalArgumentException("Usuário não encontrado!");
 		}
-		
-		
 	}
 	
-	public List<Publicacao> listarPublicacoesPorCodigoUsuario(String codigoUsuario){
-		Optional<Usuario> buscarCodigoUsuario = usuarioRepository.findByCodigo(codigoUsuario);
+	public List<Publicacao> listaPublicacoes(Usuario usuario){
+		Optional<Usuario> buscarCodigoUsuario = usuarioRepository.findByCodigo(usuario.getCodigo());
 		if(buscarCodigoUsuario.isPresent()) {
 			Usuario usuarioEncontrado = buscarCodigoUsuario.get();			
 			return publicacaoRepository.findByUsuario(usuarioEncontrado);
 		} else {
-			throw new IllegalArgumentException("Usuário não encontrado!");
+			return List.of();
 		}
 		
 	}
-	
-	
-	
 	
 	// Não testado ainda
 	public List<Publicacao> buscarPorData(LocalDateTime dataInicial , LocalDateTime daaFinal) {
 		return publicacaoRepository.findByDataPublicacaoBetween(dataInicial, daaFinal);
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	public List<Publicacao> listaRank() {
+		return List.of();
+	}
+
+	public List<Publicacao> listaTodas() {
+		List<Publicacao> publicacoes = publicacaoRepository.findAll();
+		return publicacoes.isEmpty() ?  List.of() : publicacoes;
+
+	}
 
 }

@@ -141,7 +141,7 @@
                                     introdução a um conteúdo adicional.</p>
                             </div>
                             <div class="card-footer">
-                                <small class="text-muted">Atualizados 3 minutos atrás</small>
+                                <small class="text-muted">Publicação Criada: </small>
                             </div>
                         </div>
                         <div class="card">
@@ -163,9 +163,18 @@
             </div>
         </div>
     </main>
-    <script src="js/jquery-3.7.1.min.js"></script>
-    <script src="js/popper-1.14.3.min.js"></script>
-    <script src="js/bootstrap.js"></script>
+    <footer class="bg-body-tertiary text-center">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+            <p class="text-right" id="dataRodape"></p>
+            © 2024 Copyright:
+            <a class="text-body" href="#">Exp7orer</a>
+        </div>
+    </footer>
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/js/popper-1.14.3.min.js}"></script>
+    <script th:src="@{/fontawesome/js/all.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/centauri.js}"></script>
 
     <!--Model Login-->
 
@@ -179,7 +188,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form  action= "/login" method="post" id="form-login" name="form-login" autocomplete="off">
+                    <form  th:action= "@{/login}" method="post" id="form-login" name="form-login" autocomplete="off">
                         <div class="form-group row">
                             <label for="email" class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-10">
@@ -211,7 +220,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/cadastro" method="post" id="form-cadastro" name="form-cadastro" autocomplete="off">
+                    <form th:action="@{/cadastro}" method="post" id="form-cadastro" name="form-cadastro" autocomplete="off">
                         <div class="form-group row">
                             <label for="cad-nome" class="col-sm-3 col-form-label">Nome</label>
                             <div class="col-sm-9">

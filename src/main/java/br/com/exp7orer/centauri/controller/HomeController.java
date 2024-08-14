@@ -17,19 +17,4 @@ public class HomeController {
 		return "index";
 	}
 
-	@GetMapping("/cadastro-usuario")
-	public String formularioCadastro(Model model){
-		model.addAttribute("pageTitle","Cadastro Usuário");
-		return "cadastros/cadUsuario";
-	}
-
-	@GetMapping("/login")
-	public String paginaLogin(Model model) {
-		model.addAttribute("pageTitle","Login");
-		model.addAttribute("texto","Página de Login");
-		return "login";
-	}
-
-
-
 }

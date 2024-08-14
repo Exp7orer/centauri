@@ -1,8 +1,7 @@
 package br.com.exp7orer.centauri.beans;
 
 import br.com.exp7orer.centauri.entity.Usuario;
-import br.com.exp7orer.centauri.repository.interfaces.Mensagem;
-import org.springframework.stereotype.Component;
+import br.com.exp7orer.centauri.entity.interfaces.Mensagem;
 
 import java.io.Serial;
 import java.io.Serializable;

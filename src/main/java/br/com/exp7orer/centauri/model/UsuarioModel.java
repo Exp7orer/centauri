@@ -30,15 +30,10 @@ public class UsuarioModel {
         return null;
     }
 
-    public Usuario buscaPorId(Long id){
-        return usuarioRepository.findById(id).orElse(null);
+    public Usuario buscar(Usuario usuario) {
+    	return usuarioRepository.findByCodigo(usuario.getCodigo()).orElse(null);
     }
-    
-    //Incluido para buscar por código 10/08/2024
-    public Usuario buscarPorCodigo(String codigo) {
-    	return usuarioRepository.findByCodigo(codigo).orElse(null);
-    }
-    
+
 
     public Usuario buscaPorSenhaEmail(String senha,String email){
         if(senha == null || email == null){
