@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import static br.com.exp7orer.centauri.controller.HomeController.paramentroFormUsuario;
+
 
 @Controller
 public class PublicacaoController {
@@ -33,9 +35,10 @@ public class PublicacaoController {
                                @RequestParam("imagem") MultipartFile imagem, Model model) {
 
         Usuario usuarioBanco = usuarioModel.buscar(usuario);
-        if (usuarioBanco != null) {
-            publicacaoModel.salvarPublicacao(usuarioBanco, texto, imagem);
-            return "forward:/minhasPublicacoes";
+
+        if (usuarioBanco!=null){
+            paramentroFormUsuario(model,usuarioBanco,mensagemModel,publicacaoModel);
+            return "usuario";
         }
 
         return "redirect:/";
