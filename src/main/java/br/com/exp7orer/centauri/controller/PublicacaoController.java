@@ -37,6 +37,7 @@ public class PublicacaoController {
         Usuario usuarioBanco = usuarioModel.buscar(usuario);
 
         if (usuarioBanco!=null){
+            publicacaoModel.salvarPublicacao(usuarioBanco,texto,imagem);
             paramentroFormUsuario(model,usuarioBanco,mensagemModel,publicacaoModel);
             return "usuario";
         }
