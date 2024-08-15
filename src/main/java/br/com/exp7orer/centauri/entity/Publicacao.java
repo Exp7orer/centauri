@@ -12,7 +12,7 @@ public class Publicacao implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(length = 60)
+    @Column(length = 255)
     private String urlImagem;
     @Column(length = 500, nullable = false)
     private String texto;

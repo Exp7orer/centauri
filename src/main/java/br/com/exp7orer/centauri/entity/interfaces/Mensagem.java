@@ -1,4 +1,4 @@
-package br.com.exp7orer.centauri.repository.interfaces;
+package br.com.exp7orer.centauri.entity.interfaces;
 
 import br.com.exp7orer.centauri.entity.Usuario;
 

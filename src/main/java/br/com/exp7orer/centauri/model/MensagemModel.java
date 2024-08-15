@@ -4,7 +4,7 @@ import br.com.exp7orer.centauri.beans.CaixaMensagem;
 import br.com.exp7orer.centauri.entity.MensagemUsuario;
 import br.com.exp7orer.centauri.entity.Usuario;
 import br.com.exp7orer.centauri.repository.UsuarioRepository;
-import br.com.exp7orer.centauri.repository.interfaces.Mensagem;
+import br.com.exp7orer.centauri.entity.interfaces.Mensagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -43,7 +43,7 @@ public class MensagemModel {
         if (usuarioBanco.getMessagesSystem() == null || !usuarioBanco.getMessagesSystem().isEmpty()) {
             return new ArrayList<>(usuarioBanco.getMessagesSystem());
         } else {
-            return List.of();
+            return List.of(new MensagemUsuario("Você não tem mensagens!"));
         }
     }
 
@@ -53,6 +53,11 @@ public class MensagemModel {
         List<MensagemUsuario> mensagemSistema = usuarioBanco.getMessagesSystem()
                 .stream()
                 .filter(m -> !m.isLida()).toList();
-        return new CaixaMensagem(new ArrayList<>(mensagemSistema), usuario);
+
+        if (!mensagemSistema.isEmpty()) {
+            return new CaixaMensagem(new ArrayList<>(mensagemSistema), usuario);
+        }
+
+        return new CaixaMensagem(List.of(new MensagemUsuario("Você não tem mensagens!")), usuario);
     }
 }

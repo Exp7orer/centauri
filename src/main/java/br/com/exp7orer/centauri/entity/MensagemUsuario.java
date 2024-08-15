@@ -1,6 +1,6 @@
 package br.com.exp7orer.centauri.entity;
 
-import br.com.exp7orer.centauri.repository.interfaces.Mensagem;
+import br.com.exp7orer.centauri.entity.interfaces.Mensagem;
 import jakarta.persistence.*;
 
 import java.io.Serial;

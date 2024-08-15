@@ -2,6 +2,9 @@ package br.com.exp7orer.centauri.controller;
 
 import br.com.exp7orer.centauri.entity.Usuario;
 import br.com.exp7orer.centauri.model.LoginModel;
+import br.com.exp7orer.centauri.model.MensagemModel;
+import br.com.exp7orer.centauri.model.PublicacaoModel;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,23 +18,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class LoginController {
 
     private final LoginModel loginModel;
+    private final MensagemModel mensagemModel;
+    private final PublicacaoModel publicacaoModel;
 
     @Autowired
-    public LoginController(LoginModel loginModel) {
+    public LoginController(LoginModel loginModel, MensagemModel mensagemModel, PublicacaoModel publicacaoModel) {
         this.loginModel = loginModel;
+        this.mensagemModel =mensagemModel;
+        this.publicacaoModel = publicacaoModel;
     }
 
     @PostMapping
     public String fazFogin(String senha, String email,Model model){
-
         Usuario usuarioLogado = loginModel.fazLogin(senha,email);
         if(usuarioLogado != null){
-          model.addAttribute("usuario",usuarioLogado);
-          return "usuario";
+            return mensagensPagina(model, usuarioLogado, mensagemModel, publicacaoModel);
         }else{
             model.addAttribute("mensagem","Verifique o email e a senha!");
             return "index";
         }
+    }
+
+    @NotNull
+    static String mensagensPagina(Model model, Usuario usuarioLogado, MensagemModel mensagemModel, PublicacaoModel publicacaoModel) {
+        model.addAttribute("usuario",usuarioLogado);
+        model.addAttribute("caixaDeMensagem", mensagemModel.criaCaixaMensagem(usuarioLogado));
+        model.addAttribute("minhasPublicacaoes", publicacaoModel.listaPublicacoes(usuarioLogado));
+        model.addAttribute("rankPublicacoes", publicacaoModel.listaRank());
+        model.addAttribute("todasPublicacoes", publicacaoModel.listaTodas());
+        return "usuario";
     }
 
 }
