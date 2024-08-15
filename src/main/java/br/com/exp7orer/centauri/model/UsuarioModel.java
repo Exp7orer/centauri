@@ -31,18 +31,10 @@ public class UsuarioModel {
         return null;
     }
 
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, noRollbackFor = Exception.class)
-    public Usuario buscarComLista(Usuario usuario) {
-         Usuario usuarioBanco = usuarioRepository.findByCodigo(usuario.getCodigo()).orElse(null);
-         if(usuarioBanco != null){
-             final int inicializar = usuarioBanco.getPublicacoes().size();
-             return usuarioBanco;
-         }
-        return null;
-    }
-
+    @Transactional
     public Usuario buscar(Usuario usuario){
-        return usuarioRepository.findByCodigo(usuario.getCodigo()).orElse(null);
+       return  usuarioRepository.findByCodigo(usuario.getCodigo()).orElse(null);
+
     }
 
 
@@ -61,5 +53,9 @@ public class UsuarioModel {
                 .filter(usuario -> usuario.getLogin().isAtivo())
                 .findFirst();
         return usuarioStream.orElse(null);
+    }
+
+    public void save(Usuario usuario) {
+        usuarioRepository.save(usuario);
     }
 }

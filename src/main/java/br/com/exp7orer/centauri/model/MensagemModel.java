@@ -15,32 +15,29 @@ import java.util.List;
 
 @Component
 public class MensagemModel {
-    private final UsuarioRepository usuarioRepository;
+
+    private final UsuarioModel usuarioModel;
 
 
     @Autowired
-    public MensagemModel(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
+    public MensagemModel(UsuarioRepository usuarioRepository, UsuarioModel usuarioModel) {
+        this.usuarioModel = usuarioModel;
     }
 
     public void enviar(Usuario usuario, String mensagem) {
 
-        try {
-            usuarioRepository.findById(usuario.getId()).ifPresent((userDB) -> {
-                        MensagemUsuario mensagemSistema = new MensagemUsuario(userDB, mensagem);
-                        userDB.setMessagesSystem(List.of(mensagemSistema));
-                        usuarioRepository.save(userDB);
-                    }
-            );
-        } catch (NullPointerException e) {
-            throw new RuntimeException("Verifique o usuário o a mensagem eles não podem ser nulos! ");
+        Usuario usuarioBanco = usuarioModel.buscar(usuario);
+        if (usuarioBanco != null) {
+            MensagemUsuario mensagemSistema = new MensagemUsuario(usuarioBanco, mensagem);
+            usuarioBanco.setMessagesSystem(List.of(mensagemSistema));
+            usuarioModel.save(usuarioBanco);
         }
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, noRollbackFor = Exception.class)
     public List<Mensagem> lista(Usuario usuario) {
-        Usuario usuarioBanco = usuarioRepository.findById(usuario.getId()).orElseThrow();
-        if (usuarioBanco.getMessagesSystem() == null || !usuarioBanco.getMessagesSystem().isEmpty()) {
+        Usuario usuarioBanco = usuarioModel.buscar(usuario);
+        if (usuarioBanco.getMessagesSystem() != null || !usuarioBanco.getMessagesSystem().isEmpty()) {
             return new ArrayList<>(usuarioBanco.getMessagesSystem());
         } else {
             return List.of(new MensagemUsuario("Você não tem mensagens!"));
@@ -49,7 +46,7 @@ public class MensagemModel {
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true, noRollbackFor = Exception.class)
     public CaixaMensagem criaCaixaMensagem(Usuario usuario) {
-        Usuario usuarioBanco = usuarioRepository.findById(usuario.getId()).orElseThrow();
+        Usuario usuarioBanco = usuarioModel.buscar(usuario);
         List<MensagemUsuario> mensagemSistema = usuarioBanco.getMessagesSystem()
                 .stream()
                 .filter(m -> !m.isLida()).toList();
