@@ -3,8 +3,17 @@ const mostraDataRodape = () => {
     const data = new Date();
     dataRodape.innerHTML = "Data: " + data.toLocaleString();
     setTimeout(mostraDataRodape, 1);
-}
+};
+const chamarSummer = () =>{
+	 $('#texto').summernote({
+        placeholder: 'Hello Bootstrap 4',
+        tabsize: 4,
+        height: 172
+      });
+};
+
 window.onload = () => {
+	chamarSummer();
     mostraDataRodape();
 };
 
