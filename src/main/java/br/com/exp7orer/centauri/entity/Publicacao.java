@@ -26,7 +26,8 @@ public class Publicacao implements Serializable {
         //Obrigatorio JPA
     }
 
-    public Publicacao(String urlImagem, String texto, LocalDateTime dataPublicacao, boolean ativa) {
+    public Publicacao(Usuario usuario, String urlImagem, String texto, LocalDateTime dataPublicacao, boolean ativa) {
+        this.usuario = usuario;
         this.urlImagem = urlImagem;
         this.texto = texto;
         this.dataPublicacao = dataPublicacao;

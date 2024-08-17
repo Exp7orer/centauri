@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import static br.com.exp7orer.centauri.controller.HomeController.informacaoUsuario;
 
-import static br.com.exp7orer.centauri.controller.HomeController.paramentroFormUsuario;
 
 @Controller
 public class LoginController {
@@ -30,11 +30,10 @@ public class LoginController {
     public String fazFogin(String senha, String email, Model model) {
         Usuario usuarioBanco = loginModel.fazLogin(senha, email);
         if(usuarioBanco!=null){
-            paramentroFormUsuario(model,usuarioBanco,mensagemModel,publicacaoModel);
+            informacaoUsuario(model, usuarioBanco, mensagemModel, publicacaoModel);
             return "usuario";
         }
-        model.addAttribute("mensagem", "Verifique o email e a senha!");
-        return "redirect:/";
+        return  "redirect:/";
     }
 
 }

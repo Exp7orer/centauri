@@ -10,9 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
-import static br.com.exp7orer.centauri.controller.HomeController.paramentroFormUsuario;
+import static br.com.exp7orer.centauri.controller.HomeController.informacaoUsuario;
 
 
 @Controller
@@ -34,15 +35,16 @@ public class PublicacaoController {
     public String postar(Usuario usuario, @RequestParam("texto") String texto,
                                @RequestParam("imagem") MultipartFile imagem, Model model) {
 
-        Usuario usuarioBanco = usuarioModel.buscar(usuario);
-
+        Usuario usuarioBanco = usuarioModel.buscarCompleto(usuario);
         if (usuarioBanco!=null){
             publicacaoModel.salvarPublicacao(usuarioBanco,texto,imagem);
-            paramentroFormUsuario(model,usuarioBanco,mensagemModel,publicacaoModel);
+            informacaoUsuario(model, usuarioBanco, mensagemModel, publicacaoModel);
             return "usuario";
         }
 
         return "redirect:/";
     }
+
+
 
 }

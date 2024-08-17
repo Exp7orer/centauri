@@ -1,7 +1,6 @@
 package br.com.exp7orer.centauri.model;
 
-import br.com.exp7orer.centauri.entity.Senha;
-import br.com.exp7orer.centauri.entity.Usuario;
+import br.com.exp7orer.centauri.entity.*;
 import br.com.exp7orer.centauri.record.UsuarioRecord;
 import br.com.exp7orer.centauri.repository.UsuarioRepository;
 import br.com.exp7orer.centauri.uteis.SenhaUtil;
@@ -10,6 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -31,13 +32,23 @@ public class UsuarioModel {
         return null;
     }
 
-    @Transactional
-    public Usuario buscar(Usuario usuario){
-       return  usuarioRepository.findByCodigo(usuario.getCodigo()).orElse(null);
+    public Usuario buscar(Usuario usuario) {
+        return usuarioRepository.findByCodigo(usuario.getCodigo()).orElse(null);
 
     }
 
+    @Transactional(readOnly = true)
+    public Usuario buscarCompleto(Usuario usuario) {
+        Usuario usuarioBanco = usuarioRepository.findByCodigo(usuario.getCodigo()).orElse(null);
+        usuarioBanco.getMessagesSystem().size();
+        usuarioBanco.getHistorico();
+        usuarioBanco.getPublicacoes().size();
+        return usuarioBanco;
+    }
 
+    ;
+
+    @Transactional(readOnly = true)
     public Usuario buscaPorSenhaEmail(String senha, String email) {
         if (senha == null || email == null) {
             throw new RuntimeException("Verifique os parametros eles não podem se nulos!");
@@ -52,7 +63,10 @@ public class UsuarioModel {
                 .filter(usuario -> usuario.getLogin().getSenha().getChave().equals(senhaBanco.getChave()))
                 .filter(usuario -> usuario.getLogin().isAtivo())
                 .findFirst();
-        return usuarioStream.orElse(null);
+        Usuario usuarioBanco = usuarioStream.orElse(null);
+        usuarioBanco.getMessagesSystem().size();
+        usuarioBanco.getPublicacoes().size();
+        return usuarioBanco;
     }
 
     public void save(Usuario usuario) {
