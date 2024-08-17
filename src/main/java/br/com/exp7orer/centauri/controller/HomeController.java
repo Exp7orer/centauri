@@ -4,15 +4,13 @@ import br.com.exp7orer.centauri.entity.Usuario;
 import br.com.exp7orer.centauri.model.MensagemModel;
 import br.com.exp7orer.centauri.model.PublicacaoModel;
 import br.com.exp7orer.centauri.model.UsuarioModel;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
+
 
 
 @Controller
@@ -23,8 +21,9 @@ public class HomeController {
     private final MensagemModel mensagemModel;
     private final UsuarioModel usuarioModel;
 
+
     @Autowired
-    public HomeController(UsuarioModel usuarioModel, MensagemModel mensagemModel, PublicacaoModel publicacaoModel) {
+    public HomeController(UsuarioModel usuarioModel, MensagemModel mensagemModel, PublicacaoModel publicacaoModel, ResourceLoader resourceLoader) {
         this.usuarioModel = usuarioModel;
         this.mensagemModel = mensagemModel;
         this.publicacaoModel = publicacaoModel;
@@ -37,26 +36,14 @@ public class HomeController {
         return "index";
     }
 
-    @PostMapping("/minhas-pagina")
-    public String minhasPublicacoes(Usuario usuario, Model model) {
-        Usuario usuarioBanco = usuarioModel.buscar(usuario);
-        if (usuarioBanco!=null){
-            paramentroFormUsuario(model,usuarioBanco,mensagemModel,publicacaoModel);
-            return "usuario";
-        }
 
-        return "redirect:/";
-    }
 
-    static void paramentroFormUsuario(Model model, Usuario usuario, MensagemModel mensagemModel, PublicacaoModel publicacaoModel) {
+    static void informacaoUsuario(Model model, Usuario usuario, MensagemModel mensagemModel, PublicacaoModel publicacaoModel) {
         model.addAttribute("usuario", usuario);
         model.addAttribute("caixaDeMensagem", mensagemModel.criaCaixaMensagem(usuario));
-        model.addAttribute("minhasPublicacaoes", publicacaoModel.listaPublicacoes(usuario));
+        model.addAttribute("minhasPublicacaoes", publicacaoModel.listaUsuario(usuario));
         model.addAttribute("rankPublicacoes", publicacaoModel.listaRank());
         model.addAttribute("todasPublicacoes", publicacaoModel.listaTodas());
-
     }
-
-
 }
 

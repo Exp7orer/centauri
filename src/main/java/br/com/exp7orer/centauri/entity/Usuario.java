@@ -32,7 +32,6 @@ public class Usuario implements Serializable {
     private Historico historico;
     @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL)
     private List<Publicacao> publicacoes;
-
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<MensagemUsuario> messagesSystem;
 
@@ -48,9 +47,7 @@ public class Usuario implements Serializable {
         this.nome = nome;
         this.sobreNome = sobreNome;
         this.login = login;
-        this.historico = new Historico(new ArrayList<>());
-        this.publicacoes = new ArrayList<>();
-        this.messagesSystem = new ArrayList<>();
+
     }
 
     public Usuario(@Nonnull UsuarioRecord record, Senha senha){
@@ -58,9 +55,7 @@ public class Usuario implements Serializable {
         this.nome = record.nome();
         this.sobreNome = record.sobreNome();
         this.login = new Login(record.email(),record.nomeUsuario(),true,senha);
-        this.historico = new Historico(new ArrayList<>());
-        this.publicacoes = new ArrayList<>();
-        this.messagesSystem = new ArrayList<>();
+
     }
 
     public Long getId() {

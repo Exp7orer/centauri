@@ -32,33 +32,19 @@ public class PublicacaoModel {
     }
 
     @Transactional
-    public void salvarPublicacao(Usuario usuario, String texto, MultipartFile imagem){
+    public void salvarPublicacao(Usuario usuario, String texto, MultipartFile imagem) {
         String urlImagem = imagemModel.upload(imagem);
-        Usuario usuarioBanco = usuarioModel.buscar(usuario);
+        Usuario usuarioBanco = usuarioModel.buscarCompleto(usuario);
 
         if (usuarioBanco != null) {
             LocalDateTime dataPublicacao = LocalDateTime.now();
-            Publicacao publicacao = new Publicacao(urlImagem, texto, dataPublicacao, true);
-            publicacao.setUsuario(usuarioBanco);
+            Publicacao publicacao = new Publicacao(usuarioBanco,urlImagem, texto, dataPublicacao, true);
             publicacaoRepository.save(publicacao);
-
         } else {
             throw new IllegalArgumentException("Usuário não encontrado!");
         }
     }
 
-
-    public List<Publicacao> listaPublicacoes(Usuario usuario) {
-        Usuario usuarioBanco = usuarioModel.buscar(usuario);
-        if (usuarioBanco != null) {
-
-            return  publicacaoRepository.findByUsuario(usuario);
-
-        } else {
-            return List.of();
-        }
-
-    }
 
     public List<Publicacao> buscarPorData(LocalDateTime dataInicial, LocalDateTime dataFinal) {
         Stream<Publicacao> stream = publicacaoRepository.findAll()
@@ -81,4 +67,12 @@ public class PublicacaoModel {
 
     }
 
+    public List<Publicacao>  listaUsuario(Usuario usuario) {
+        Usuario usuarioBanco = usuarioModel.buscarCompleto(usuario);
+        return usuarioBanco != null ? usuarioBanco.getPublicacoes() : List.of();
+    }
+
+    public Publicacao buscaId(Long id) {
+     return publicacaoRepository.findById(id).orElse(null);
+    }
 }
