@@ -37,6 +37,10 @@ public class UsuarioModel {
 
     }
 
+    public Usuario buscarCodigo(String codigo){
+        return usuarioRepository.findByCodigo(codigo).orElse(null);
+    }
+
     @Transactional(readOnly = true)
     public Usuario buscarCompleto(Usuario usuario) {
         Usuario usuarioBanco = usuarioRepository.findByCodigo(usuario.getCodigo()).orElse(null);
@@ -72,4 +76,6 @@ public class UsuarioModel {
     public void save(Usuario usuario) {
         usuarioRepository.save(usuario);
     }
+
+
 }

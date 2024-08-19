@@ -10,10 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
-
-import static br.com.exp7orer.centauri.controller.HomeController.informacaoUsuario;
 
 
 @Controller
@@ -37,14 +33,9 @@ public class PublicacaoController {
 
         Usuario usuarioBanco = usuarioModel.buscarCompleto(usuario);
         if (usuarioBanco!=null){
-            publicacaoModel.salvarPublicacao(usuarioBanco,texto,imagem);
-            informacaoUsuario(model, usuarioBanco, mensagemModel, publicacaoModel);
-            return "usuario";
+            publicacaoModel.salvarPublicacao(usuario,texto,imagem);
+            return "forward:/minha-pagina/"+usuarioBanco.getCodigo();
         }
-
         return "redirect:/";
     }
-
-
-
 }
