@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -36,14 +34,5 @@ public class HomeController {
         return "index";
     }
 
-
-
-    static void informacaoUsuario(Model model, Usuario usuario, MensagemModel mensagemModel, PublicacaoModel publicacaoModel) {
-        model.addAttribute("usuario", usuario);
-        model.addAttribute("caixaDeMensagem", mensagemModel.criaCaixaMensagem(usuario));
-        model.addAttribute("minhasPublicacaoes", publicacaoModel.listaUsuario(usuario));
-        model.addAttribute("rankPublicacoes", publicacaoModel.listaRank());
-        model.addAttribute("todasPublicacoes", publicacaoModel.listaTodas());
-    }
 }
 
