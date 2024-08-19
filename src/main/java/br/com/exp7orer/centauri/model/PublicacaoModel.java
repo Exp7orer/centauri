@@ -38,7 +38,7 @@ public class PublicacaoModel {
 
         if (usuarioBanco != null) {
             LocalDateTime dataPublicacao = LocalDateTime.now();
-            Publicacao publicacao = new Publicacao(usuarioBanco,urlImagem, texto, dataPublicacao, true);
+            Publicacao publicacao = new Publicacao(usuarioBanco, urlImagem, texto, dataPublicacao, true);
             publicacaoRepository.save(publicacao);
         } else {
             throw new IllegalArgumentException("Usuário não encontrado!");
@@ -62,17 +62,18 @@ public class PublicacaoModel {
     }
 
     public List<Publicacao> listaTodas() {
-        List<Publicacao> publicacoes = publicacaoRepository.findAll();
+        List<Publicacao> publicacoes = publicacaoRepository.publicacaoesOrdDataDescr();
         return publicacoes.isEmpty() ? List.of() : publicacoes;
 
     }
 
-    public List<Publicacao>  listaUsuario(Usuario usuario) {
-        Usuario usuarioBanco = usuarioModel.buscarCompleto(usuario);
-        return usuarioBanco != null ? usuarioBanco.getPublicacoes() : List.of();
+    public List<Publicacao> listaUsuario(Usuario usuario) {
+        List<Publicacao> publicacoes = publicacaoRepository
+                .findByPublicacaoUsuarioOrdemDecrescente(usuario.getCodigo());
+        return publicacoes != null ? publicacoes : List.of();
     }
 
     public Publicacao buscaId(Long id) {
-     return publicacaoRepository.findById(id).orElse(null);
+        return publicacaoRepository.findById(id).orElse(null);
     }
 }
