@@ -22,7 +22,7 @@ public class ImagensController {
 
     @ResponseBody
     @GetMapping("/publicacao/{id}")
-    public ResponseEntity<?> showImage(@PathVariable Long id) {
+    public ResponseEntity<?> publicacaoImagem(@PathVariable Long id) {
         Publicacao publicacao = publicacaoModel.buscaId(id);
         return imagemModel.imagemPublicacao(publicacao);
     }
