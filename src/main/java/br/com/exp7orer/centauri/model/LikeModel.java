@@ -1,9 +1,11 @@
 package br.com.exp7orer.centauri.model;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import br.com.exp7orer.centauri.entity.Likes;
 import br.com.exp7orer.centauri.entity.Publicacao;
@@ -66,6 +68,16 @@ public class LikeModel {
 	        
 	    }
 	}
+	
+	
+	
+	 public List<Likes> listaRank(){
+		 return likeRepository.findAllOrderByQtdPositivo();
+	 }
+	
+	
+	
+	
 	
 	
 }
