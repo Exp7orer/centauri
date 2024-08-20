@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import static br.com.exp7orer.centauri.controller.LoginController.informacaoUsuario;
+
 
 @Controller
 public class PublicacaoController {
@@ -27,14 +29,24 @@ public class PublicacaoController {
         this.mensagemModel = mensagemModel;
     }
 
+    @PostMapping("publicacao")
+    public String formPublicacao(String codigo,Model model){
+        Usuario usuarioBanco = usuarioModel.buscarCodigo(codigo);
+        if(usuarioBanco == null){
+            return "redirect:/";
+        }
+        informacaoUsuario(model,usuarioBanco,mensagemModel,publicacaoModel);
+        return "form-publicacao";
+    }
+
     @PostMapping("postar")
     public String postar(Usuario usuario, @RequestParam("texto") String texto,
                                @RequestParam("imagem") MultipartFile imagem, Model model) {
 
-        Usuario usuarioBanco = usuarioModel.buscarCompleto(usuario);
+        Usuario usuarioBanco = usuarioModel.buscar(usuario);
         if (usuarioBanco!=null){
             publicacaoModel.salvarPublicacao(usuario,texto,imagem);
-            return "forward:/minha-pagina/"+usuarioBanco.getCodigo();
+            return "forward:minha-pagina/"+usuarioBanco.getCodigo();
         }
         return "redirect:/";
     }

@@ -34,7 +34,7 @@ public class PublicacaoModel {
     @Transactional
     public void salvarPublicacao(Usuario usuario, String texto, MultipartFile imagem) {
         String urlImagem = imagemModel.upload(imagem);
-        Usuario usuarioBanco = usuarioModel.buscarCompleto(usuario);
+        Usuario usuarioBanco = usuarioModel.buscar(usuario);
 
         if (usuarioBanco != null) {
             LocalDateTime dataPublicacao = LocalDateTime.now();

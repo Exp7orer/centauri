@@ -47,6 +47,8 @@ public class Usuario implements Serializable {
         this.nome = nome;
         this.sobreNome = sobreNome;
         this.login = login;
+        this.publicacoes = new ArrayList<>();
+        this.messagesSystem = new ArrayList<>();
 
     }
 
@@ -55,7 +57,8 @@ public class Usuario implements Serializable {
         this.nome = record.nome();
         this.sobreNome = record.sobreNome();
         this.login = new Login(record.email(),record.nomeUsuario(),true,senha);
-
+        this.publicacoes = new ArrayList<>();
+        this.messagesSystem = new ArrayList<>();
     }
 
     public Long getId() {
