@@ -33,25 +33,17 @@ public class UsuarioModel {
         return null;
     }
 
+    @Transactional
     public Usuario buscar(Usuario usuario) {
         return usuarioRepository.findByCodigo(usuario.getCodigo()).orElse(null);
-
     }
 
-    public Usuario buscarCodigo(String codigo){
+    @Transactional
+    public Usuario buscarCodigo(String codigo) {
         return usuarioRepository.findByCodigo(codigo).orElse(null);
+
     }
 
-    @Transactional(readOnly = true)
-    public Usuario buscarCompleto(Usuario usuario) {
-        Usuario usuarioBanco = usuarioRepository.findByCodigo(usuario.getCodigo()).orElse(null);
-        usuarioBanco.getMessagesSystem().size();
-        usuarioBanco.getHistorico();
-        usuarioBanco.getPublicacoes().size();
-        return usuarioBanco;
-    }
-
-    ;
 
     @Transactional(readOnly = true)
     public Usuario buscaPorSenhaEmail(String senha, String email) {

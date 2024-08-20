@@ -52,55 +52,128 @@
 <main>
     <hr>
     <div class="container">
-        <div clas="row">
+        <div class="row">
             <div class="card-deck">
                 <div class="card">
-                    <div class="card-header">
-                        Minhas Publicações
-                    </div>
                     <div class="card-body">
+                        <h5 class="card-title">Minhas Publicações</h5>
                         <div class="table-responsive" style="height:20rem;overflow:auto;">
                             <table class="table table-borderless">
                                 <thead>
                                 <tr>
                                     <th scope="col"></th>
-                                    <th scope="col">Título</th>
-                                    <th scope="col"><i class="fa-regular fa-thumbs-up fa-1x"></i></th>
-                                    <th scope="col"><i class="fa-regular fa-thumbs-down"></i></th>
+                                    <th scope="col"></th>
                                 </tr>
                                 </thead>
                                 <tbody th:if="${minhasPublicacaoes} == null or ${minhasPublicacaoes.size()}!=0">
                                 <tr th:each="publicacao:${minhasPublicacaoes}">
                                     <td>
-                                        <div class="card" style="width:15rem;">
+                                        <div class="card" style="width:5rem;">
                                             <img class="card-img-top"
                                                  th:src="@{imagens/publicacao/{id}(id=${publicacao.id})}"
                                                  alt="Imagem de capa do card">
                                         </div>
                                     </td>
-                                    <td th:text="${publicacao.titulo}">
+                                    <td th:text="${publicacao.texto}">
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <div class="row">
-                            <div class="col-3">
-                                <form th:action="@{/publicacao}" method="post">
-                                    <input hidden="hidden" th:value="${usuario.codigo}" name="codigo">
-                                    <button type="submit" class="btn btn-outline-success btn-block">Publicar</button>
-                                </form>
-                            </div>
-                            <div class="col-6">
-                            </div>
-                            <div class="col-3">
-                                <small class="text-muted text-light"
-                                       th:if="${minhasPublicacaoes} == null or ${minhasPublicacaoes.size()}!=0"
-                                       th:text="|Quantidade de publicações: ${minhasPublicacaoes.size()}|"></small>
-                            </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Rank das Publicações</h5>
+                        <div class="table-responsive" style="height:20rem;overflow:auto;">
+                            <table class="table table-borderless">
+                                <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody th:if="${rankPublicacoes.size()}!=0">
+                                <tr th:each="rank:${rankPublicacoes}">
+                                    <td>
+                                        <div class="card" style="width:5rem;">
+                                            <img class="card-img-top"
+                                                 th:src="@{imagens/publicacao/{id}(id=${rank.id})}"
+                                                 alt="Imagem de capa do card">
+                                        </div>
+                                    </td>
+                                    <td th:text="${rank.texto}">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Publicações</h5>
+                        <div class="table-responsive" style="height:20rem;overflow:auto;">
+                            <table class="table table-borderless">
+                                <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody th:if="${todasPublicacoes.size()}!=0">
+                                <tr th:each="publicacaoSistema:${todasPublicacoes}">
+                                    <td>
+                                        <div class="card" style="width:5rem;">
+                                            <img class="card-img-top"
+                                                 th:src="@{imagens/publicacao/{id}(id=${publicacaoSistema.id})}"
+                                                 alt="Imagem de capa do card">
+                                        </div>
+                                    </td>
+                                    <td th:text="${publicacaoSistema.texto}">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-3">
+                <div class="row">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" id="imgPublicacao" th:src="@{/images/logo.jpg}" alt="Imagem de capa do card">
+                        <div class="card-body">
+                            <form th:action="@{/postar}" th:method="post" name="publicacao" id="publicacao"
+                                  enctype="multipart/form-data">
+                                <div class="input-group mb-3">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="imagem" name="imagem"
+                                               accept="image/*">
+                                        <label class="custom-file-label" for="imagem">Escolher
+                                            Imagem</label>
+                                    </div>
+                                </div>
+                                <input hidden th:value="${usuario.codigo}" name="codigo">
+                            </form>
+                            <br>
+                            <hr>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 style="text-align: center">Texto Publicação</h5>
+                        <textarea class="form-control" style="resize: none" id="texto" th:name="texto" form="publicacao" rows="9"></textarea>
+                        <hr>
+                        <button class="btn btn-outline-success btn-block" type="submit" form="publicacao">Publicar
+                        </button>
                     </div>
                 </div>
             </div>

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static br.com.exp7orer.centauri.controller.LoginController.informacaoUsuario;
+
 
 @Controller
 @RequestMapping(path = "/")
@@ -38,24 +40,26 @@ public class HomeController {
         List<List<Publicacao>> publicacaos = new ArrayList<>();
         List<Publicacao> publicacaoBanco = publicacaoModel.listaTodas();
 
-        if (publicacaoBanco.size() >= 3) {
-            int cont = 1;
-            List<Publicacao> pub = new ArrayList<>();
-            for (Publicacao publicacao : publicacaoBanco) {
-                if (cont >= 30) {
-                    break;
-                }
-                pub.add(publicacao);
-                if (cont % 3 == 0) {
-                    publicacaos.add(new ArrayList<>(pub));
-                    pub.clear();
-                }
+        int cont = 1;
+        List<Publicacao> pub = new ArrayList<>();
 
-                cont++;
+        for (Publicacao publicacao : publicacaoBanco) {
+            if (cont >= 30) {
+                break;
             }
-        }else{
-            publicacaos.add(publicacaoBanco);
+
+            pub.add(publicacao);
+
+            if (pub.size() == 3) {
+                publicacaos.add(new ArrayList<>(pub));
+                pub.clear();
+            }
+
+            cont++;
         }
+
+
+
 
         model.addAttribute("pageTitle", "Blog");
         model.addAttribute("texto", "página principal");
@@ -63,6 +67,7 @@ public class HomeController {
 
         return "index";
     }
+
 
 }
 
