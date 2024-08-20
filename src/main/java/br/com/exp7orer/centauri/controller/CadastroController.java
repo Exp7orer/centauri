@@ -29,8 +29,7 @@ public class CadastroController {
     public String cadastro(UsuarioRecord usuario, Model model){
         if(usuario != null){
            Usuario usuarioBanco = usuarioModel.salva(usuario);
-           model.addAttribute("usuario",usuarioBanco);
-            return "usuario";
+            return "forward:/minha-pagina/"+usuarioBanco.getCodigo();
         }
         model.addAttribute("mensagem","Erro ao Cadastrar Usuário!");
         return "redirect:/";

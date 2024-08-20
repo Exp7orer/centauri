@@ -5,7 +5,7 @@ const mostraDataRodape = () => {
     setTimeout(mostraDataRodape, 1);
 };
 
-const $publicacao = $('#texto').summernote({
+const $publicacao = $('').summernote({
     lang: 'pt-BR',
     toolbar: [
         ['style', ['style']],

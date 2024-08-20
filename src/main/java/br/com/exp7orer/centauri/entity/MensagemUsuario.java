@@ -27,13 +27,7 @@ public class MensagemUsuario implements Mensagem, Serializable {
         this.data = LocalDateTime.now();
         this.lida = false;
     }
-
-    public MensagemUsuario(String texto) {
-        this.texto = texto;
-        this.data = LocalDateTime.now();
-        this.lida = false;
-    }
-
+    
     public MensagemUsuario(Usuario usuario, String texto) {
         this.usuario = usuario;
         this.texto = texto;

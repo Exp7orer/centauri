@@ -158,9 +158,10 @@
                                     </div>
                                 </div>
                                 <input hidden th:value="${usuario.codigo}" name="codigo">
-                                    <button class="btn btn-outline-success btn-block" type="submit" form="publicacao">Publicar
-                                    </button>
                             </form>
+                            <br>
+                            <hr>
+                            <br>
                         </div>
                     </div>
                 </div>
@@ -168,7 +169,11 @@
             <div class="col-9">
                 <div class="card">
                     <div class="card-body">
-                        <textarea id="texto" th:name="texto" form="publicacao"></textarea>
+                        <h5 style="text-align: center">Texto Publicação</h5>
+                        <textarea class="form-control" style="resize: none" id="texto" th:name="texto" form="publicacao" rows="9"></textarea>
+                        <hr>
+                        <button class="btn btn-outline-success btn-block" type="submit" form="publicacao">Publicar
+                        </button>
                     </div>
                 </div>
             </div>
