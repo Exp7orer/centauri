@@ -40,7 +40,7 @@ public class MensagemModel {
         if (usuarioBanco.getMessagesSystem() != null || !usuarioBanco.getMessagesSystem().isEmpty()) {
             return new ArrayList<>(usuarioBanco.getMessagesSystem());
         } else {
-            return List.of(new MensagemUsuario("Você não tem mensagens!"));
+            return List.of(new MensagemUsuario(null,"Você não tem mensagens!"));
         }
     }
 
@@ -55,6 +55,6 @@ public class MensagemModel {
             return new CaixaMensagem(new ArrayList<>(mensagemSistema), usuario);
         }
 
-        return new CaixaMensagem(List.of(new MensagemUsuario("Você não tem mensagens!")), usuario);
+        return new CaixaMensagem(List.of(new MensagemUsuario(null,"Você não tem mensagens!")), usuario);
     }
 }

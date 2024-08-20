@@ -1,6 +1,7 @@
 package br.com.exp7orer.centauri.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -14,6 +15,8 @@ public class Publicacao implements Serializable {
     private Long id;
     @Column(length = 255)
     private String urlImagem;
+    @Column(length = 150, nullable = false)
+    private String titulo;
     @Column(length = 500, nullable = false)
     private String texto;
     private LocalDateTime dataPublicacao;
@@ -29,7 +32,8 @@ public class Publicacao implements Serializable {
     public Publicacao(Usuario usuario, String urlImagem, String texto, LocalDateTime dataPublicacao, boolean ativa) {
         this.usuario = usuario;
         this.urlImagem = urlImagem;
-        this.texto = texto;
+        this.titulo = devolverTitulo(texto);
+        this.texto = removeTitulo(texto);
         this.dataPublicacao = dataPublicacao;
         this.ativa = ativa;
     }
@@ -48,6 +52,14 @@ public class Publicacao implements Serializable {
 
     public void setUrlImagem(String urlImagem) {
         this.urlImagem = urlImagem;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public String getTexto() {
@@ -82,17 +94,35 @@ public class Publicacao implements Serializable {
         this.usuario = usuario;
     }
 
+    private String devolverTitulo(@NotNull String texto) {
+        String titulo = texto.split("\n")[0];
+        if (titulo == null || titulo.isEmpty()) {
+            return texto;
+        }
+        return titulo;
+    }
+
+    private String removeTitulo(@NotNull String texto) {
+        String[] linhas = texto.split("\n");
+        String textoSemtitulo;
+        if(linhas.length > 0){
+           textoSemtitulo = texto.replace(linhas[0],"");
+            return textoSemtitulo;
+        }
+                return texto;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Publicacao that = (Publicacao) o;
-        return ativa == that.ativa && Objects.equals(id, that.id) && Objects.equals(urlImagem, that.urlImagem) && Objects.equals(texto, that.texto) && Objects.equals(dataPublicacao, that.dataPublicacao) && Objects.equals(usuario, that.usuario);
+        return ativa == that.ativa && Objects.equals(id, that.id) && Objects.equals(urlImagem, that.urlImagem) && Objects.equals(titulo, that.titulo) && Objects.equals(texto, that.texto) && Objects.equals(dataPublicacao, that.dataPublicacao) && Objects.equals(usuario, that.usuario);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, urlImagem, texto, dataPublicacao, ativa, usuario);
+        return Objects.hash(id, urlImagem, titulo, texto, dataPublicacao, ativa, usuario);
     }
 
     @Override
@@ -100,6 +130,7 @@ public class Publicacao implements Serializable {
         return "Publicacao{" +
                 "id=" + id +
                 ", urlImagem='" + urlImagem + '\'' +
+                ", titulo='" + titulo + '\'' +
                 ", texto='" + texto + '\'' +
                 ", dataPublicacao=" + dataPublicacao +
                 ", ativa=" + ativa +

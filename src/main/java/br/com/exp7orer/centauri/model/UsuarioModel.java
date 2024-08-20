@@ -20,6 +20,7 @@ public class UsuarioModel {
     @Autowired
     public UsuarioModel(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
+
     }
 
 

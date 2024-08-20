@@ -5,6 +5,7 @@ import br.com.exp7orer.centauri.model.LoginModel;
 import br.com.exp7orer.centauri.model.MensagemModel;
 import br.com.exp7orer.centauri.model.PublicacaoModel;
 import br.com.exp7orer.centauri.model.UsuarioModel;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,6 +52,7 @@ public class LoginController {
         return "usuario";
     }
 
+    @NotNull
     static void informacaoUsuario(Model model, Usuario usuario, MensagemModel mensagemModel, PublicacaoModel publicacaoModel) {
         model.addAttribute("usuario", usuario);
         model.addAttribute("caixaDeMensagem", mensagemModel.criaCaixaMensagem(usuario));
