@@ -16,7 +16,6 @@ import jakarta.transaction.Transactional;
 public class LikeModel {
 
 	private final LikeRepository likeRepository;
-	
 	private final PublicacaoModel publicacaoModel;
 
 	@Autowired
@@ -25,53 +24,50 @@ public class LikeModel {
 		this.publicacaoModel = publicacaoModel;
 	}
 	
-	
 	@Transactional
 	public void adicionarLike(Long idDaPublicacao) {
-		Publicacao publicacao = publicacaoModel.buscaId(idDaPublicacao);		
-	
-		Optional<Likes> temLike = likeRepository.findAll().stream()
-				.filter(like -> like.getPublicacao().equals(publicacao))
-				.findFirst();
-		
-		if(temLike.isPresent()) {
-			Likes likeExiste = temLike.get();
-			likeExiste.setQtdPositivo(likeExiste.likePostivo());
-			likeRepository.save(likeExiste);
-		}else {
-			Likes novoLike = new Likes(publicacao);
-			novoLike.setQtdPositivo(novoLike.likePostivo());
-			likeRepository.save(novoLike);
-			
-		}
-		
+	    Publicacao publicacao = publicacaoModel.buscaId(idDaPublicacao);
+
+	    Optional<Likes> temLike= likeRepository.findAll().stream()
+	            .filter(like -> like.getPublicacao().equals(publicacao))
+	            .findFirst();
+
+	    if (temLike.isPresent()) {
+	        Likes likeExiste= temLike.get();
+	        likeExiste.setQtdPositivo(likeExiste.likePostivo());
+	        likeRepository.save(likeExiste);
+	    } else {
+	        Likes novoLike = new Likes(publicacao);
+	        novoLike.likePostivo();
+	        likeRepository.save(novoLike);
+	    }
 	}
 	
 	
+	
 	@Transactional
-	public void removerLike(Long idDaPublicacao) {
-	    Publicacao publicacao = publicacaoModel.buscaId(idDaPublicacao);
-	    
+	public void dislike(Long idDaPublicacao) {
+	    Publicacao publicacao = publicacaoModel.buscaId(idDaPublicacao);    
 	    Optional<Likes> temLike = likeRepository.findAll().stream()
 	            .filter(like -> like.getPublicacao().equals(publicacao))
 	            .findFirst();
 	    
 	    if (temLike.isPresent()) {
 	        Likes likeExiste = temLike.get();
-	        int novosLikes = likeExiste.getQtdPositivo()-1; //FAz o deslike
-		        if (novosLikes < 0) {
-		            novosLikes = 0; //Continua zerado se não tiver nenhum like neh
-		        }
-		        	likeExiste.setQtdPositivo(novosLikes);
-	        likeRepository.save(likeExiste);
-	    } else {
+	        int novosLikes = likeExiste.getQtdPositivo() - 1;
+	        if (novosLikes <0) {
+	              novosLikes =0; // pro numero não ficar negativo na tabela likes
+	        }
+	        likeExiste.setQtdPositivo(novosLikes);
 	        
+	        int novosDislikes = likeExiste.getQtdNegativo() + 1;
+	        likeExiste.setQtdNegativo(novosDislikes);
+	        likeRepository.save(likeExiste);
 	    }
 	}
 	
 	
 	//Metodo funciona
-	//há outro metodo similar em PublicacaoModel também chamado listaRank
 	 public List<Likes> listaRank(){
 		 return likeRepository.findAllOrderByQtdPositivo();
 	 }
