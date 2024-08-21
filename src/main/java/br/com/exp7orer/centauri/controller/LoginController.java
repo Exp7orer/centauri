@@ -31,7 +31,7 @@ public class LoginController {
         this.usuarioModel = usuarioModel;
     }
 
-    @PostMapping("/login")
+    @PostMapping("login")
     public String fazFogin(String senha, String email) {
         Usuario usuarioBanco = loginModel.fazLogin(senha, email);
 
@@ -41,7 +41,7 @@ public class LoginController {
         return "redirect:/";
     }
 
-    @PostMapping("/minha-pagina/{codigo}")
+    @PostMapping("minha-pagina/{codigo}")
     public String paginaUsuario(@PathVariable("codigo") String codigo, Model model) {
 
         Usuario usuario = usuarioModel.buscarCodigo(codigo);

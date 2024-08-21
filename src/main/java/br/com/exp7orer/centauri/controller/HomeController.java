@@ -58,9 +58,6 @@ public class HomeController {
             cont++;
         }
 
-
-
-
         model.addAttribute("pageTitle", "Blog");
         model.addAttribute("texto", "página principal");
         model.addAttribute("quantidadeLinhas", publicacaos);
@@ -68,6 +65,15 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("minha-pagina")
+    public String minhaPagina(String codigo,Model model) {
+        Usuario usuario = usuarioModel.buscarCodigo(codigo);
+        if (usuario == null) {
+            return "redirect:/";
+        }
+        informacaoUsuario(model, usuario, mensagemModel, publicacaoModel);
+        return "usuario";
+    }
 
 }
 

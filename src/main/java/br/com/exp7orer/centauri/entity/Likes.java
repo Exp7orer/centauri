@@ -1,6 +1,8 @@
 package br.com.exp7orer.centauri.entity;
 
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,79 +10,103 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Negative;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class Likes implements Serializable{
+public class Likes implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@OneToOne
-	@JoinColumn(name="pubId")
-	private Publicacao publicacao;
-	
-	private int qtdPositivo = 0;
-	
-	private int qtdNegativo = 0;
-	
-	
-	public Likes() {
-		
-	}
+    @OneToOne
+    @JoinColumn(name = "pubId")
+    private Publicacao publicacao;
+    @Negative
+    private int qtdPositivo = 0;
+    @Negative
+    private int qtdNegativo = 0;
 
 
-	public Likes(Publicacao publicacao) {
-		this.publicacao = publicacao;
-	}
+    @Deprecated
+    protected Likes() {
+        //Obrigatorio JPA
+    }
 
 
-	public Long getId() {
-		return id;
-	}
+    public Likes(@NotNull Publicacao publicacao) {
+
+        this.publicacao = publicacao;
+    }
 
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
 
-	public Publicacao getPublicacao() {
-		return publicacao;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 
-	public void setPublicacao(Publicacao publicacao) {
-		this.publicacao = publicacao;
-	}
+    public Publicacao getPublicacao() {
+        return publicacao;
+    }
 
 
-	public int getQtdPositivo() {
-		return qtdPositivo;
-	}
+    public void setPublicacao(Publicacao publicacao) {
+        this.publicacao = publicacao;
+    }
 
 
-	public void setQtdPositivo(int qtdPositivo) {
-		this.qtdPositivo = qtdPositivo;
-	}
+    public int getQtdPositivo() {
+        return qtdPositivo;
+    }
 
 
-	public int getQtdNegativo() {
-		return qtdNegativo;
-	}
+    public void setQtdPositivo(int qtdPositivo) {
+        this.qtdPositivo = qtdPositivo;
+    }
 
 
-	public void setQtdNegativo(int qtdNegativo) {
-		this.qtdNegativo = qtdNegativo;
-	}
+    public int getQtdNegativo() {
+        return qtdNegativo;
+    }
 
 
+    public void setQtdNegativo(int qtdNegativo) {
+        this.qtdNegativo = qtdNegativo;
+    }
 
-	public int likePostivo() {
-		return ++qtdPositivo;
-	}
-	
-	
-	
-	
+
+    public int likePostivo() {
+        return ++qtdPositivo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Likes likes = (Likes) o;
+        return qtdPositivo == likes.qtdPositivo && qtdNegativo == likes.qtdNegativo && Objects.equals(id, likes.id) && Objects.equals(publicacao, likes.publicacao);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, publicacao, qtdPositivo, qtdNegativo);
+    }
+
+    @Override
+    public String toString() {
+        return "Likes{" +
+                "id=" + id +
+                ", publicacao=" + publicacao +
+                ", qtdPositivo=" + qtdPositivo +
+                ", qtdNegativo=" + qtdNegativo +
+                '}';
+    }
 }
