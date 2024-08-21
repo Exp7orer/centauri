@@ -70,14 +70,11 @@ public class LikeModel {
 	}
 	
 	
-	
+	//Metodo funciona
+	//há outro metodo similar em PublicacaoModel também chamado listaRank
 	 public List<Likes> listaRank(){
 		 return likeRepository.findAllOrderByQtdPositivo();
 	 }
-	
-	
-	
-	
-	
+	 
 	
 }

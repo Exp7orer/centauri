@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import br.com.exp7orer.centauri.entity.Likes;
+import br.com.exp7orer.centauri.entity.Publicacao;
 
 public interface LikeRepository extends JpaRepository<Likes, Long>{
 	

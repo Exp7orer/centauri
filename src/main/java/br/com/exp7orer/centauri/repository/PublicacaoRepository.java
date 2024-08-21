@@ -23,4 +23,7 @@ public interface PublicacaoRepository extends JpaRepository<Publicacao, Long> {
 
     @Query("select p from Publicacao p order by p.dataPublicacao desc")
     List<Publicacao> publicacaoesOrdDataDescr();
+    
+    
+   
 }

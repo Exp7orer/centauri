@@ -1,6 +1,7 @@
 package br.com.exp7orer.centauri.controller;
 
 import br.com.exp7orer.centauri.entity.Usuario;
+
 import br.com.exp7orer.centauri.model.LoginModel;
 import br.com.exp7orer.centauri.model.MensagemModel;
 import br.com.exp7orer.centauri.model.PublicacaoModel;
@@ -21,6 +22,7 @@ public class LoginController {
     private final MensagemModel mensagemModel;
     private final PublicacaoModel publicacaoModel;
     private final UsuarioModel usuarioModel;
+    
 
 
     @Autowired
@@ -29,6 +31,7 @@ public class LoginController {
         this.mensagemModel = mensagemModel;
         this.publicacaoModel = publicacaoModel;
         this.usuarioModel = usuarioModel;
+        
     }
 
     @PostMapping("login")
