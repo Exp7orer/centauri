@@ -1,6 +1,7 @@
 package br.com.exp7orer.centauri.model;
 
 
+
 import br.com.exp7orer.centauri.entity.Publicacao;
 import br.com.exp7orer.centauri.entity.Usuario;
 import br.com.exp7orer.centauri.repository.PublicacaoRepository;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,6 +24,7 @@ public class PublicacaoModel {
     private final PublicacaoRepository publicacaoRepository;
     private final UsuarioModel usuarioModel;
     private final ImagemModel imagemModel;
+
 
     @Autowired
     public PublicacaoModel(PublicacaoRepository publicacaoRepository, UsuarioModel usuarioModel,
@@ -55,10 +58,6 @@ public class PublicacaoModel {
                 .filter(publicacao -> publicacao.getDataPublicacao().isBefore(dataFinal))
                 .filter(Publicacao::isAtiva);
         return stream.toList();
-    }
-
-    public List<Publicacao> listaRank() {
-        return List.of();
     }
 
     public List<Publicacao> listaTodas() {
@@ -98,4 +97,15 @@ public class PublicacaoModel {
                     publicacaoRepository.save(publicacao);
                 });
     }
+
+    
+    
+	//Metodo não aceita lista vindo de LikeModel pois gera erro ciclico   
+    public List<Publicacao> listaRank() {
+        return List.of();
+    }
+    
+   
+    
+   
 }

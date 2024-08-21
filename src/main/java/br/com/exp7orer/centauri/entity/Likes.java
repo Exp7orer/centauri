@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Negative;
@@ -21,16 +20,14 @@ public class Likes implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne
-    @JoinColumn(name = "pubId")
-    private Publicacao publicacao;
-    @Negative
-    private int qtdPositivo = 0;
-    @Negative
-    private int qtdNegativo = 0;
-
-
+	
+	@OneToOne
+	private Publicacao publicacao;
+	
+	private int qtdPositivo = 0;
+	
+	private int qtdNegativo = 0;
+	
     @Deprecated
     protected Likes() {
         //Obrigatorio JPA
@@ -38,7 +35,6 @@ public class Likes implements Serializable {
 
 
     public Likes(@NotNull Publicacao publicacao) {
-
         this.publicacao = publicacao;
     }
 
