@@ -37,36 +37,38 @@ public class HomeController {
         this.likeModel=likeModel;
     }
 
-    @GetMapping
-    public String paginaInicial(Model model) {
-        List<List<Publicacao>> publicacaos = new ArrayList<>();
-        List<Publicacao> publicacaoBanco = publicacaoModel.listaTodas();
+    // Este expoe todas as publicações sem os likes
+//    @GetMapping
+//    public String paginaInicial(Model model) {
+//        List<List<Publicacao>> publicacaos = new ArrayList<>();
+//        List<Publicacao> publicacaoBanco = publicacaoModel.listaTodas();
+//
+//        int cont = 1;
+//        List<Publicacao> pub = new ArrayList<>();
+//
+//        for (Publicacao publicacao : publicacaoBanco) {
+//            if (cont >= 30) {
+//                break;
+//            }
+//
+//            pub.add(publicacao);
+//
+//            if (pub.size() == 3) {
+//                publicacaos.add(new ArrayList<>(pub));
+//                pub.clear();
+//            }
+//
+//            cont++;
+//        }
+//
+//        model.addAttribute("pageTitle", "Blog");
+//        model.addAttribute("texto", "página principal");
+//        model.addAttribute("quantidadeLinhas", publicacaos);
+//
+//        return "index";
+//    }
 
-        int cont = 1;
-        List<Publicacao> pub = new ArrayList<>();
-
-        for (Publicacao publicacao : publicacaoBanco) {
-            if (cont >= 30) {
-                break;
-            }
-
-            pub.add(publicacao);
-
-            if (pub.size() == 3) {
-                publicacaos.add(new ArrayList<>(pub));
-                pub.clear();
-            }
-
-            cont++;
-        }
-
-        model.addAttribute("pageTitle", "Blog");
-        model.addAttribute("texto", "página principal");
-        model.addAttribute("quantidadeLinhas", publicacaos);
-
-        return "index";
-    }
-
+    // Expoe todas as publicações ordenando pelo like
     @GetMapping("minha-pagina")
     public String minhaPagina(String codigo,Model model) {
         Usuario usuario = usuarioModel.buscarCodigo(codigo);
@@ -78,41 +80,39 @@ public class HomeController {
     }
 
     
-    // Ainda em testes, o funcionamento dos likes e o rankeamento das postagens
-    // Metodo atual retorna apenas postagem com likes, ignorando as que não tem
-    // precisa corrigir
-//    @GetMapping
-//  public String paginaInicial(Model model) {
-//      List<Likes> listaLikes = likeModel.listaRank();
-//     
-//      List<Publicacao>listaPublicacao = new ArrayList<>();
-//      for(Likes like : listaLikes){
-//        listaPublicacao.add(like.getPublicacao());   
-//      }
-//      
-//      
-//      
-//      List<List<Publicacao>> publicacaos = new ArrayList<>();
-//      int cont = 1;
-//      List<Publicacao> pub = new ArrayList<>();
-//
-//      for (Publicacao publicacao : listaPublicacao) {
-//          if (cont >= 30) {
-//              break;
-//          }
-//          pub.add(publicacao);
-//
-//          if (pub.size() == 3) {
-//              publicacaos.add(new ArrayList<>(pub));
-//              pub.clear();
-//          }
-//          cont++;
-//      }
-//      model.addAttribute("pageTitle", "Blog");
-//      model.addAttribute("texto", "página principal");
-//      model.addAttribute("quantidadeLinhas", publicacaos);
-//      return "index";
-//  }
+
+    @GetMapping
+  public String paginaInicial(Model model) {
+      List<Likes> listaLikes = likeModel.listaRank();
+     
+      List<Publicacao>listaPublicacao = new ArrayList<>();
+      for(Likes like : listaLikes){
+        listaPublicacao.add(like.getPublicacao());   
+      }
+      
+      
+      
+      List<List<Publicacao>> publicacaos = new ArrayList<>();
+      int cont = 1;
+      List<Publicacao> pub = new ArrayList<>();
+
+      for (Publicacao publicacao : listaPublicacao) {
+          if (cont >= 30) {
+              break;
+          }
+          pub.add(publicacao);
+
+          if (pub.size() == 3) {
+              publicacaos.add(new ArrayList<>(pub));
+              pub.clear();
+          }
+          cont++;
+      }
+      model.addAttribute("pageTitle", "Blog");
+      model.addAttribute("texto", "página principal");
+      model.addAttribute("quantidadeLinhas", publicacaos);
+      return "index";
+  }
 
 }
 

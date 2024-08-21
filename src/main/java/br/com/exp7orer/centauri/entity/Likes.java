@@ -82,6 +82,13 @@ public class Likes implements Serializable {
     public int likePostivo() {
         return ++qtdPositivo;
     }
+    
+    public int dislike() {
+        if (qtdNegativo > 0) {
+            return --qtdNegativo;
+        }
+        return qtdNegativo; 
+    }
 
     @Override
     public boolean equals(Object o) {

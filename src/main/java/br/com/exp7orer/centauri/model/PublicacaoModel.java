@@ -2,8 +2,10 @@ package br.com.exp7orer.centauri.model;
 
 
 
+import br.com.exp7orer.centauri.entity.Likes;
 import br.com.exp7orer.centauri.entity.Publicacao;
 import br.com.exp7orer.centauri.entity.Usuario;
+import br.com.exp7orer.centauri.repository.LikeRepository;
 import br.com.exp7orer.centauri.repository.PublicacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,14 +26,16 @@ public class PublicacaoModel {
     private final PublicacaoRepository publicacaoRepository;
     private final UsuarioModel usuarioModel;
     private final ImagemModel imagemModel;
+    private final LikeRepository likeRepository;
 
 
     @Autowired
     public PublicacaoModel(PublicacaoRepository publicacaoRepository, UsuarioModel usuarioModel,
-                           ImagemModel imagemModel) {
+                           ImagemModel imagemModel,LikeRepository likeRepository) {
         this.publicacaoRepository = publicacaoRepository;
         this.usuarioModel = usuarioModel;
         this.imagemModel = imagemModel;
+        this.likeRepository = likeRepository;
     }
 
     @Transactional
@@ -42,7 +46,13 @@ public class PublicacaoModel {
         if (usuarioBanco != null) {
             LocalDateTime dataPublicacao = LocalDateTime.now();
             Publicacao publicacao = new Publicacao(usuarioBanco, urlImagem, texto, dataPublicacao, true);
+            
+            Likes like = new Likes(publicacao);
+            likeRepository.save(like);
+            
             publicacaoRepository.save(publicacao);
+            
+            
         } else {
             throw new IllegalArgumentException("Usuário não encontrado!");
         }

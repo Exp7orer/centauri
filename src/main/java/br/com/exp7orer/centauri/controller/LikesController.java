@@ -35,7 +35,7 @@ public class LikesController {
 	 
 	 @PostMapping("/{publicacaoId}/dislike")
 	    public ResponseEntity<String> removerLike(@PathVariable Long publicacaoId) {
-	       likeModel.removerLike(publicacaoId);
+	       likeModel.dislike(publicacaoId);
 	       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	    }
 	 
