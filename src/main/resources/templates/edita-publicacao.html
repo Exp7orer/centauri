@@ -52,96 +52,104 @@
 <main>
     <hr>
     <div class="container">
-    <div class="row">
-        <div class="col-3">
-            <div class="row">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" id="imgPublicacao" th:src="@{/images/logo.jpg}"
-                         alt="Imagem de capa do card">
-                    <div class="card-body">
-                        <form th:action="@{/postar}" th:method="post" name="publicacao" id="publicacao"
-                              enctype="multipart/form-data">
-                            <div class="input-group mb-3">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="imagem" name="imagem"
-                                           accept="image/*">
-                                    <label class="custom-file-label" for="imagem">Escolher
-                                        Imagem</label>
+        <div class="row">
+            <div class="col-3">
+                <div class="row">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" id="imgPublicacao"
+                             th:src="@{imagens/publicacao/{id}(id=${publicacao.id})}"
+                             alt="Imagem de capa do card">
+                        <div class="card-body">
+                            <form th:action="@{/alteraPublicacao}" th:method="post" name="editar" id="editar"
+                                  enctype="multipart/form-data">
+                                <div class="input-group mb-3">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="imagem" name="imagem"
+                                               accept="image/*">
+                                        <label class="custom-file-label" for="imagem">Escolher
+                                            Imagem</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <input hidden th:value="${usuario.codigo}" name="codigo">
-                        </form>
-                        <br>
+                                <input hidden th:value="${publicacao.id}" name="idPublicacao">
+                                <input hidden="hidden" th:value="${usuario.codigo}" name="codigo">
+                            </form>
+                            <br>
+                            <hr>
+                            <form th:action="@{minha-pagina}" method="get">
+                                <input hidden="hidden" th:value="${usuario.codigo}" name="codigo">
+                            <button class="btn btn-outline-success btn-block" type="submit">Voltar
+                            </button>
+                            </form>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 style="text-align: center">Editar Publicação</h5>
+                        <textarea class="form-control" style="resize: none" id="texto" th:name="texto" form="editar"
+                                  rows="9" th:text="|${publicacao.titulo}${publicacao.texto}|"></textarea>
                         <hr>
-                        <br>
+                        <button class="btn btn-outline-success btn-block" type="submit" form="editar">Editar
+                            Publicação
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-9">
-            <div class="card">
-                <div class="card-body">
-                    <h5 style="text-align: center">Texto Publicação</h5>
-                    <textarea class="form-control" style="resize: none" id="texto" th:name="texto" form="publicacao"
-                              rows="9"></textarea>
-                    <hr>
-                    <button class="btn btn-outline-success btn-block" type="submit" form="publicacao">Publicar
-                    </button>
+        <hr>
+        <div class="row">
+            <div class="card-deck">
+                <div class="card">
+                    <img class="card-img-top" src="/images/dia-da-gastronomia-mineira.jpg"
+                         alt="Imagem de capa do card">
+                    <div class="card-body">
+                        <h5 class="card-title">Título do card</h5>
+                        <p class="card-text">Este é um card maior com suporte a texto embaixo, que funciona como uma
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Atualizados 3 minutos atrás</small>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="/images/fotos-de-paisagens.jpg" alt="Imagem de capa do card">
+                    <div class="card-body">
+                        <h5 class="card-title">Título do card</h5>
+                        <p class="card-text">Este é um card maior com suporte a texto embaixo, que funciona como uma
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Atualizados 3 minutos atrás</small>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="/images/fotos-de-paisagens_1.jpg" alt="Imagem de capa do card">
+                    <div class="card-body">
+                        <h5 class="card-title">Título do card</h5>
+                        <p class="card-text">Este é um card maior com suporte a texto embaixo, que funciona como uma
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Atualizados 3 minutos atrás</small>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="/images/fotos-de-paisagens_2.jpg" alt="Imagem de capa do card">
+                    <div class="card-body">
+                        <h5 class="card-title">Título do card</h5>
+                        <p class="card-text">Este é um card maior com suporte a texto embaixo, que funciona como uma
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Atualizados 3 minutos atrás</small>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="card-deck">
-            <div class="card">
-                <img class="card-img-top" src="/images/dia-da-gastronomia-mineira.jpg"
-                     alt="Imagem de capa do card">
-                <div class="card-body">
-                    <h5 class="card-title">Título do card</h5>
-                    <p class="card-text">Este é um card maior com suporte a texto embaixo, que funciona como uma
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Atualizados 3 minutos atrás</small>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="/images/fotos-de-paisagens.jpg" alt="Imagem de capa do card">
-                <div class="card-body">
-                    <h5 class="card-title">Título do card</h5>
-                    <p class="card-text">Este é um card maior com suporte a texto embaixo, que funciona como uma
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Atualizados 3 minutos atrás</small>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="/images/fotos-de-paisagens_1.jpg" alt="Imagem de capa do card">
-                <div class="card-body">
-                    <h5 class="card-title">Título do card</h5>
-                    <p class="card-text">Este é um card maior com suporte a texto embaixo, que funciona como uma
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Atualizados 3 minutos atrás</small>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="/images/fotos-de-paisagens_2.jpg" alt="Imagem de capa do card">
-                <div class="card-body">
-                    <h5 class="card-title">Título do card</h5>
-                    <p class="card-text">Este é um card maior com suporte a texto embaixo, que funciona como uma
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Atualizados 3 minutos atrás</small>
-                </div>
-            </div>
-        </div>
 
-    </div>
+        </div>
     </div>
     <hr>
 </main>

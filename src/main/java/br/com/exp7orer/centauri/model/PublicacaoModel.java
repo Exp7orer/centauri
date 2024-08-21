@@ -76,4 +76,26 @@ public class PublicacaoModel {
     public Publicacao buscaId(Long id) {
         return publicacaoRepository.findById(id).orElse(null);
     }
+
+
+    @Transactional
+    public void editar(Long idPublicacao, String texto, MultipartFile imagem) {
+        Publicacao publicacaoBanco = publicacaoRepository.findById(idPublicacao).orElse(null);
+        try {
+            publicacaoBanco.setAtiva(false);
+            salvarPublicacao(publicacaoBanco.getUsuario(), texto, imagem);
+        } catch (NullPointerException e) {
+            throw new RuntimeException("Erro na busca do banco! " + e);
+        }
+    }
+
+
+    @Transactional
+    public void desativa(Long idPublicacao) {
+        publicacaoRepository.findById(idPublicacao)
+                .ifPresent(publicacao ->{
+                    publicacao.setAtiva(false);
+                    publicacaoRepository.save(publicacao);
+                });
+    }
 }
