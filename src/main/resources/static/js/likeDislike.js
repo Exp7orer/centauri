@@ -1,43 +1,34 @@
 $(document).ready(function() {
     $('.btn-like').on('click', function() {
-        var postId= $(this).data('id');
+        var postId = $(this).data('id');
+        var botaoLike = $(this); 
+
         $.ajax({
-            url: '/like/'+ postId ,
+            url: '/like/' + postId,
             type: 'POST',
-            success: function(response) {
-//                console.log('Like deu certo');
-                
-                // Desativa o botão de dislike, trem doido, pulo do gato
-                $('.btn-dislike[data-id="' + postId + '"]').addClass('btn-disabled');
+            success: function(response) {  
+                botaoLike.addClass('btn-selecionado').prop('disabled', true);// desativar e destacar para evitar spam  
+                $('.btn-dislike[data-id="' + postId + '"]').addClass('btn-disabled').prop('disabled', true);// desativar o botão de dislike
             },
             error: function(xhr, status, error) {
-//                console.error('Erro ao registrar o like:', error);
-//                console.error('Resposta do servidor:', xhr.responseText);
+                console.error('Erro like:', error);
             }
         });
     });
 
-
-
-
-
-
     $('.btn-dislike').on('click', function() {
         var postId = $(this).data('id');
-
+        var botaoDislike = $(this);
         $.ajax({
             url: '/' + postId + '/dislike',
             type: 'POST',
-            success: function(response) {
-//                console.log('Dislike deu certo');
-                
-                // Desativa o btn like é o pulo do gato
-                $('.btn-like[data-id="' + postId + '"]').addClass('btn-disabled');
+            success: function(response) {             
+                botaoDislike.addClass('btn-selecionado').prop('disabled', true); // desativar e destacar o botao de dislike               
+                $('.btn-like[data-id="' + postId + '"]').addClass('btn-disabled').prop('disabled', true); // desativar o botão de like
             },
             error: function(xhr, status, error) {
-//                console.error('Erro ao registrar o dislike:', error);
-//                console.error('Resposta do servidor:', xhr.responseText);
+                console.error('Erro ', error);
             }
+        });
     });
- });
 });

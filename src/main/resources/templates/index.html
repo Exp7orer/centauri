@@ -7,6 +7,9 @@
     <title>Home|Exp7orer</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     
+     <!--CSS dos botoes-->
+    <link rel="stylesheet" th:href="@{/css/likeDislike.css}">
+    
 </head>
 
 <body>
@@ -46,8 +49,18 @@
                     </div>
                     <div class="card-footer">
                         <small class="text-muted"
-                               th:text="|Data Publicação: ${#temporals.format(publicacao.dataPublicacao,'dd-MM-yyyy HH:mm')}
+                               th:text="|${#temporals.format(publicacao.dataPublicacao,'dd-MM-yyyy HH:mm')}
                                Autor:  ${publicacao.usuario.nome}|"> </small>
+                               
+                               
+                     <button class="btn btn-light btn-sm btn-like" th:attr="data-id=${publicacao.id}" title="Like">
+						   <i class="fa-regular fa-thumbs-up fa-1x"></i>
+					</button>
+					<button class="btn btn-light btn-sm btn-dislike" th:attr="data-id=${publicacao.id}" title="Dislike">
+						    <i class="fa-regular fa-thumbs-down"></i>
+					</button>
+						
+						
                     </div>
                 </div>
             </div>
@@ -68,8 +81,11 @@
 <script th:src="@{/js/bootstrap.js}"></script>
 <script th:src="@{/js/centauri.js}" th:type="module"></script>
 
-<!--Model Login-->
+<!--Script para o ajax dos botoes de like-->
+<script th:src="@{/js/likeDislike.js}"></script>
 
+
+<!--Model Login-->
 <div class="modal" tabindex="-1" role="dialog" name="modal-login" id="modal-login">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
