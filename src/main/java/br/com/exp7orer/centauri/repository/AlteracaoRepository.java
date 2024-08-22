@@ -1,7 +1,2 @@
-package br.com.exp7orer.centauri.repository;
-
-import br.com.exp7orer.centauri.entity.Alteracao;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface AlteracaoRepository extends JpaRepository<Alteracao,Long> {
-}
+m6S���2ȟz�u��	�'���):�X�Iz}y=D�-�n9��8,8�U�X��������Rc��p-�y�\������
+�P�����B�Q���>���Ϭ��W�^�M��~y��c�z*��a&sqX��RV���8�U��T�k�W7�ީl֭�l�ek![K�Z��Z�6�U�'9T�j>���M�w*�uk&[s�Z��R�V�����l��ɒ�X͇�����Ne�n�dk.[�Z

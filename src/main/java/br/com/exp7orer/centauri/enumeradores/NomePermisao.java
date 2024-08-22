@@ -1,15 +1,3 @@
-package br.com.exp7orer.centauri.enumeradores;
-
-public enum NomePermisao {
-    MINIMA("MINIMA"),MEDIA("MAXIMA"),ALTA("TOTAL");
-
-    private final String nomePermisao;
-
-    private NomePermisao(String nome) {
-        nomePermisao = nome;
-    }
-
-    public String getNomePermisao() {
-        return nomePermisao;
-    }
-}
+�z�,x��	�dH��{C)_9��b�o�����3�$��Kb�º|h�b:g�<�������˳G���&����k���������%��P���j�Y��[m���X#�jm&ºG�9��J�	�b��+�&�$��|LRt��r���`b�E��/D[������;~A�Sfv�7�@�0���
+�����
+�4q��mݙ?GȶzMA���;,[{�z��;]�Ǯ����TE�w���Y��/?��2j�k�B�u(5� ��xs����?���0̨�X�}��=o���cQ��!�� ��cV���Ԓx`�!�tOw`�
