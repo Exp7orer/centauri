@@ -21,9 +21,7 @@ public interface PublicacaoRepository extends JpaRepository<Publicacao, Long> {
             " order by p.id desc")
     List<Publicacao> findByPublicacaoUsuarioOrdemDecrescente(@Param("codigo") String codigo);
 
-    @Query("select p from Publicacao p " +
-            "where p.ativa = true " +
-            "order by p.dataPublicacao desc")
+    @Query("select p from Publicacao p order by p.dataPublicacao desc")
     List<Publicacao> publicacaoesOrdDataDescr();
     
     

@@ -114,7 +114,7 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-3">
-                                <form th:action="@{publicacao}" method="post">
+                                <form th:action="@{/publicacao}" method="post">
                                     <input hidden="hidden" th:value="${usuario.codigo}" name="codigo">
                                     <button type="submit" class="btn btn-outline-success btn-block">Publicar</button>
                                 </form>

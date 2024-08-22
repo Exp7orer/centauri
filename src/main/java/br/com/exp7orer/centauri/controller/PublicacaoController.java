@@ -31,7 +31,7 @@ public class PublicacaoController {
         this.mensagemModel = mensagemModel;
     }
 
-    @PostMapping("/publicacao")
+    @PostMapping("publicacao")
     public String formPublicacao(String codigo, Model model) {
         Usuario usuarioBanco = usuarioModel.buscarCodigo(codigo);
         if (usuarioBanco == null) {
@@ -41,7 +41,7 @@ public class PublicacaoController {
         return "/cria-publicacao";
     }
 
-    @PostMapping("/postar")
+    @PostMapping("postar")
     public String postar(Usuario usuario, @RequestParam("texto") String texto,
                          @RequestParam("imagem") MultipartFile imagem,
                          RedirectAttributes attributes) {
@@ -55,7 +55,7 @@ public class PublicacaoController {
         return "redirect:/";
     }
 
-    @PostMapping("/edita")
+    @PostMapping("edita")
     public String formEditar(Long id, String codigo, Model model) {
         Publicacao publicacao = publicacaoModel.buscaId(id);
         Usuario usuarioBanco = usuarioModel.buscarCodigo(codigo);
@@ -65,10 +65,10 @@ public class PublicacaoController {
         model.addAttribute("usuario", usuarioBanco);
         model.addAttribute("caixaDeMensagem", mensagemModel.criaCaixaMensagem(usuarioBanco));
         model.addAttribute("publicacao",publicacao);
-        return "/edita-publicacao";
+        return "edita-publicacao";
     }
 
-    @PostMapping("/alteraPublicacao")
+    @PostMapping("alteraPublicacao")
     public String alteraPublicacao(@RequestParam("idPublicacao") Long idPublicacao,
                                    @RequestParam("codigo")Long codigo,
                                    @RequestParam("texto") String texto,
@@ -81,7 +81,7 @@ public class PublicacaoController {
         return "redirect:/minha-pagina";
     }
 
-    @PostMapping("/excluir")
+    @PostMapping("excluir")
     public String excluirPublicacao(Long idPublicacao,Long codigo,RedirectAttributes attributes){
         publicacaoModel.desativa(idPublicacao);
         attributes.addAttribute("codigo",codigo);

@@ -1,14 +1,16 @@
 package br.com.exp7orer.centauri.model;
 
-import br.com.exp7orer.centauri.entity.Senha;
-import br.com.exp7orer.centauri.entity.Usuario;
+import br.com.exp7orer.centauri.entity.*;
 import br.com.exp7orer.centauri.record.UsuarioRecord;
 import br.com.exp7orer.centauri.repository.UsuarioRepository;
 import br.com.exp7orer.centauri.uteis.SenhaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component

@@ -1,2 +1,13 @@
-oӾ�ߙ��^�>���
-z�a�V��g��>~�/pcs�����w�5_���A�n�.����kjR��خ��:X�~������(�Om�@�l�������񫖍V���eE��}��,س�h���>��/�I���ؚwXh�(2u[���#,���u��d����s��,7�P2�e�2~UK��|��Z�����I��\��4i�M��
+package br.com.exp7orer.centauri;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class CentauriApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
