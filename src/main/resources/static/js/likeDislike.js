@@ -2,7 +2,7 @@ $(document).ready(function() {
     $('.btn-like').on('click', function() {
         var postId= $(this).data('id');
         $.ajax({
-            url: '/' + postId + '/like',
+            url: '/like/'+ postId ,
             type: 'POST',
             success: function(response) {
 //                console.log('Like deu certo');
