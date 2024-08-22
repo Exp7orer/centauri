@@ -1,6 +1,5 @@
 package br.com.exp7orer.centauri.controller;
 
-import br.com.exp7orer.centauri.entity.Usuario;
 import br.com.exp7orer.centauri.model.MensagemModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +23,6 @@ public class AdminstracaoController {
     public String paginaAdm(Model model) {
         model.addAttribute("pageTitle", "Adm");
         model.addAttribute("texto", "Página de Administração");
-        return "administracao/pgAdm";
+        return "/administracao/pgAdm";
     }
 }
