@@ -1,7 +1,2 @@
-package br.com.exp7orer.centauri.repository;
-
-import br.com.exp7orer.centauri.entity.Historico;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface HistoricoRepository extends JpaRepository<Historico,Long> {
-}
+��%������ϲ�~��VOx�d�s�;�\kaAg�,�	K܃����P���>��CV8��O��'�wY�-��y�B�u%a�g�J��R��,�Iʆ*���0��USQw���f.��>��LW��<7�r�~Q���+u\�������X+��_+�e�=n�ZEo�u�=���E����$����Xq��ה�L
+��)�ļ	�V��Z�S9{���<חs]!�*�.�pS���k�}��Ǉ+��K
