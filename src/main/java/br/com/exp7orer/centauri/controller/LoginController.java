@@ -34,17 +34,17 @@ public class LoginController {
         
     }
 
-    @PostMapping("/login")
+    @PostMapping("login")
     public String fazFogin(String senha, String email) {
         Usuario usuarioBanco = loginModel.fazLogin(senha, email);
 
         if (usuarioBanco != null) {
-            return "forward:/minha-pagina/"+usuarioBanco.getCodigo();
+            return "forward:minha-pagina/"+usuarioBanco.getCodigo();
         }
         return "redirect:/";
     }
 
-    @PostMapping("/minha-pagina/{codigo}")
+    @PostMapping("minha-pagina/{codigo}")
     public String paginaUsuario(@PathVariable("codigo") String codigo, Model model) {
 
         Usuario usuario = usuarioModel.buscarCodigo(codigo);
@@ -52,7 +52,7 @@ public class LoginController {
             return "redirect:/";
         }
         informacaoUsuario(model, usuario, mensagemModel, publicacaoModel);
-        return "/usuario";
+        return "usuario";
     }
 
     @NotNull

@@ -38,17 +38,51 @@ public class HomeController {
         this.likeModel=likeModel;
     }
 
-    @GetMapping("/minha-pagina")
+    // Este expoe todas as publicações sem os likes
+//    @GetMapping
+//    public String paginaInicial(Model model) {
+//        List<List<Publicacao>> publicacaos = new ArrayList<>();
+//        List<Publicacao> publicacaoBanco = publicacaoModel.listaTodas();
+//
+//        int cont = 1;
+//        List<Publicacao> pub = new ArrayList<>();
+//
+//        for (Publicacao publicacao : publicacaoBanco) {
+//            if (cont >= 30) {
+//                break;
+//            }
+//
+//            pub.add(publicacao);
+//
+//            if (pub.size() == 3) {
+//                publicacaos.add(new ArrayList<>(pub));
+//                pub.clear();
+//            }
+//
+//            cont++;
+//        }
+//
+//        model.addAttribute("pageTitle", "Blog");
+//        model.addAttribute("texto", "página principal");
+//        model.addAttribute("quantidadeLinhas", publicacaos);
+//
+//        return "index";
+//    }
+
+    // Expoe todas as publicações ordenando pelo like
+    @GetMapping("minha-pagina")
     public String minhaPagina(String codigo,Model model) {
         Usuario usuario = usuarioModel.buscarCodigo(codigo);
         if (usuario == null) {
             return "redirect:/";
         }
         informacaoUsuario(model, usuario, mensagemModel, publicacaoModel);
-        return "/usuario";
+        return "usuario";
     }
 
-  @GetMapping
+    
+
+    @GetMapping
   public String paginaInicial(Model model) {
       List<Likes> listaLikes = likeModel.listaRank();
      
@@ -78,20 +112,29 @@ public class HomeController {
       model.addAttribute("quantidadeLinhas", publicacaos);
       return "index";
   }
-
-    @PostMapping(path = "/like/{id}")
+    
+    
+    
+    //Metodos praticamente reaproveitados 
+    @PostMapping("{id}/like")
     @ResponseBody
     public ResponseEntity<?> like(@PathVariable Long id) {
         likeModel.adicionarLike(id);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/dislike/{id}")
+    @PostMapping("{id}/dislike/")
     @ResponseBody
     public ResponseEntity<?> dislike(@PathVariable Long id) {
         likeModel.dislike(id);
         return ResponseEntity.ok().build();
     }
+    
+    
+    
+    
+    
+    
 
 }
 
