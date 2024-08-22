@@ -9,6 +9,7 @@ import br.com.exp7orer.centauri.model.PublicacaoModel;
 import br.com.exp7orer.centauri.model.UsuarioModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -89,9 +90,7 @@ public class HomeController {
       for(Likes like : listaLikes){
         listaPublicacao.add(like.getPublicacao());   
       }
-      
-      
-      
+          
       List<List<Publicacao>> publicacaos = new ArrayList<>();
       int cont = 1;
       List<Publicacao> pub = new ArrayList<>();
@@ -113,6 +112,29 @@ public class HomeController {
       model.addAttribute("quantidadeLinhas", publicacaos);
       return "index";
   }
+    
+    
+    
+    //Metodos praticamente reaproveitados 
+    @PostMapping("{id}/like")
+    @ResponseBody
+    public ResponseEntity<?> like(@PathVariable Long id) {
+        likeModel.adicionarLike(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("{id}/dislike/")
+    @ResponseBody
+    public ResponseEntity<?> dislike(@PathVariable Long id) {
+        likeModel.dislike(id);
+        return ResponseEntity.ok().build();
+    }
+    
+    
+    
+    
+    
+    
 
 }
 
