@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
+import java.util.List;
+
 @Controller
 @RequestMapping(path = "/mensagem",method = RequestMethod.POST)
 public class MensagemController {
@@ -23,13 +26,13 @@ public class MensagemController {
     @PostMapping("/enviar")
     public String enviar(Usuario usuario, String mensagem, Model model) {
         if (usuario.getId() < 1) {
-            return "redirect:/";
+            return "redirect:/index";
         }
         mensagemModel.enviar(usuario, mensagem);
         CaixaMensagem caixaMensagem = mensagemModel.criaCaixaMensagem(usuario);
         model.addAttribute("caixaMensagem", caixaMensagem );
         model.addAttribute("mensagem", "Mensagem enviada com sucesso!");
-        return "/usuario";
+        return "usuario";
     }
 
 }

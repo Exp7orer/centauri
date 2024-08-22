@@ -1,4 +1,7 @@
-a�!����Q�EFkäp4���F	4w�%�zH*ʐK��h���*g��}�1���T�On��j�ĜL���Nh]sH����O��+�ݺ�_�sH�na!�|�8��J#���%�(��p�b�;�C��V6=F�T�;�H�A�}�R�-��lll
-��� *�Z�* ��d�-,!j/O����?,���@�p(���4{�Ny�ˢ(�+�M��㇣dzt?/d�h�[���K^��F�
-㡽
-�
+package br.com.exp7orer.centauri.repository;
+
+import br.com.exp7orer.centauri.entity.MensagemUsuario;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MensagemRepository extends JpaRepository<MensagemUsuario,Long> {
+}
