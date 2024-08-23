@@ -71,22 +71,22 @@
                                     <th></th>
                                 </tr>
                                 </thead>
-                                <tbody th:if="${minhasPublicacaoes} == null or ${minhasPublicacaoes.size()}!=0">
-                                <tr th:each="publicacao:${minhasPublicacaoes}">
+                                <tbody th:if="${publicacaoLikes} == null or ${publicacaoLikes.size()}!=0">
+                                <tr th:each="minhas:${publicacaoLikes}">
                                     <td>
                                         <div class="card" style="width:15rem;">
                                             <img class="card-img-top"
-                                                 th:src="@{imagens/publicacao/{id}(id=${publicacao.id})}"
+                                                 th:src="@{imagens/publicacao/{id}(id=${minhas.publicacao.id})}"
                                                  alt="Imagem de capa do card">
                                         </div>
                                     </td>
-                                    <td th:text="${publicacao.titulo}">
+                                    <td th:text="${minhas.publicacao.titulo}">
                                     </td>
-                                    <td>positivo</td>
-                                    <td>negativo</td>
+                                    <td th:text="${minhas.qtdPositivos}"></td>
+                                    <td th:text="${minhas.qtdNegativos}"></td>
                                     <td>
                                         <form th:action="@{/edita}" method="post">
-                                            <input hidden="hidden" th:value="${publicacao.id}" name="id">
+                                            <input hidden="hidden" th:value="${minhas.publicacao.id}" name="id">
                                             <input hidden="hidden" th:value="${usuario.codigo}" name="codigo">
                                             <button type="submit" class="btn btn-outline-primary btn-block"
                                                     data-toggle="tooltip" data-placement="right"
@@ -97,7 +97,7 @@
                                     </td>
                                     <td>
                                         <form th:action="@{/excluir}" method="post">
-                                            <input hidden="hidden" th:value="${publicacao.id}" name="idPublicacao">
+                                            <input hidden="hidden" th:value="${minhas.publicacao.id}" name="idPublicacao">
                                             <input hidden="hidden" th:value="${usuario.codigo}" name="codigo">
                                             <button type="submit" class="btn btn-outline-danger btn-block"
                                                     data-toggle="tooltip" data-placement="right"
@@ -123,8 +123,8 @@
                             </div>
                             <div class="col-3">
                                 <small class="text-muted text-light"
-                                       th:if="${minhasPublicacaoes} == null or ${minhasPublicacaoes.size()}!=0"
-                                       th:text="|Quantidade de publicações: ${minhasPublicacaoes.size()}|"></small>
+                                       th:if="${publicacaoLikes} == null or ${publicacaoLikes.size()}!=0"
+                                       th:text="|Quantidade de publicações: ${publicacaoLikes.size()}|"></small>
                             </div>
                         </div>
                     </div>

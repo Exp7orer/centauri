@@ -1,5 +1,6 @@
 package br.com.exp7orer.centauri.controller;
 
+import br.com.exp7orer.centauri.beans.LikePublicacao;
 import br.com.exp7orer.centauri.entity.Likes;
 import br.com.exp7orer.centauri.entity.Publicacao;
 import br.com.exp7orer.centauri.entity.Usuario;
@@ -27,15 +28,14 @@ public class HomeController {
     private final PublicacaoModel publicacaoModel;
     private final MensagemModel mensagemModel;
     private final UsuarioModel usuarioModel;
-    private final LikeModel likeModel;
 
 
     @Autowired
-    public HomeController(UsuarioModel usuarioModel, MensagemModel mensagemModel, PublicacaoModel publicacaoModel,LikeModel likeModel) {
+    public HomeController(UsuarioModel usuarioModel, MensagemModel mensagemModel,
+                          PublicacaoModel publicacaoModel) {
         this.usuarioModel = usuarioModel;
         this.mensagemModel = mensagemModel;
         this.publicacaoModel = publicacaoModel;
-        this.likeModel=likeModel;
     }
 
     @GetMapping("/minha-pagina")
@@ -50,48 +50,29 @@ public class HomeController {
 
   @GetMapping
   public String paginaInicial(Model model) {
-      List<Likes> listaLikes = likeModel.listaRank();
-     
-      List<Publicacao>listaPublicacao = new ArrayList<>();
-      for(Likes like : listaLikes){
-        listaPublicacao.add(like.getPublicacao());   
-      }
-          
-      List<List<Publicacao>> publicacaos = new ArrayList<>();
+      List<Publicacao> publicacoesBanco = publicacaoModel.listaRank();
+      List<List<Publicacao>> publicacoes = new ArrayList<>();
+
       int cont = 1;
       List<Publicacao> pub = new ArrayList<>();
 
-      for (Publicacao publicacao : listaPublicacao) {
+      for (Publicacao publicacao : publicacoesBanco) {
           if (cont >= 30) {
               break;
           }
           pub.add(publicacao);
 
           if (pub.size() == 3) {
-              publicacaos.add(new ArrayList<>(pub));
+              publicacoes.add(new ArrayList<>(pub));
               pub.clear();
           }
           cont++;
       }
       model.addAttribute("pageTitle", "Blog");
       model.addAttribute("texto", "página principal");
-      model.addAttribute("quantidadeLinhas", publicacaos);
+      model.addAttribute("quantidadeLinhas", publicacoes);
       return "index";
   }
-
-    @PostMapping(path = "/like/{id}")
-    @ResponseBody
-    public ResponseEntity<?> like(@PathVariable Long id) {
-        likeModel.adicionarLike(id);
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping(path = "/dislike/{id}")
-    @ResponseBody
-    public ResponseEntity<?> dislike(@PathVariable Long id) {
-        likeModel.dislike(id);
-        return ResponseEntity.ok().build();
-    }
 
 }
 
