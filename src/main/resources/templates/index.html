@@ -10,6 +10,8 @@
      <!--CSS dos botoes-->
     <link rel="stylesheet" th:href="@{/css/likeDislike.css}">
     
+    <link rel="stylesheet" th:href="@{/css/inicialPerson.css}">
+    
 </head>
 
 <body>
@@ -19,20 +21,24 @@
             <img th:src="@{/images/logo.jpg}" width="30" height="30" class="d-inline-block align-top" alt="">
             Exp7orer
         </a>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-        </form>
-        <form class="form-inline">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-login">
-                login
-            </button>
-        </form>
-        <form class="form-inline">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-cadastro">
-                Cadastrar
-            </button>
-        </form>
+        <section class="form-inline-container">
+	        <div class="button-group">
+		        <form class="form-inline">
+		            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-login">
+		                Login
+		            </button>
+		        </form>
+		        <form class="form-inline">
+		            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-cadastro">
+		                Cadastrar
+		            </button>
+		        </form>
+	        </div>
+	        <form class="form-inline">
+	            <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
+	            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+	        </form>
+        </section>
     </nav>
 </header>
 <main class="container">
@@ -41,7 +47,9 @@
         <div class="row">
             <div class="card-deck">
                 <div class="card" th:each="publicacao:${listaPublicacao}">
-                    <img class="card-img-top" th:src="@{imagens/publicacao/{id}(id=${publicacao.id})}"
+<!--                    <img class="card-img-top" th:src="@{imagens/publicacao/{id}(id=${publicacao.id})}"-->
+                     <img class="card-img-top" src="/images/alien.jpg"
+                    
                          alt="Imagem de capa do card" >
                     <div class="card-body">
                         <h5 class="card-title" th:text="${publicacao.titulo}"></h5>

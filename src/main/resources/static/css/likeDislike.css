@@ -13,6 +13,9 @@
     color: white; 
     border-color: #007bff;
     opacity: 1; 
-    transform: scale(1.3); 
+    transform: scale(1.7); 
     transition: transform 0.2s, opacity 0.2s;
 }
+
+
+
