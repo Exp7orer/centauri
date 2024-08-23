@@ -20,14 +20,14 @@ $(document).ready(function() {
         var postId = $(this).data('id');
         var botaoDislike = $(this);
         $.ajax({
-            url: '/' + postId + '/dislike',
+            url: '/dislike/' + postId,
             type: 'POST',
             success: function(response) {             
                 botaoDislike.addClass('btn-selecionado').prop('disabled', true); // desativar e destacar o botao de dislike               
                 $('.btn-like[data-id="' + postId + '"]').addClass('btn-disabled').prop('disabled', true); // desativar o botão de like
             },
             error: function(xhr, status, error) {
-                console.error('Erro ', error);
+                console.error('Erro dislike:', error);
             }
         });
     });

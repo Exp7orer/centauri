@@ -86,7 +86,7 @@ public class HomeController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/dislike/{id}")
+    @PostMapping(path = "/dislike/{id}")
     @ResponseBody
     public ResponseEntity<?> dislike(@PathVariable Long id) {
         likeModel.dislike(id);
