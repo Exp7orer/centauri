@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 
@@ -33,16 +34,20 @@ public class LoginController {
         this.usuarioModel = usuarioModel;
         
     }
-
+ 
     @PostMapping("/login")
-    public String fazFogin(String senha, String email) {
-        Usuario usuarioBanco = loginModel.fazLogin(senha, email);
-
-        if (usuarioBanco != null) {
-            return "forward:/minha-pagina/"+usuarioBanco.getCodigo();
+    public String fazFogin(String senha, String email,  RedirectAttributes attributes) {
+    	try {
+    		Usuario usuarioBanco = loginModel.fazLogin(senha, email);
+            if (usuarioBanco != null) {
+                return "forward:/minha-pagina/" + usuarioBanco.getCodigo();
+            } 
+        } catch (Exception e) {
+            attributes.addFlashAttribute("mensagem", "Verifique os campos Login e Senha.");
+            return "redirect:/";
         }
-        return "redirect:/";
-    }
+    	return "redirect:/";
+    }  
 
     @PostMapping("/minha-pagina/{codigo}")
     public String paginaUsuario(@PathVariable("codigo") String codigo, Model model) {
