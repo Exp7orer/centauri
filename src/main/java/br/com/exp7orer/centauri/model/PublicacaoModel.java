@@ -2,22 +2,19 @@ package br.com.exp7orer.centauri.model;
 
 
 
+import br.com.exp7orer.centauri.beans.LikePublicacao;
 import br.com.exp7orer.centauri.entity.Likes;
 import br.com.exp7orer.centauri.entity.Publicacao;
 import br.com.exp7orer.centauri.entity.Usuario;
-import br.com.exp7orer.centauri.repository.LikeRepository;
 import br.com.exp7orer.centauri.repository.PublicacaoRepository;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Component
@@ -26,16 +23,16 @@ public class PublicacaoModel {
     private final PublicacaoRepository publicacaoRepository;
     private final UsuarioModel usuarioModel;
     private final ImagemModel imagemModel;
-    private final LikeRepository likeRepository;
+    private final LikeModel likeModel;
 
 
     @Autowired
     public PublicacaoModel(PublicacaoRepository publicacaoRepository, UsuarioModel usuarioModel,
-                           ImagemModel imagemModel,LikeRepository likeRepository) {
+                           ImagemModel imagemModel,LikeModel likeModel) {
         this.publicacaoRepository = publicacaoRepository;
         this.usuarioModel = usuarioModel;
         this.imagemModel = imagemModel;
-        this.likeRepository = likeRepository;
+        this.likeModel = likeModel;
     }
 
     @Transactional
@@ -46,13 +43,13 @@ public class PublicacaoModel {
         if (usuarioBanco != null) {
             LocalDateTime dataPublicacao = LocalDateTime.now();
             Publicacao publicacao = new Publicacao(usuarioBanco, urlImagem, texto, dataPublicacao, true);
-            
             Likes like = new Likes(publicacao);
-            likeRepository.save(like);
-            
+
+            likeModel.salvar(like);
+
             publicacaoRepository.save(publicacao);
-            
-            
+
+
         } else {
             throw new IllegalArgumentException("Usuário não encontrado!");
         }
@@ -77,9 +74,8 @@ public class PublicacaoModel {
     }
 
     public List<Publicacao> listaUsuario(Usuario usuario) {
-        List<Publicacao> publicacoes = publicacaoRepository
-                .findByPublicacaoUsuarioOrdemDecrescente(usuario.getCodigo());
-        return publicacoes != null ? publicacoes : List.of();
+        LikePublicacao likePublicacoes = new LikePublicacao(likeModel.buscaPorUsuario(usuario));
+        return likePublicacoes != null ? likePublicacoes.getPublicacoes(): List.of();
     }
 
     public Publicacao buscaId(Long id) {
@@ -108,14 +104,22 @@ public class PublicacaoModel {
                 });
     }
 
-    
-    
-	//Metodo não aceita lista vindo de LikeModel pois gera erro ciclico   
+
     public List<Publicacao> listaRank() {
-        return List.of();
+        LikePublicacao likesPublicacoes = new LikePublicacao(likeModel.listaRank());
+       return likesPublicacoes.getPublicacoes();
     }
-    
-   
-    
-   
+
+   public LikePublicacao rankComLike(){
+        return new LikePublicacao(likeModel.listaRank());
+   }
+
+   public void adicionarLike(@NotNull Long idPublicacao){
+        likeModel.adicionarLike(idPublicacao);
+   }
+
+   public void dislike(@NotNull Long idPublicacao){
+       likeModel.dislike(idPublicacao);
+   }
+
 }

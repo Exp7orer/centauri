@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class CodigoUtil {
 		
-	public CodigoUtil() {
+	private CodigoUtil() {
 		
 	}
 
