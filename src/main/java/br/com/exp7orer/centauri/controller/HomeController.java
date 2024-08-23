@@ -39,7 +39,7 @@ public class HomeController {
     }
 
     @GetMapping("/minha-pagina")
-    public String minhaPagina(String codigo,Model model) {
+    public String minhaPagina(String codigo, Model model) {
         Usuario usuario = usuarioModel.buscarCodigo(codigo);
         if (usuario == null) {
             return "redirect:/";
@@ -48,31 +48,33 @@ public class HomeController {
         return "/usuario";
     }
 
-  @GetMapping
-  public String paginaInicial(Model model) {
-      List<Publicacao> publicacoesBanco = publicacaoModel.listaRank();
-      List<List<Publicacao>> publicacoes = new ArrayList<>();
+    @GetMapping
+    public String paginaInicial(Model model) {
+        List<Publicacao> publicacoesBanco = publicacaoModel.listaRank();
+        List<List<Publicacao>> publicacoes = new ArrayList<>();
+        List<Publicacao> pub = new ArrayList<>();
 
-      int cont = 1;
-      List<Publicacao> pub = new ArrayList<>();
+        for (Publicacao publicacao : publicacoesBanco) {
 
-      for (Publicacao publicacao : publicacoesBanco) {
-          if (cont >= 30) {
-              break;
-          }
-          pub.add(publicacao);
+            pub.add(publicacao);
 
-          if (pub.size() == 3) {
-              publicacoes.add(new ArrayList<>(pub));
-              pub.clear();
-          }
-          cont++;
-      }
-      model.addAttribute("pageTitle", "Blog");
-      model.addAttribute("texto", "página principal");
-      model.addAttribute("quantidadeLinhas", publicacoes);
-      return "index";
-  }
+            if (pub.size() == 3) {
+                publicacoes.add(new ArrayList<>(pub));
+                pub.clear();
+            }
+        }
+        int elementosAdicionados = (publicacoesBanco.size() - (publicacoesBanco.size() % 3));
+
+        for (int i = elementosAdicionados; publicacoesBanco.size() <= i; i++){
+            pub.add(publicacoesBanco.get(i-1));
+        }
+
+        publicacoes.add(new ArrayList<>(pub));
+
+        model.addAttribute("pageTitle", "Blog");
+        model.addAttribute("texto", "página principal");
+        model.addAttribute("quantidadeLinhas", publicacoes);
+        return "index";
+    }
 
 }
-

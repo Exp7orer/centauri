@@ -18,6 +18,7 @@ public interface LikeRepository extends JpaRepository<Likes, Long> {
     @Query("SELECT l FROM Likes l " +
             "LEFT JOIN l.publicacao p " +
             "LEFT JOIN p.usuario u " +
-            "WHERE p.usuario = :usuario")
+            "WHERE p.usuario = :usuario " +
+            "ORDER BY l.qtdPositivo desc")
     List<Likes> findByLikesPorUsuario(@Param("usuario") Usuario usuario);
 }

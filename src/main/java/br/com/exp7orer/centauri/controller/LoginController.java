@@ -59,7 +59,7 @@ public class LoginController {
 
     @NotNull
     static void informacaoUsuario(Model model, Usuario usuario, MensagemModel mensagemModel, PublicacaoModel publicacaoModel) {
-        LikePublicacao likePublicacao = publicacaoModel.rankComLike();
+        LikePublicacao likePublicacao = publicacaoModel.rankComLike(usuario);
         model.addAttribute("usuario", usuario);
         model.addAttribute("caixaDeMensagem", mensagemModel.criaCaixaMensagem(usuario));
         model.addAttribute("publicacaoLikes", likePublicacao.getLikesPublicacoes());

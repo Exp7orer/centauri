@@ -69,7 +69,6 @@ public class LikeModel {
         return likes;
     }
 
-
     public List<Likes> buscaPorUsuario(Usuario usuario) {
         List<Likes> likes = likeRepository.findByLikesPorUsuario(usuario);
         if(likes.isEmpty()){

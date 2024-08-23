@@ -114,6 +114,10 @@ public class PublicacaoModel {
         return new LikePublicacao(likeModel.listaRank());
    }
 
+   public LikePublicacao rankComLike(Usuario usuario){
+        return new LikePublicacao(likeModel.buscaPorUsuario(usuario));
+   }
+
    public void adicionarLike(@NotNull Long idPublicacao){
         likeModel.adicionarLike(idPublicacao);
    }
