@@ -71,4 +71,27 @@ public class UsuarioModel {
     }
 
 
+    public Usuario editarUsuario(String codigoUsuario, UsuarioRecord record) {
+    	Optional<Usuario> verificarUsuario = usuarioRepository.findByCodigo(codigoUsuario);
+    	if(verificarUsuario.isPresent() && record != null) {
+    	Usuario usuario = verificarUsuario.get();
+    	
+    	 usuario.setNome(record.nome());
+         usuario.setSobreNome(record.sobreNome());
+         
+         Login login = usuario.getLogin();
+         login.setNomeUsuario(record.nomeUsuario());
+         
+         Senha senha = login.getSenha();
+         senha.setChave(SenhaUtil.criar(record.senha()).getChave());
+         login.setSenha(senha);
+         
+         usuarioRepository.save(usuario);
+         
+         return usuario;
+    	}
+    	
+    	return null;
+    }
+    
 }
