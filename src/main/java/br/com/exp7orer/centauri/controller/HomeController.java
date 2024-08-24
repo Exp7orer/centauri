@@ -65,8 +65,10 @@ public class HomeController {
         }
         int elementosAdicionados = (publicacoesBanco.size() - (publicacoesBanco.size() % 3));
 
-        for (int i = elementosAdicionados; publicacoesBanco.size() <= i; i++){
-            pub.add(publicacoesBanco.get(i-1));
+        if(!(elementosAdicionados == publicacoesBanco.size())) {
+            for (int i = elementosAdicionados; publicacoesBanco.size() <= i; i++) {
+                // pub.add(publicacoesBanco.get(i));
+            }
         }
 
         publicacoes.add(new ArrayList<>(pub));

@@ -55,7 +55,6 @@ public class PublicacaoModel {
         }
     }
 
-
     public List<Publicacao> buscarPorData(LocalDateTime dataInicial, LocalDateTime dataFinal) {
         Stream<Publicacao> stream = publicacaoRepository.findAll()
                 .stream()
