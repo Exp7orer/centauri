@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class LikePublicacao {
-    private List<LikePublicacao>likesPublicacoes;
-    private List<Publicacao>publicacoes;
+    private final List<LikePublicacao>likesPublicacoes;
+    private final List<Publicacao>publicacoes;
     private Publicacao publicacao;
     private Integer qtdPositivos;
     private Integer qtdNegativos;

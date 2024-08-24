@@ -1,19 +1,15 @@
 package br.com.exp7orer.centauri.controller;
 
-import br.com.exp7orer.centauri.beans.LikePublicacao;
-import br.com.exp7orer.centauri.entity.Likes;
 import br.com.exp7orer.centauri.entity.Publicacao;
 import br.com.exp7orer.centauri.entity.Usuario;
-import br.com.exp7orer.centauri.model.LikeModel;
 import br.com.exp7orer.centauri.model.MensagemModel;
 import br.com.exp7orer.centauri.model.PublicacaoModel;
 import br.com.exp7orer.centauri.model.UsuarioModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,13 +57,6 @@ public class HomeController {
             if (pub.size() == 3) {
                 publicacoes.add(new ArrayList<>(pub));
                 pub.clear();
-            }
-        }
-        int elementosAdicionados = (publicacoesBanco.size() - (publicacoesBanco.size() % 3));
-
-        if(!(elementosAdicionados == publicacoesBanco.size())) {
-            for (int i = elementosAdicionados; publicacoesBanco.size() <= i; i++) {
-                // pub.add(publicacoesBanco.get(i));
             }
         }
 
