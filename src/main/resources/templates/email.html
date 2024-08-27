@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+    <h2>Olá,<b th:text="${nome}">nome </b></h2>
+    <p>Bem Vindo, Exp7orer-App</p>
+    <form th:action="|http://localhost:8080/cadastro/ativar?codigo=${codigo}|" method="get">
+        <button type="submit">Ativar Cadastro</button>
+    </form>
+<div>
+    <img src="/images/logo.jpg" data-th-src="|cid:imagemLogo|" height="80"/>
+</div>
+</section>
+</body>
+</html>

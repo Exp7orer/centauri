@@ -5,6 +5,7 @@ import br.com.exp7orer.centauri.entity.Usuario;
 import br.com.exp7orer.centauri.model.MensagemModel;
 import br.com.exp7orer.centauri.model.PublicacaoModel;
 import br.com.exp7orer.centauri.model.UsuarioModel;
+import br.com.exp7orer.centauri.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +29,7 @@ public class HomeController {
 
     @Autowired
     public HomeController(UsuarioModel usuarioModel, MensagemModel mensagemModel,
-                          PublicacaoModel publicacaoModel) {
+                          PublicacaoModel publicacaoModel, EmailService email) {
         this.usuarioModel = usuarioModel;
         this.mensagemModel = mensagemModel;
         this.publicacaoModel = publicacaoModel;
@@ -65,7 +66,7 @@ public class HomeController {
         model.addAttribute("pageTitle", "Blog");
         model.addAttribute("texto", "página principal");
         model.addAttribute("quantidadeLinhas", publicacoes);
-        return "index";
+        return "/index";
     }
 
 }

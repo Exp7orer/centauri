@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Objects;
+
 
 @Controller
 public class LoginController {
@@ -34,16 +36,13 @@ public class LoginController {
 
     @PostMapping("/login")
     public String fazFogin(String senha, String email, RedirectAttributes attributes) {
-        try {
+
             Usuario usuarioBanco = loginModel.fazLogin(senha, email);
-            if (usuarioBanco != null) {
+            if (Objects.nonNull(usuarioBanco)) {
                 return "forward:/minha-pagina/" + usuarioBanco.getCodigo();
             }
-        } catch (Exception e) {
             attributes.addFlashAttribute("mensagem", "Verifique os campos Login e Senha.");
             return "redirect:/";
-        }
-        return "redirect:/";
     }
 
     @PostMapping("/minha-pagina/{codigo}")

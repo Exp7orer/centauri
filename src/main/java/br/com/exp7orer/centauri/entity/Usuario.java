@@ -56,7 +56,7 @@ public class Usuario implements Serializable {
     	this.codigo = CodigoUtil.gerarCodigo();
         this.nome = record.nome();
         this.sobreNome = record.sobreNome();
-        this.login = new Login(record.email(),record.nomeUsuario(),true,senha);
+        this.login = new Login(record.email(),record.nomeUsuario(),false,senha);
         this.publicacoes = new ArrayList<>();
         this.messagesSystem = new ArrayList<>();
     }

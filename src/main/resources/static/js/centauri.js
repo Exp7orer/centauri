@@ -5,21 +5,6 @@ const mostraDataRodape = () => {
     setTimeout(mostraDataRodape, 1);
 };
 
-const $publicacao = $('').summernote({
-    lang: 'pt-BR',
-    toolbar: [
-        ['style', ['style']],
-        ['font', ['bold', 'underline', 'clear']],
-        ['fontname', ['fontname']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['view', ['fullscreen', 'codeview', 'help']],
-    ],
-    placeholder: 'Crie sua publicacão',
-    tabsize: 4,
-    height: 400,
-});
-
 $("#imagem").change(function (evt){
    const imagemUpload = evt.target.files[0]
    
