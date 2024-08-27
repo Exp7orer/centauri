@@ -190,7 +190,7 @@
     <hr>
 </main>
 <footer class="bg-body-tertiary text-center">
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0);">
         <p class="text-right" id="dataRodape"></p>
         © 2024 Copyright:
         <a class="text-body" href="/">Exp7orer</a>
@@ -237,11 +237,13 @@
                                placeholder="Alterar Senha" required>
                     </div>
                     <th:block th:include="mensagemValidacao"></th:block>
-                    <button type="submit" class="btn btn-primary">Alterar</button>
+                    
+                                
+		            <div class="modal-footer">
+	                    <button type="submit" class="btn btn-primary">Alterar</button>
+		                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+		            </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
