@@ -8,6 +8,8 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/fontawesome/css/all.css}">
     <link rel="stylesheet" th:href="@{summernote/summernote-bs4.min.css}">
+    
+    <link rel="stylesheet" th:href="@{/css/publicacao.css}">
 </head>
 
 <body>
@@ -17,10 +19,7 @@
             <img th:src="@{/images/logo.jpg}" width="30" height="30" class="d-inline-block align-top" alt="">
            Exp7orer
         </a>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-        </form>
+       <section class="cabecalho-container">
         <form class="form-inline">
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-login" hidden>
                 login
@@ -46,6 +45,7 @@
                                 th:text="${caixaDeMensagem.mensagens.size()}"></span>
             </button>
         </form>
+       </section>
     </nav>
 
 </header>
