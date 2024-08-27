@@ -8,6 +8,8 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/fontawesome/css/all.css}">
     <link rel="stylesheet" th:href="@{summernote/summernote-bs4.min.css}">
+    
+    <link rel="stylesheet" th:href="@{/css/publicacao.css}">
 </head>
 
 <body>
@@ -17,35 +19,35 @@
             <img th:src="@{/images/logo.jpg}" width="30" height="30" class="d-inline-block align-top" alt="">
             Exp7orer
         </a>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-        </form>
-        <form class="form-inline">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-login" hidden>
-                login
-            </button>
-        </form>
-        <form class="form-inline">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-cadastro" hidden>
-                Cadastrar
-            </button>
-        </form>
-        <form class="form-inline">
-            <p th:text="${usuario.nome}"></p>
-        </form>
-        <form class="form-inline">
-
-            <button type="button" class="btn" data-toggle="modal" data-target="#modal-usuario"><i
-                    class="fa-regular fa-user fa-2x" aria-hidden="true"></i></button>
-        </form>
-        <form class="form-inline">
-            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-mensagem">
-                Mensagens <span class="badge badge-light"
-                                th:if='${not caixaDeMensagem.mensagens.get(0).texto.contains("Você não tem mensagens!")}'
-                                th:text="${caixaDeMensagem.mensagens.size()}"></span>
-            </button>
-        </form>
+       <section class="cabecalho-container">
+	        <form class="form-inline">
+	            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-login" hidden>
+	                login
+	            </button>
+	        </form>
+	        <form class="form-inline">
+	            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-cadastro" hidden>
+	                Cadastrar
+	            </button>
+	         
+	        </form>
+	        <form class="form-inline">
+	            <p th:text="${usuario.nome}"></p>
+	        </form>
+	        <form class="form-inline">
+				
+	            <button type="button" class="btn" data-toggle="modal" data-target="#modal-usuario"><i
+	                    class="fa-regular fa-user fa-2x" aria-hidden="true"></i></button>
+	        </form>
+	        <form class="form-inline">
+	            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-mensagem">
+	                 Mensagens 
+	                <span class="badge badge-light"
+	                                th:if='${not caixaDeMensagem.mensagens.get(0).texto.contains("Você não tem mensagens!")}'
+	                                th:text="${caixaDeMensagem.mensagens.size()}"></span>
+	            </button>
+	        </form>
+      </section>  
     </nav>
 
 </header>
@@ -189,7 +191,7 @@
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
         <p class="text-right" id="dataRodape"></p>
         © 2024 Copyright:
-        <a class="text-body" href="#">Exp7orer</a>
+        <a class="text-body" href="/">Exp7orer</a>
     </div>
 </footer>
 
