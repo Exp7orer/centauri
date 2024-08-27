@@ -35,14 +35,15 @@
         </form>
         <form class="form-inline">
 
-            <button type="button" class="btn" data-toggle="modal" data-target="#modal-usuario"><i
+            <button type="button" class="btn-icon" data-toggle="modal" data-target="#modal-usuario"><i
                     class="fa-regular fa-user fa-2x" aria-hidden="true"></i></button>
         </form>
         <form class="form-inline">
-            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-mensagem">
-                Mensagens <span class="badge badge-light"
-                                th:if='${not caixaDeMensagem.mensagens.get(0).texto.contains("Você não tem mensagens!")}'
-                                th:text="${caixaDeMensagem.mensagens.size()}"></span>
+            <button type="button" class="btn btn-outline-primary btn-custom" data-toggle="modal" data-target="#modal-mensagem">
+                <i class="fas fa-envelope fa-2x"></i>  
+                <span class="badge badge-light"
+                     th:if='${not caixaDeMensagem.mensagens.get(0).texto.contains("Você não tem mensagens!")}'
+                     th:text="${caixaDeMensagem.mensagens.size()}"></span>
             </button>
         </form>
        </section>
