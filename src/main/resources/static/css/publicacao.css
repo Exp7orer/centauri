@@ -34,9 +34,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between; 
-    
-
-
 }
 
 .cabecalho-container{
@@ -46,10 +43,26 @@
    gap: 20px;
 }
 
-.fa-user:hover {
-        color: #0056b3; 
-        border-color: #0056b3; 
-    }
+
+.btn-icon{
+	border: none;
+    background: transparent;
+    color: #0056b3;
+   
+}
+.btn-icon:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.btn-icon:hover {
+    color: #1FA687;
+    border-color: #1FA687;
+}
+
+
+
+
 
 .text-body{
 	font-family: "Fondamento", cursive;
@@ -72,4 +85,32 @@ border:none;
 .card-img-top {
 	border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+}
+
+
+.btn-custom{
+	border: none;
+	padding: 0;
+}
+.btn-custom:hover{
+	background-color: transparent;
+}
+
+.btn-custom .fa-envelope {
+    border: none; 
+    background: transparent; 
+    padding: 0; 
+    outline: none; 
+    color: #0056b3;
+}
+
+/* Estilo de hover específico para o ícone */
+.btn-custom:hover .fa-envelope {
+    color: #1FA687; /* Cor do ícone ao passar o mouse sobre o botão */
+}
+
+/* Remove a borda e a sombra de foco do ícone especificamente */
+.btn-custom:focus .fa-envelope {
+    outline: none; /* Remove o contorno de foco do ícone */
+    box-shadow: none; /* Remove a sombra de foco do ícone */
 }
