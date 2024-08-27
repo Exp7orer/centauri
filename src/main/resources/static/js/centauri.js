@@ -63,3 +63,4 @@ function alterarTamanhoImagem(file, callback) {
 
     reader.readAsDataURL(file);
 }
+

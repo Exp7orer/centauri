@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&display=swap');
+
+.navbar.navbar-light.bg-light {
+ background-color: #DAF0EE !important;
+ 
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px; 
+	border:none;
+	border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.card-header{
+	background-color: #DAF0EE
+}
+.card-footer{
+	background-color: #DAF0EE
+}
+
+
+.navbar-brand{
+  font-family: "Fondamento", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+.navbar .navbar-brand {
+    color: #115C4B;
+}
+.navbar .navbar-brand:hover {
+    color: #1FA687;
+}
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+}
+
+.cabecalho-container{
+	display: flex;
+    align-items: center;
+    justify-content: right;
+   gap: 20px;
+}
+
+
+.btn-icon{
+	border: none;
+    background: transparent;
+    color: #0056b3;
+   
+}
+.btn-icon:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.btn-icon:hover {
+    color: #1FA687;
+    border-color: #1FA687;
+}
+
+
+
+
+
+.text-body{
+	font-family: "Fondamento", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.card{
+box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px; 
+border-radius: 15px;
+border:none;
+
+	
+	border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.card-img-top {
+	border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+
+.btn-custom{
+	border: none;
+	padding: 0;
+}
+.btn-custom:hover{
+	background-color: transparent;
+}
+
+.btn-custom .fa-envelope {
+    border: none; 
+    background: transparent; 
+    padding: 0; 
+    outline: none; 
+    color: #0056b3;
+}
+
+
+.btn-custom:hover .fa-envelope {
+    color: #1FA687; 
+}
+
+
+.btn-custom:focus .fa-envelope {
+    outline: none; 
+    box-shadow: none;
+}
+
