@@ -104,13 +104,14 @@ border:none;
     color: #0056b3;
 }
 
-/* Estilo de hover específico para o ícone */
+
 .btn-custom:hover .fa-envelope {
-    color: #1FA687; /* Cor do ícone ao passar o mouse sobre o botão */
+    color: #1FA687; 
 }
 
-/* Remove a borda e a sombra de foco do ícone especificamente */
+
 .btn-custom:focus .fa-envelope {
-    outline: none; /* Remove o contorno de foco do ícone */
-    box-shadow: none; /* Remove a sombra de foco do ícone */
+    outline: none; 
+    box-shadow: none;
 }
+
