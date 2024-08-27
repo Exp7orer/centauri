@@ -3,12 +3,15 @@ package br.com.exp7orer.centauri.model;
 import br.com.exp7orer.centauri.entity.*;
 import br.com.exp7orer.centauri.record.UsuarioRecord;
 import br.com.exp7orer.centauri.repository.UsuarioRepository;
+import br.com.exp7orer.centauri.service.EmailService;
 import br.com.exp7orer.centauri.uteis.SenhaUtil;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -16,10 +19,12 @@ import java.util.Optional;
 @Component
 public class UsuarioModel {
     private final UsuarioRepository usuarioRepository;
+    private final EmailService email;
 
     @Autowired
-    public UsuarioModel(UsuarioRepository usuarioRepository) {
+    public UsuarioModel(UsuarioRepository usuarioRepository,EmailService email) {
         this.usuarioRepository = usuarioRepository;
+        this.email = email;
 
     }
 
@@ -28,6 +33,15 @@ public class UsuarioModel {
         if (record != null) {
             Usuario usuario = new Usuario(record, SenhaUtil.criar(record.senha()));
             usuarioRepository.save(usuario);
+
+                try {
+                    email.enviarEmailAtivacao(usuario);
+                } catch (MessagingException e) {
+                    throw new RuntimeException("Erro ao enviar e-mail! "+e);
+                } catch (UnsupportedEncodingException e) {
+                    throw new RuntimeException("Erro no Encoding "+e);
+                }
+
             return usuario;
         }
         return null;
@@ -93,5 +107,13 @@ public class UsuarioModel {
     	
     	return null;
     }
-    
+
+    public void ativar(String codigo) throws IllegalArgumentException {
+         Usuario usuarioBanco = usuarioRepository.findByCodigo(codigo).orElse(null);
+         if(usuarioBanco == null){
+             throw new IllegalArgumentException("Verifique o codigo ele não pertence a nenhum usúario!");
+         }
+         usuarioBanco.getLogin().setAtivo(true);
+         usuarioRepository.save(usuarioBanco);
+    }
 }
