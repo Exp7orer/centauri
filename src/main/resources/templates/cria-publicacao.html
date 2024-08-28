@@ -57,7 +57,7 @@
         <div class="col-3">
             <div class="row">
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" id="imgPublicacao" th:src="@{/images/logo.jpg}"
+                    <img class="card-img-top" id="imgPublicacao" th:src="@{/images/img-lim.jpg}"
                          alt="Imagem de capa do card">
                     <div class="card-body">
                         <form th:action="@{/postar}" th:method="post" name="publicacao" id="publicacao"
@@ -66,8 +66,9 @@
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="imagem" name="imagem"
                                            accept="image/*">
-                                    <label class="custom-file-label" for="imagem">Escolher
-                                        Imagem</label>
+                                    <label class="custom-file-label" for="imagem">
+										Escolha imagem
+                                        </label>
                                 </div>
                             </div>
                             <input hidden th:value="${usuario.codigo}" name="codigo">
