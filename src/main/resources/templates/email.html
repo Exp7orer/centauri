@@ -8,9 +8,8 @@
 <section>
     <h2>Olá,<b th:text="${nome}">nome </b></h2>
     <p>Bem Vindo, Exp7orer-App</p>
-    <form th:action="|http://localhost:8080/cadastro/ativar?codigo=${codigo}|" method="get">
-        <button type="submit">Ativar Cadastro</button>
-    </form>
+    <a th:href ="|http://andersonandrade.dev.br/cadastro/ativar?codigo=${codigo}|">Ativar Cadastro</a>
+
 <div>
     <img src="/images/logo.jpg" data-th-src="|cid:imagemLogo|" height="80"/>
 </div>

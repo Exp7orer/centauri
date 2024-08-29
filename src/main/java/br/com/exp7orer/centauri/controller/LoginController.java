@@ -34,18 +34,18 @@ public class LoginController {
         this.usuarioModel = usuarioModel;
     }
 
-    @PostMapping("/login")
-    public String fazFogin(String senha, String email, RedirectAttributes attributes) {
+    @PostMapping("login")
+    public String fazFogin(String senha, String email, Model model) {
 
             Usuario usuarioBanco = loginModel.fazLogin(senha, email);
             if (Objects.nonNull(usuarioBanco)) {
-                return "forward:/minha-pagina/" + usuarioBanco.getCodigo();
+                return "forward:minha-pagina/" + usuarioBanco.getCodigo();
             }
-            attributes.addFlashAttribute("mensagem", "Verifique os campos Login e Senha.");
-            return "redirect:/";
+            model.addAttribute("erroLogin",true);
+            return "login";
     }
 
-    @PostMapping("/minha-pagina/{codigo}")
+    @PostMapping("minha-pagina/{codigo}")
     public String paginaUsuario(@PathVariable("codigo") String codigo, Model model) {
 
         Usuario usuario = usuarioModel.buscarCodigo(codigo);
@@ -53,7 +53,7 @@ public class LoginController {
             return "redirect:/";
         }
         informacaoUsuario(model, usuario, mensagemModel, publicacaoModel);
-        return "/usuario";
+        return "usuario";
     }
 
     @NotNull

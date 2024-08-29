@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(path = "/centauriAdm")
+@RequestMapping(path = "centauriAdm")
 public class AdminstracaoController {
 
     private final MensagemModel mensagemModel;

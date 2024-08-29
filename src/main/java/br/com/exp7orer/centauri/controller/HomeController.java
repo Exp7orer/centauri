@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +36,14 @@ public class HomeController {
         this.publicacaoModel = publicacaoModel;
     }
 
-    @GetMapping("/minha-pagina")
+    @GetMapping("minha-pagina")
     public String minhaPagina(String codigo, Model model) {
         Usuario usuario = usuarioModel.buscarCodigo(codigo);
         if (usuario == null) {
             return "redirect:/";
         }
         informacaoUsuario(model, usuario, mensagemModel, publicacaoModel);
-        return "/usuario";
+        return "usuario";
     }
 
     @GetMapping
@@ -66,7 +67,16 @@ public class HomeController {
         model.addAttribute("pageTitle", "Blog");
         model.addAttribute("texto", "página principal");
         model.addAttribute("quantidadeLinhas", publicacoes);
-        return "/index";
+        return "index";
     }
 
+    @GetMapping("login")
+    public String formLogin(){
+        return "login";
+    }
+
+    @GetMapping("cadastro")
+    public String formCadastro(){
+        return "cadastro";
+    }
 }

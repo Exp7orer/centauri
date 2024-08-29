@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(path = "/imagens",method = RequestMethod.GET)
+@RequestMapping(path = "imagens",method = RequestMethod.GET)
 public class ImagensController {
     private final ImagemModel imagemModel;
     private final PublicacaoModel publicacaoModel;
@@ -21,7 +21,7 @@ public class ImagensController {
     }
 
     @ResponseBody
-    @GetMapping("/publicacao/{id}")
+    @GetMapping("publicacao/{id}")
     public ResponseEntity<?> publicacaoImagem(@PathVariable Long id) {
         Publicacao publicacao = publicacaoModel.buscaId(id);
         return imagemModel.imagemPublicacao(publicacao);

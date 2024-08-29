@@ -23,13 +23,13 @@
         </a>
         <section class="form-inline-container">
 	        <div class="button-group">
-		        <form class="form-inline">
-		            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-login">
+		        <form class="form-inline" th:action="@{login}" th:method="get">
+		            <button type="submit" class="btn btn-success" >
 		               <i class="fas fa-sign-in-alt"></i> Login
 		            </button>
 		        </form>
-		        <form class="form-inline">
-		            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-cadastro">
+		        <form class="form-inline" th:action="@{cadastro}" th:method="get">
+		            <button type="submit" class="btn btn-primary">
 		               <i class="fas fa-user-plus"></i> Cadastrar
 		            </button>
 		        </form>
@@ -88,100 +88,6 @@
 <script th:src="@{/js/centauri.js}" th:type="module"></script>
 <script th:src="@{/js/likeDislike.js}"></script>
 
-<!--Model Login-->
-<div class="modal" tabindex="-1" role="dialog" name="modal-login" id="modal-login">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Login</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form th:action="@{/login}" method="post" id="form-login" name="form-login" autocomplete="off">
-                    <div class="form-group row">
-                        <label for="email" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="email" class="form-control" id="email" name="email"
-                                   placeholder="Digite o email..." required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="senha" class="col-sm-2 col-form-label">Senha</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="senha" name="senha"
-                                   placeholder="Digite a senha..." required>
-                        </div>
-                    </div>
-                    <th:block th:include="mensagemValidacao"></th:block>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="submit" class="btn btn-primary" form="form-login">Logar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--Model de cadastro-->
-
-<div class="modal" tabindex="-1" role="dialog" name="modal-cadastro" id="modal-cadastro">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Cadastro Usuário</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form th:action="@{/cadastro}" method="post" id="form-cadastro" name="form-cadastro" autocomplete="off">
-                    <div class="form-group row">
-                        <label for="cad-nome" class="col-sm-3 col-form-label">Nome</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="cad-nome" name="nome"
-                                   placeholder="Digite seu nome..." required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="cad-sobrenome" class="col-sm-3 col-form-label">Sobrenome</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="cad-sobrenome" name="sobreNome"
-                                   placeholder="Digite seu sobrenome..." required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="cad-nomeUsuario" class="col-sm-3 col-form-label">Usuário</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="cad-nomeUsuario" name="nomeUsuario"
-                                   placeholder="Digite o nome de usuário..." required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="cad-email" class="col-sm-3 col-form-label">Email</label>
-                        <div class="col-sm-9">
-                            <input type="email" class="form-control" id="cad-email" name="email"
-                                   placeholder="Digite o email..." required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="cad-senha" class="col-sm-3 col-form-label">Senha</label>
-                        <div class="col-sm-9">
-                            <input type="password" class="form-control" id="cad-senha" name="senha"
-                                   placeholder="Digite a senha..." required>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary" form="form-cadastro">Cadastrar</button>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 
 </html>

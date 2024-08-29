@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Controller
-@RequestMapping(path = "/mensagem",method = RequestMethod.POST)
+@RequestMapping(path = "mensagem",method = RequestMethod.POST)
 public class MensagemController {
     private final MensagemModel mensagemModel;
 
@@ -23,10 +23,10 @@ public class MensagemController {
         this.mensagemModel = mensagemModel;
     }
 
-    @PostMapping("/enviar")
+    @PostMapping("enviar")
     public String enviar(Usuario usuario, String mensagem, Model model) {
         if (usuario.getId() < 1) {
-            return "redirect:/index";
+            return "redirect:index";
         }
         mensagemModel.enviar(usuario, mensagem);
         CaixaMensagem caixaMensagem = mensagemModel.criaCaixaMensagem(usuario);
