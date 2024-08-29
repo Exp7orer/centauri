@@ -5,6 +5,10 @@ const mostraDataRodape = () => {
     setTimeout(mostraDataRodape, 1);
 };
 
+window.onload=function (){
+    mostraDataRodape();
+}
+
 $("#imagem").change(function (evt){
    const imagemUpload = evt.target.files[0]
    

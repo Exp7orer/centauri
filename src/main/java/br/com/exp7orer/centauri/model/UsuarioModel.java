@@ -75,8 +75,10 @@ public class UsuarioModel {
                 .filter(usuario -> usuario.getLogin().isAtivo())
                 .findFirst();
         Usuario usuarioBanco = usuarioStream.orElse(null);
-        usuarioBanco.getMessagesSystem().size();
-        usuarioBanco.getPublicacoes().size();
+        if(usuarioBanco != null) {
+            usuarioBanco.getMessagesSystem().size();
+            usuarioBanco.getPublicacoes().size();
+        }
         return usuarioBanco;
     }
 

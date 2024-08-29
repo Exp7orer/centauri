@@ -12,13 +12,17 @@ import org.springframework.data.repository.query.Param;
 
 public interface LikeRepository extends JpaRepository<Likes, Long> {
 
-    @Query("SELECT l FROM Likes l ORDER BY l.qtdPositivo desc")
+    @Query("SELECT l " +
+            "FROM Likes l " +
+            "WHERE l.publicacao.ativa = true " +
+            "ORDER BY l.qtdPositivo desc")
     List<Likes> findAllOrderByQtdPositivo();
 
     @Query("SELECT l FROM Likes l " +
             "LEFT JOIN l.publicacao p " +
             "LEFT JOIN p.usuario u " +
             "WHERE p.usuario = :usuario " +
+            "AND l.publicacao.ativa = true "+
             "ORDER BY l.qtdPositivo desc")
     List<Likes> findByLikesPorUsuario(@Param("usuario") Usuario usuario);
 }
