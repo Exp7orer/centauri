@@ -36,14 +36,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const email = emailInput.value.trim();
         if (email) {
             if (validarEmail(email)) {
-                feedbackEmail.textContent = 'Domínio permitido.';
+                feedbackEmail.textContent = 'Email válido.';
                 feedbackEmail.style.color = 'green';
                 emailInput.setCustomValidity('');
                 submitButton.disabled = false;
             } else {
                 feedbackEmail.textContent = 'Email inválido.';
                 feedbackEmail.style.color = 'red';
-                emailInput.setCustomValidity('Domínio não permitido ou formato inválido.');
+                emailInput.setCustomValidity('Email não permitido ou formato inválido.');
                 submitButton.disabled = true;
             }
         } else {
