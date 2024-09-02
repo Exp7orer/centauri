@@ -7,6 +7,7 @@ import br.com.exp7orer.centauri.model.PublicacaoModel;
 import br.com.exp7orer.centauri.model.UsuarioModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,12 +36,11 @@ public class PublicacaoController {
     }
 
     @PostMapping("publicacao")
-    public String formPublicacao(String codigo, Model model) {
-        Usuario usuarioBanco = usuarioModel.buscarCodigo(codigo);
-        if (usuarioBanco == null) {
+    public String formPublicacao(Authentication authentication, Model model) {
+        if (authentication == null) {
             return "redirect:/";
         }
-        informacaoUsuario(model, usuarioBanco, mensagemModel, publicacaoModel);
+        informacaoUsuario(model,authentication.getName(), usuarioModel, mensagemModel, publicacaoModel);
         return "cria-publicacao";
     }
 
@@ -53,7 +53,7 @@ public class PublicacaoController {
         if (usuarioBanco != null) {
             publicacaoModel.salvarPublicacao(usuario, texto, imagem);
             attributes.addAttribute("codigo",usuarioBanco.getCodigo());
-            return "redirect:/minha-pagina";
+            return "/minha-pagina";
         }
         return "redirect:/";
     }
@@ -73,22 +73,21 @@ public class PublicacaoController {
 
     @PostMapping("alteraPublicacao")
     public String alteraPublicacao(@RequestParam("idPublicacao") Long idPublicacao,
-                                   @RequestParam("codigo")Long codigo,
                                    @RequestParam("texto") String texto,
                                    @RequestParam("imagem") MultipartFile imagem,
-                                   RedirectAttributes attributes){
+                                   Authentication authentication, Model model ){
 
         publicacaoModel.editar(idPublicacao,texto,imagem);
+        informacaoUsuario(model,authentication.getName(), usuarioModel, mensagemModel, publicacaoModel);
 
-        attributes.addAttribute("codigo",codigo);
-        return "redirect:/minha-pagina";
+        return "usuario";
     }
 
     @PostMapping("excluir")
-    public String excluirPublicacao(Long idPublicacao,Long codigo,RedirectAttributes attributes){
+    public String excluirPublicacao(Long idPublicacao,Long codigo,Authentication authentication, Model model){
         publicacaoModel.desativa(idPublicacao);
-        attributes.addAttribute("codigo",codigo);
-        return "redirect:/minha-pagina";
+        informacaoUsuario(model,authentication.getName(), usuarioModel, mensagemModel, publicacaoModel);
+        return "usuario";
     }
 
     @PostMapping(path = "/like/{id}")
