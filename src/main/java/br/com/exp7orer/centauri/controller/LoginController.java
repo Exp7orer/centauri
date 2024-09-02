@@ -2,62 +2,50 @@ package br.com.exp7orer.centauri.controller;
 
 import br.com.exp7orer.centauri.beans.LikePublicacao;
 import br.com.exp7orer.centauri.entity.Usuario;
-
-import br.com.exp7orer.centauri.model.*;
+import br.com.exp7orer.centauri.model.MensagemModel;
+import br.com.exp7orer.centauri.model.PublicacaoModel;
+import br.com.exp7orer.centauri.model.UsuarioModel;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.Objects;
 
 
 @Controller
 public class LoginController {
 
-    private final LoginModel loginModel;
+
     private final MensagemModel mensagemModel;
     private final PublicacaoModel publicacaoModel;
     private final UsuarioModel usuarioModel;
 
 
     @Autowired
-    public LoginController(LoginModel loginModel, MensagemModel mensagemModel,
+    public LoginController(MensagemModel mensagemModel,
                            UsuarioModel usuarioModel,
-                           PublicacaoModel publicacaoModel){
-        this.loginModel = loginModel;
+                           PublicacaoModel publicacaoModel) {
         this.mensagemModel = mensagemModel;
         this.publicacaoModel = publicacaoModel;
         this.usuarioModel = usuarioModel;
     }
 
-    @PostMapping("login")
-    public String fazFogin(String senha, String email, Model model) {
+    @PostMapping("minha-pagina")
+    public String paginaUsuario(Authentication authentication, Model model) {
 
-            Usuario usuarioBanco = loginModel.fazLogin(senha, email);
-            if (Objects.nonNull(usuarioBanco)) {
-                return "forward:minha-pagina/" + usuarioBanco.getCodigo();
-            }
-            model.addAttribute("erroLogin",true);
-            return "login";
-    }
-
-    @PostMapping("minha-pagina/{codigo}")
-    public String paginaUsuario(@PathVariable("codigo") String codigo, Model model) {
-
-        Usuario usuario = usuarioModel.buscarCodigo(codigo);
-        if (usuario == null) {
-            return "redirect:/";
+        if (authentication != null) {
+            informacaoUsuario(model, authentication.getName(),usuarioModel, mensagemModel, publicacaoModel);
+            return "usuario";
         }
-        informacaoUsuario(model, usuario, mensagemModel, publicacaoModel);
-        return "usuario";
+        return "redirect:/";
     }
 
     @NotNull
-    static void informacaoUsuario(Model model, Usuario usuario, MensagemModel mensagemModel, PublicacaoModel publicacaoModel) {
+    static void informacaoUsuario(Model model, String userName,
+                                  UsuarioModel usuarioModel, MensagemModel mensagemModel,
+                                  PublicacaoModel publicacaoModel) {
+        Usuario usuario = usuarioModel.buscaEmail(userName);
         LikePublicacao likePublicacao = publicacaoModel.rankComLike(usuario);
         model.addAttribute("usuario", usuario);
         model.addAttribute("caixaDeMensagem", mensagemModel.criaCaixaMensagem(usuario));

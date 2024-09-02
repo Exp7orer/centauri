@@ -35,17 +35,7 @@ public class HomeController {
         this.mensagemModel = mensagemModel;
         this.publicacaoModel = publicacaoModel;
     }
-
-    @GetMapping("minha-pagina")
-    public String minhaPagina(String codigo, Model model) {
-        Usuario usuario = usuarioModel.buscarCodigo(codigo);
-        if (usuario == null) {
-            return "redirect:/";
-        }
-        informacaoUsuario(model, usuario, mensagemModel, publicacaoModel);
-        return "usuario";
-    }
-
+    
     @GetMapping
     public String paginaInicial(Model model) {
         List<Publicacao> publicacoesBanco = publicacaoModel.listaRank();

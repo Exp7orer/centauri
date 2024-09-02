@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Usuario implements Serializable {
@@ -30,20 +31,21 @@ public class Usuario implements Serializable {
     private Login login;
     @OneToOne(cascade = CascadeType.ALL)
     private Historico historico;
-    @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Publicacao> publicacoes;
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<MensagemUsuario> messagesSystem;
 
+
     @Deprecated
     protected Usuario() {
         //Obrigatorio para JPA
-    	this.codigo = CodigoUtil.gerarCodigo();
+        this.codigo = CodigoUtil.gerarCodigo();
     }
 
 
-    public Usuario(@Nonnull String nome,@Nonnull String sobreNome, @Nonnull Login login) {
-    	this.codigo = CodigoUtil.gerarCodigo();
+    public Usuario(@Nonnull String nome, @Nonnull String sobreNome, @Nonnull Login login) {
+        this.codigo = CodigoUtil.gerarCodigo();
         this.nome = nome;
         this.sobreNome = sobreNome;
         this.login = login;
@@ -52,11 +54,11 @@ public class Usuario implements Serializable {
 
     }
 
-    public Usuario(@Nonnull UsuarioRecord record, Senha senha){
-    	this.codigo = CodigoUtil.gerarCodigo();
+    public Usuario(@Nonnull UsuarioRecord record, Senha senha) {
+        this.codigo = CodigoUtil.gerarCodigo();
         this.nome = record.nome();
         this.sobreNome = record.sobreNome();
-        this.login = new Login(record.email(),record.nomeUsuario(),false,senha);
+        this.login = new Login(record.email(), record.nomeUsuario(), false, senha);
         this.publicacoes = new ArrayList<>();
         this.messagesSystem = new ArrayList<>();
     }
@@ -125,12 +127,20 @@ public class Usuario implements Serializable {
         this.messagesSystem = messagesSystem;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return Objects.equals(id, usuario.id) && Objects.equals(codigo, usuario.codigo) && Objects.equals(nome, usuario.nome) && Objects.equals(sobreNome, usuario.sobreNome) && Objects.equals(login, usuario.login) && Objects.equals(historico, usuario.historico) && Objects.equals(publicacoes, usuario.publicacoes) && Objects.equals(messagesSystem, usuario.messagesSystem);
+        return Objects.equals(id, usuario.id)
+                && Objects.equals(codigo, usuario.codigo)
+                && Objects.equals(nome, usuario.nome)
+                && Objects.equals(sobreNome, usuario.sobreNome)
+                && Objects.equals(login, usuario.login)
+                && Objects.equals(historico, usuario.historico)
+                && Objects.equals(publicacoes, usuario.publicacoes)
+                && Objects.equals(messagesSystem, usuario.messagesSystem);
     }
 
     @Override
@@ -140,7 +150,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "usuario{" +
+        return "Usuario{" +
                 "id=" + id +
                 ", codigo='" + codigo + '\'' +
                 ", nome='" + nome + '\'' +

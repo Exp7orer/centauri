@@ -7,6 +7,7 @@ import br.com.exp7orer.centauri.service.EmailService;
 import br.com.exp7orer.centauri.uteis.SenhaUtil;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +32,7 @@ public class UsuarioModel {
 
     public Usuario salva(UsuarioRecord record) {
         if (record != null) {
-            Usuario usuario = new Usuario(record, SenhaUtil.criar(record.senha()));
+            Usuario usuario = new Usuario(record,new Senha(new BCryptPasswordEncoder().encode(record.senha())));
             usuarioRepository.save(usuario);
 
                 try {
@@ -67,11 +68,10 @@ public class UsuarioModel {
         if (senha.isBlank() || email.isBlank()) {
             throw new RuntimeException("Verifique os parametros eles não podem ficar em brancos!");
         }
-        Senha senhaBanco = SenhaUtil.criar(senha);
         Optional<Usuario> usuarioStream = usuarioRepository.findAll()
                 .stream()
                 .filter(usuario -> usuario.getLogin().getEmail().equals(email))
-                .filter(usuario -> usuario.getLogin().getSenha().getChave().equals(senhaBanco.getChave()))
+                .filter(usuario -> usuario.getLogin().getSenha().getChave().equals(senha))
                 .filter(usuario -> usuario.getLogin().isAtivo())
                 .findFirst();
         Usuario usuarioBanco = usuarioStream.orElse(null);
@@ -117,5 +117,9 @@ public class UsuarioModel {
          }
          usuarioBanco.getLogin().setAtivo(true);
          usuarioRepository.save(usuarioBanco);
+    }
+
+    public Usuario buscaEmail(String username) {
+        return usuarioRepository.findByLogin_Email(username).orElse(null);
     }
 }
