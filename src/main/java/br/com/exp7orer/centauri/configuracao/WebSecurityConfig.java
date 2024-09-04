@@ -18,12 +18,13 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests(requests -> requests
+        httpSecurity.csrf(csrf -> csrf.disable())
+        .authorizeHttpRequests(requests -> requests
                         .requestMatchers(PathRequest
                                 .toStaticResources()
                                 .atCommonLocations()).permitAll()
                         .requestMatchers("/").permitAll()
-                        .requestMatchers("/cadastro", "/cadastro/ativar").permitAll()
+                        .requestMatchers("/cadastro", "/cadastro/ativar","cadastro/verificarNomeUsuario").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.loginPage("/login")

@@ -2,6 +2,7 @@ package br.com.exp7orer.centauri.model;
 
 import br.com.exp7orer.centauri.entity.*;
 import br.com.exp7orer.centauri.record.UsuarioRecord;
+import br.com.exp7orer.centauri.repository.LoginRepository;
 import br.com.exp7orer.centauri.repository.UsuarioRepository;
 import br.com.exp7orer.centauri.service.EmailService;
 import br.com.exp7orer.centauri.uteis.SenhaUtil;
@@ -21,11 +22,13 @@ import java.util.Optional;
 public class UsuarioModel {
     private final UsuarioRepository usuarioRepository;
     private final EmailService email;
+    private final LoginRepository loginRepository;
 
     @Autowired
-    public UsuarioModel(UsuarioRepository usuarioRepository,EmailService email) {
+    public UsuarioModel(UsuarioRepository usuarioRepository,EmailService email,LoginRepository loginRepository) {
         this.usuarioRepository = usuarioRepository;
         this.email = email;
+        this.loginRepository = loginRepository;
 
     }
 
@@ -122,4 +125,10 @@ public class UsuarioModel {
     public Usuario buscaEmail(String username) {
         return usuarioRepository.findByLogin_Email(username).orElse(null);
     }
+   
+    
+    public boolean usuarioExiste(String nomeUsuario) {
+        return loginRepository.existsByNomeUsuario(nomeUsuario);
+    }
+    
 }
