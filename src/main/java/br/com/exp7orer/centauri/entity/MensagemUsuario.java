@@ -1,6 +1,7 @@
 package br.com.exp7orer.centauri.entity;
 
-import br.com.exp7orer.centauri.entity.interfaces.Mensagem;
+import br.com.exp7orer.centauri.service.mensagem.interfaces.Mensagem;
+import br.com.exp7orer.centauri.service.mensagem.interfaces.Remetente;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -65,6 +66,31 @@ public class MensagemUsuario implements Mensagem, Serializable {
 
     public void setData(LocalDateTime data) {
         this.data = data;
+    }
+
+    @Override
+    public LocalDateTime getDataEnvio() {
+        return null;
+    }
+
+    @Override
+    public LocalDateTime getDataLeitura() {
+        return null;
+    }
+
+    @Override
+    public String getTitulo() {
+        return "";
+    }
+
+    @Override
+    public String getConteudo() {
+        return "";
+    }
+
+    @Override
+    public Remetente remetente() {
+        return null;
     }
 
     @Override

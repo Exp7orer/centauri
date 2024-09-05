@@ -1,5 +1,11 @@
 package br.com.exp7orer.centauri.model;
 
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class LoginModel {
+
 import br.com.exp7orer.centauri.entity.Login;
 import br.com.exp7orer.centauri.entity.Usuario;
 import br.com.exp7orer.centauri.repository.LoginRepository;
@@ -38,9 +44,6 @@ public class LoginModel {
         }
         return usuarioModel.buscaPorSenhaEmail(senha,email);
     }
-    
-    
- 
     
 
 }

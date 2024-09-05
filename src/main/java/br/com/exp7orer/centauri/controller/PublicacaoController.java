@@ -45,49 +45,46 @@ public class PublicacaoController {
     }
 
     @PostMapping("postar")
-    public String postar(Usuario usuario, @RequestParam("texto") String texto,
+    public String postar(@RequestParam("texto") String texto,
                          @RequestParam("imagem") MultipartFile imagem,
-                         RedirectAttributes attributes) {
+                         Authentication authentication, Model model) {
 
-        Usuario usuarioBanco = usuarioModel.buscar(usuario);
-        if (usuarioBanco != null) {
-            publicacaoModel.salvarPublicacao(usuario, texto, imagem);
-            attributes.addAttribute("codigo",usuarioBanco.getCodigo());
-            return "/minha-pagina";
+        if (authentication != null) {
+            Usuario usuarioBanco = usuarioModel.buscaEmail(authentication.getName());
+            publicacaoModel.salvarPublicacao(usuarioBanco, texto, imagem);
+            return "forward:minha-pagina";
         }
         return "redirect:/";
     }
 
     @PostMapping("edita")
-    public String formEditar(Long id, String codigo, Model model) {
-        Publicacao publicacao = publicacaoModel.buscaId(id);
-        Usuario usuarioBanco = usuarioModel.buscarCodigo(codigo);
-        if (publicacao == null || usuarioBanco==null) {
-            return "redirect:/";
+    public String formEditar(Long id, Authentication authentication, Model model) {
+        if (authentication != null) {
+            Publicacao publicacao = publicacaoModel.buscaId(id);
+            Usuario usuarioBanco = usuarioModel.buscaEmail(authentication.getName());
+            model.addAttribute("usuario", usuarioBanco);
+            model.addAttribute("caixaDeMensagem", mensagemModel.criaCaixaMensagem(usuarioBanco));
+            model.addAttribute("publicacao",publicacao);
+            return "edita-publicacao";
         }
-        model.addAttribute("usuario", usuarioBanco);
-        model.addAttribute("caixaDeMensagem", mensagemModel.criaCaixaMensagem(usuarioBanco));
-        model.addAttribute("publicacao",publicacao);
-        return "edita-publicacao";
+        return "redirect:/";
     }
 
     @PostMapping("alteraPublicacao")
     public String alteraPublicacao(@RequestParam("idPublicacao") Long idPublicacao,
                                    @RequestParam("texto") String texto,
                                    @RequestParam("imagem") MultipartFile imagem,
-                                   Authentication authentication, Model model ){
+                                   Model model ){
 
         publicacaoModel.editar(idPublicacao,texto,imagem);
-        informacaoUsuario(model,authentication.getName(), usuarioModel, mensagemModel, publicacaoModel);
 
-        return "usuario";
+        return "forward:minha-pagina";
     }
 
     @PostMapping("excluir")
-    public String excluirPublicacao(Long idPublicacao,Long codigo,Authentication authentication, Model model){
+    public String excluirPublicacao(Long idPublicacao, Model model){
         publicacaoModel.desativa(idPublicacao);
-        informacaoUsuario(model,authentication.getName(), usuarioModel, mensagemModel, publicacaoModel);
-        return "usuario";
+        return "forward:minha-pagina";
     }
 
     @PostMapping(path = "/like/{id}")

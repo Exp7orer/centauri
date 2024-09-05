@@ -14,17 +14,22 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf(csrf -> csrf.disable())
+         httpSecurity.csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(requests -> requests
+
                         .requestMatchers(PathRequest
                                 .toStaticResources()
                                 .atCommonLocations()).permitAll()
                         .requestMatchers("/").permitAll()
-                        .requestMatchers("/cadastro", "/cadastro/ativar","cadastro/verificarNomeUsuario").permitAll()
+
+                        .requestMatchers("/dislike/**", "/like/**").permitAll()
+                        .requestMatchers("/imagens/publicacao/**").permitAll()
+                        .requestMatchers("/static/**", "/css/**", "/js/**", "/fontaweasome/**").permitAll()
+                        .requestMatchers("/cadastro", "/cadastro/ativar","cadastro/verificarNomeUsuario").permitAll()       
+                        
+
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.loginPage("/login")
@@ -41,7 +46,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public DetalhesUsuarioService detalhesUsuarioService(UsuarioRepository usuarioRepository){
+    public DetalhesUsuarioService detalhesUsuarioService(UsuarioRepository usuarioRepository) {
         return new DetalhesUsuarioService(usuarioRepository);
     }
 

@@ -3,8 +3,7 @@ package br.com.exp7orer.centauri.model;
 import br.com.exp7orer.centauri.beans.CaixaMensagem;
 import br.com.exp7orer.centauri.entity.MensagemUsuario;
 import br.com.exp7orer.centauri.entity.Usuario;
-import br.com.exp7orer.centauri.repository.UsuarioRepository;
-import br.com.exp7orer.centauri.entity.interfaces.Mensagem;
+import br.com.exp7orer.centauri.service.mensagem.interfaces.Mensagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,17 +19,15 @@ public class MensagemModel {
 
 
     @Autowired
-    public MensagemModel(UsuarioRepository usuarioRepository, UsuarioModel usuarioModel) {
+    public MensagemModel(UsuarioModel usuarioModel) {
         this.usuarioModel = usuarioModel;
     }
 
     public void enviar(Usuario usuario, String mensagem) {
-
-        Usuario usuarioBanco = usuarioModel.buscar(usuario);
-        if (usuarioBanco != null) {
-            MensagemUsuario mensagemSistema = new MensagemUsuario(usuarioBanco, mensagem);
-            usuarioBanco.setMessagesSystem(List.of(mensagemSistema));
-            usuarioModel.save(usuarioBanco);
+        if (usuario != null) {
+            MensagemUsuario mensagemSistema = new MensagemUsuario(usuario, mensagem);
+            usuario.setMessagesSystem(List.of(mensagemSistema));
+            usuarioModel.save(usuario);
         }
     }
 
