@@ -9,12 +9,9 @@ import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -48,17 +45,14 @@ public class UsuarioModel {
         return null;
     }
 
+    public Usuario buscaEmail(String username) {
+        return usuarioRepository.findByLogin_Email(username).orElse(null);
+    }
+
     @Transactional
     public Usuario buscar(Usuario usuario) {
         return usuarioRepository.findByCodigo(usuario.getCodigo()).orElse(null);
     }
-
-    @Transactional
-    public Usuario buscarCodigo(String codigo) {
-        return usuarioRepository.findByCodigo(codigo).orElse(null);
-
-    }
-
 
     @Transactional(readOnly = true)
     public Usuario buscaPorSenhaEmail(String senha, String email) {
@@ -119,7 +113,5 @@ public class UsuarioModel {
          usuarioRepository.save(usuarioBanco);
     }
 
-    public Usuario buscaEmail(String username) {
-        return usuarioRepository.findByLogin_Email(username).orElse(null);
-    }
+
 }

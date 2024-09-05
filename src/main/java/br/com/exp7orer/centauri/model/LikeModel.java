@@ -1,18 +1,14 @@
 package br.com.exp7orer.centauri.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import br.com.exp7orer.centauri.beans.LikePublicacao;
 import br.com.exp7orer.centauri.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import br.com.exp7orer.centauri.entity.Likes;
-import br.com.exp7orer.centauri.entity.Publicacao;
 import br.com.exp7orer.centauri.repository.LikeRepository;
 import jakarta.transaction.Transactional;
 
