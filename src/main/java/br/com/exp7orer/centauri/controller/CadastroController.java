@@ -1,6 +1,7 @@
 package br.com.exp7orer.centauri.controller;
 
 import br.com.exp7orer.centauri.entity.Usuario;
+import br.com.exp7orer.centauri.model.LoginModel;
 import br.com.exp7orer.centauri.model.MensagemModel;
 import br.com.exp7orer.centauri.model.PublicacaoModel;
 import br.com.exp7orer.centauri.model.UsuarioModel;
@@ -20,11 +21,13 @@ public class CadastroController {
     private final MensagemModel mensagemModel;
     private final  PublicacaoModel publicacaoModel;
 
+
     @Autowired
     public CadastroController(UsuarioModel usuarioModel, MensagemModel mensagemModel, PublicacaoModel publicacaoModel) {
         this.usuarioModel = usuarioModel;
         this.mensagemModel = mensagemModel;
         this.publicacaoModel = publicacaoModel;
+       
     }
 
     @PostMapping
@@ -77,4 +80,14 @@ public class CadastroController {
         }
 
     }
+    
+    @GetMapping("verificarNomeUsuario")
+    @ResponseBody
+    public int verificarNomeUsuario(@RequestParam("nomeUsuario") String nomeUsuario) {
+        System.out.println("Verificando nome de usuário: " + nomeUsuario);
+        boolean existe = usuarioModel.usuarioExiste(nomeUsuario); 
+        System.out.println("Nome de usuário existe: " + existe);
+        return existe ? 1 : 0; 
+    }
+   
 }
