@@ -115,13 +115,6 @@ public class UsuarioModel {
          usuarioBanco.getLogin().setAtivo(true);
          usuarioRepository.save(usuarioBanco);
     }
-
-
-
-    public Usuario buscaEmail(String username) {
-        return usuarioRepository.findByLogin_Email(username).orElse(null);
-    }
-   
     
     public boolean usuarioExiste(String nomeUsuario) {
         return loginRepository.existsByNomeUsuario(nomeUsuario);
