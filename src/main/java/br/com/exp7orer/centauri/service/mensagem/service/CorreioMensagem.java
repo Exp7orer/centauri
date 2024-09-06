@@ -19,7 +19,6 @@ public class CorreioMensagem implements Mensageiro {
     private final List<Transportador> transportadoresNormal = new ArrayList<>();
     private final List<Transportador> transportadoresBaixa = new ArrayList<>();
 
-
     @Override
     public void recebeMensagem(Destinatario destinatario, Remetente remetente, Mensagem mensagem, Prioridade prioridade) {
         if (mensagem == null || mensagem.getConteudo() == null || mensagem.getTitulo() == null) {
