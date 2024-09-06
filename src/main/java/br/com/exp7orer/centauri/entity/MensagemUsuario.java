@@ -88,10 +88,10 @@ public class MensagemUsuario implements Mensagem, Serializable {
         return "";
     }
 
-    @Override
-    public Remetente remetente() {
-        return null;
-    }
+//    @Override
+//    public Remetente remetente() {
+//        return null;
+//    }
 
     @Override
     public boolean isLida() {
