@@ -15,11 +15,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MensagensTest {
 
-
     @Test
     public void mensagemEnviadaAMesmaRecebida() {
         RemetenteEntity remetente = new RemetenteEntity("Anderson","email@teste.com");
-        MensagemEntity mensagem = new MensagemEntity("Boas Vindas!","Bem vindo ao Centauri!",remetente);
+        MensagemEntity mensagem = new MensagemEntity("Boas Vindas!","Bem vindo ao Centauri!");
         CaixaPostalEntity caixaPostal = new CaixaPostalEntity(mensagem);
         DestinatarioEntity destinatario = new DestinatarioEntity("Douglas","douglas@teste.com",caixaPostal);
         Mensageiro correio = new CorreioMensagem();
@@ -29,9 +28,9 @@ public class MensagensTest {
     }
 
     @Test
-    public void excecaoEnviarMensagemConteudo() {
+    public void excecaoEnviarMensagemConteudoETituloEmBranco() {
         RemetenteEntity remetente = new RemetenteEntity("Anderson","email@teste.com");
-        MensagemEntity mensagem = new MensagemEntity("Boas Vindas!","",remetente);
+        MensagemEntity mensagem = new MensagemEntity("Boas Vindas!","");
         CaixaPostalEntity caixaPostal = new CaixaPostalEntity(mensagem);
         DestinatarioEntity destinatario = new DestinatarioEntity("Douglas","douglas@teste.com",caixaPostal);
         Mensageiro correio = new CorreioMensagem();

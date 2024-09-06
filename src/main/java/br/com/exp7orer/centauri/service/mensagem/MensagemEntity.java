@@ -30,17 +30,16 @@ public class MensagemEntity implements Mensagem, Serializable {
     private boolean lida = false;
     @ManyToOne
     private CaixaPostalEntity caixaPostal;
+
     @Deprecated
     protected MensagemEntity() {
         //Obrigatorio JPA
     }
 
-    public MensagemEntity(@NotNull @NotBlank String titulo, @NotNull @NotBlank String conteudo,
-                          @NotNull RemetenteEntity remetente) {
+    public MensagemEntity(@NotNull @NotBlank String titulo, @NotNull @NotBlank String conteudo) {
         this.dataEnvio = LocalDateTime.now();
         this.titulo = titulo;
         this.conteudo = conteudo;
-        this.remetente = remetente;
 
     }
 
@@ -108,10 +107,6 @@ public class MensagemEntity implements Mensagem, Serializable {
         return this.conteudo;
     }
 
-    @Override
-    public Remetente remetente() {
-        return this.remetente;
-    }
 
     @Override
     public boolean isLida() {

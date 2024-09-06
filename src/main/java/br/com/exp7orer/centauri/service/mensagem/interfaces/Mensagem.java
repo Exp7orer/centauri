@@ -7,6 +7,5 @@ public interface Mensagem {
    LocalDateTime getDataLeitura();
    String getTitulo();
    String getConteudo();
-   Remetente remetente();
    boolean isLida();
 }
