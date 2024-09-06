@@ -1,8 +1,6 @@
 package br.com.exp7orer.centauri.service.mensagem.service;
 
 import br.com.exp7orer.centauri.service.beans.Transportador;
-import br.com.exp7orer.centauri.service.mensagem.CaixaPostalEntity;
-import br.com.exp7orer.centauri.service.mensagem.MensagemEntity;
 import br.com.exp7orer.centauri.service.mensagem.interfaces.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -21,8 +19,8 @@ private final List<Transportador>transportadores = new ArrayList<>();
     public void armazenar(@NotNull @NotEmpty List<Transportador> transportadores) {
       for (Transportador transportador : transportadores){
          for(Destinatario destinatario : destinatarios){
-             if(destinatario.getEndereco().equals(transportador.getDestinatario().getEndereco())){
-                 destinatario.caixaPostal().mensagens().add(transportador.getMensagem());
+             if(destinatario.getEndereco().equals(transportador.destinatario().getEndereco())){
+                 destinatario.caixaPostal().mensagens().add(transportador.mensagem());
              }
          }
       }
