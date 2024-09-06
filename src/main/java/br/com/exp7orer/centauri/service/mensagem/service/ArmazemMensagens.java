@@ -1,5 +1,7 @@
 package br.com.exp7orer.centauri.service.mensagem.service;
 
+import br.com.exp7orer.centauri.service.beans.Transportador;
+import br.com.exp7orer.centauri.service.mensagem.CaixaPostalEntity;
 import br.com.exp7orer.centauri.service.mensagem.MensagemEntity;
 import br.com.exp7orer.centauri.service.mensagem.interfaces.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -11,23 +13,27 @@ import java.util.List;
 
 @Component
 public class ArmazemMensagens implements Armazem {
-private List<Mensagem> mensagensArmazenada = new ArrayList<>();
+    
+private final List<Destinatario>destinatarios = new ArrayList<>();
+private final List<Transportador>transportadores = new ArrayList<>();
 
     @Override
-    public void armazenar(@NotNull @NotEmpty List<Mensagem> mensagens) {
-        mensagens.forEach(m-> mensagensArmazenada.add(m));
+    public void armazenar(@NotNull @NotEmpty List<Transportador> transportadores) {
+      for (Transportador transportador : transportadores){
+         for(Destinatario destinatario : destinatarios){
+             if(destinatario.getEndereco().equals(transportador.getDestinatario().getEndereco())){
+                 destinatario.caixaPostal().mensagens().add(transportador.getMensagem());
+             }
+         }
+      }
     }
 
     @Override
     public CaixaPostal mensagens(Destinatario destinatario) {
-        return null;
+      return  destinatarios.stream()
+                .filter(d -> d.getEndereco().equals(destinatario.getEndereco()))
+              .findFirst().orElse(null)
+              .caixaPostal();
     }
 
-    @Override
-    public List<Mensagem> mensagens(Remetente remetente) {
-        return mensagensArmazenada.stream()
-                .filter(mensagem -> mensagem.remetente()
-                        .equals(remetente)
-                ).toList();
-    }
 }
