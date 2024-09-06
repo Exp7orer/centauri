@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @Service
 public class CorreioMensagem implements Mensageiro {
@@ -19,24 +21,70 @@ public class CorreioMensagem implements Mensageiro {
     private final List<Transportador> transportadoresNormal = new ArrayList<>();
     private final List<Transportador> transportadoresBaixa = new ArrayList<>();
 
+
+
+    Mensagem passarmsg;
+    
+
     @Override
     public void recebeMensagem(Destinatario destinatario, Remetente remetente, Mensagem mensagem, Prioridade prioridade) {
-        if (mensagem == null || mensagem.getConteudo() == null || mensagem.getTitulo() == null) {
-            throw new MensagemException("Erro mensagem nao pode ser nula");
-        }
-        if (mensagem.getTitulo().equals("") || mensagem.getConteudo().equals("")) {
-            throw new MensagemException("Erro mensagem nao pode ficar em branco!");
-        }
-
+    	
+        validarNulo(mensagem, "mensagem");
+        validarNulo(mensagem.getConteudo(), "conteúdo da mensagem");
+        validarNulo(mensagem.getTitulo(), "Mensagem titulo");
+//        validarNulo(mensagem.getDataEnvio(), "Mensagem data de envio"); // Data entraria na validação?
+//        validarNulo(mensagem.getDataLeitura() , "Mensagem data leitura"); // validar data?
+//        validarNulo(mensagem.isLida(), "Mensagem lida"); // Não sei se o boolean entraria
+        validarNaoBranco(mensagem.getTitulo(), "titulo mensagem");
+        validarNaoBranco(mensagem.getConteudo(), "conteudo mensagem");        
+                
+        validarNulo(destinatario, "destinatario");
+        validarNulo(destinatario.caixaPostal(),"caixa postal");
+        validarNaoBranco(destinatario.getNome(), "destinatario nome");
+        validarNaoBranco(destinatario.getEndereco(), "destinatario endereço");
+        
+        validarNulo(remetente, "remetente");
+        validarNaoBranco(remetente.getNome(), "nome do remetente");
+        validarNaoBranco(remetente.getEndereco(), "remetente endereço");
+        
+        
+        
         switch (prioridade) {
             case URGENTE -> {
                 //Mensagem enviada imediatamente
+            	transportadoresUrgente.add(new Transportador(destinatario, remetente, mensagem));
+            	armazenamentoMensagens(transportadoresUrgente);
             }
             case NORMAL -> {
                 //Demora 5 minutos para enviar
+            	
+            	Timer timer = new Timer();
+            	final long cincoMinutos = (60000 * 5) ;
+            	
+            	TimerTask processoNormal = new TimerTask() {			
+					@Override
+					public void run() {
+						transportadoresNormal.add(new Transportador(destinatario, remetente, mensagem));
+						armazenamentoMensagens(transportadoresNormal);
+					}
+				};
+				timer.schedule(processoNormal, cincoMinutos);
+            	
             }
             case BAIXA -> {
                 //Demorar 10 minutos para enviar
+            	
+            	Timer timer = new Timer();
+            	final long dezMinutos = (60000 * 10) ;
+            	TimerTask processoBaixo = new TimerTask() {
+					@Override
+					public void run() {
+						transportadoresBaixa.add(new Transportador(destinatario, remetente, mensagem));
+						armazenamentoMensagens(transportadoresBaixa);						
+					}
+				};
+				timer.schedule(processoBaixo, dezMinutos);
+            	
             }
         }
 
@@ -53,12 +101,32 @@ public class CorreioMensagem implements Mensageiro {
     }
 
     @Override
-    public void armazenamentoMensagens() {
-
+    public void armazenamentoMensagens(List<Transportador> transportador) {
+    	armazem.armazenar(transportador);
     }
 
     @Override
     public Mensagem buscaMensagem(Remetente remetente, Mensagem mensagem) {
-        return null;
+//        return null;
+        return  passarmsg = mensagem;
     }
+    
+    
+    
+    /***************************Validacoes****************************/
+    
+    private void validarNulo(Object obj, String nome) {
+        if (obj == null) {
+            throw new MensagemException("Erro! " + nome + " não pode ser nulo.");
+        }
+    }
+
+    private void validarNaoBranco(String stringObjeto, String nome) {
+    	 if (stringObjeto == null || stringObjeto.trim().isEmpty()) {
+    	     throw new MensagemException("Erro! " + nome + " não pode estar em branco.");
+    	    }
+    }
+    
+    
+    
 }
