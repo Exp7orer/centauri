@@ -1,4 +1,4 @@
-package br.com.exp7orer.centauri.service.mensagem;
+package br.com.exp7orer.centauri.service.mensagem.entity;
 
 
 import br.com.exp7orer.centauri.service.mensagem.interfaces.Remetente;

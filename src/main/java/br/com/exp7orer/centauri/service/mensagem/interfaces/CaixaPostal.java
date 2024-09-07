@@ -5,4 +5,5 @@ import java.util.List;
 public interface CaixaPostal {
     Long getId();
     List<Mensagem> mensagens();
+    void addMensagem(Mensagem mensagem);
 }
