@@ -32,11 +32,10 @@ public class DestinatarioEntity implements Destinatario, Serializable {
     }
 
     public DestinatarioEntity(@NotNull @NotBlank @NotEmpty String nome,
-                              @NotNull @NotBlank @NotEmpty String endereco,
-                              @NotNull CaixaPostalEntity caixaPostal) {
+                              @NotNull @NotBlank @NotEmpty String endereco) {
         this.nome = nome;
         this.endereco = endereco;
-        this.caixaPostal = caixaPostal;
+        this.caixaPostal = new CaixaPostalEntity();
     }
 
     public void setId(Long id) {
