@@ -1,4 +1,4 @@
-package br.com.exp7orer.centauri.service.mensagem;
+package br.com.exp7orer.centauri.service.mensagem.entity;
 
 import br.com.exp7orer.centauri.service.mensagem.interfaces.CaixaPostal;
 import br.com.exp7orer.centauri.service.mensagem.interfaces.Destinatario;
@@ -51,7 +51,7 @@ public class DestinatarioEntity implements Destinatario, Serializable {
         this.endereco = endereco;
     }
 
-    public CaixaPostal getCaixaPostal() {
+    public CaixaPostalEntity getCaixaPostal() {
         return caixaPostal;
     }
 

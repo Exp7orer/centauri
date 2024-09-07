@@ -1,10 +1,11 @@
-package br.com.exp7orer.centauri.service.mensagem;
+package br.com.exp7orer.centauri.service.mensagem.entity;
 
 import br.com.exp7orer.centauri.service.mensagem.interfaces.Mensagem;
-import br.com.exp7orer.centauri.service.mensagem.interfaces.Remetente;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -25,11 +26,8 @@ public class MensagemEntity implements Mensagem, Serializable {
     private String titulo;
     @Column(length = 1000)
     private String conteudo;
-    @OneToOne
-    private RemetenteEntity remetente;
     private boolean lida = false;
-    @ManyToOne
-    private CaixaPostalEntity caixaPostal;
+
 
     @Deprecated
     protected MensagemEntity() {
@@ -67,24 +65,8 @@ public class MensagemEntity implements Mensagem, Serializable {
         this.conteudo = conteudo;
     }
 
-    public RemetenteEntity getRemetente() {
-        return remetente;
-    }
-
-    public void setRemetente(@NotNull RemetenteEntity remetente) {
-        this.remetente = remetente;
-    }
-
     public void setLida(boolean lida) {
         this.lida = lida;
-    }
-
-    public CaixaPostalEntity getCaixaPostal() {
-        return caixaPostal;
-    }
-
-    public void setCaixaPostal(CaixaPostalEntity caixaPostal) {
-        this.caixaPostal = caixaPostal;
     }
 
     @Override
@@ -118,12 +100,14 @@ public class MensagemEntity implements Mensagem, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MensagemEntity that = (MensagemEntity) o;
-        return lida == that.lida && Objects.equals(id, that.id) && Objects.equals(dataEnvio, that.dataEnvio) && Objects.equals(dataLeitura, that.dataLeitura) && Objects.equals(titulo, that.titulo) && Objects.equals(conteudo, that.conteudo) && Objects.equals(remetente, that.remetente) && Objects.equals(caixaPostal, that.caixaPostal);
+        return lida == that.lida && Objects.equals(id, that.id) && Objects.equals(dataEnvio, that.dataEnvio)
+                && Objects.equals(dataLeitura, that.dataLeitura) && Objects.equals(titulo, that.titulo)
+                && Objects.equals(conteudo, that.conteudo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dataEnvio, dataLeitura, titulo, conteudo, remetente, lida, caixaPostal);
+        return Objects.hash(id, dataEnvio, dataLeitura, titulo, conteudo,lida);
     }
 
     @Override
@@ -134,9 +118,8 @@ public class MensagemEntity implements Mensagem, Serializable {
                 ", dataLeitura=" + dataLeitura +
                 ", titulo='" + titulo + '\'' +
                 ", conteudo='" + conteudo + '\'' +
-                ", remetente=" + remetente +
+                ", remetente=" +
                 ", lida=" + lida +
-                ", caixaPostal=" + caixaPostal +
                 '}';
     }
 }

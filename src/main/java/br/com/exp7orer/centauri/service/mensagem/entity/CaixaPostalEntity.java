@@ -1,4 +1,4 @@
-package br.com.exp7orer.centauri.service.mensagem;
+package br.com.exp7orer.centauri.service.mensagem.entity;
 
 import br.com.exp7orer.centauri.service.mensagem.interfaces.CaixaPostal;
 import br.com.exp7orer.centauri.service.mensagem.interfaces.Mensagem;
@@ -20,7 +20,8 @@ public class CaixaPostalEntity implements CaixaPostal, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(mappedBy = "caixaPostal",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "caixa_postal_id")
     private List<MensagemEntity> mensagens;
 
     @Deprecated
@@ -29,7 +30,10 @@ public class CaixaPostalEntity implements CaixaPostal, Serializable {
     }
 
     public CaixaPostalEntity(@NotNull @NotEmpty List<MensagemEntity> mensagens) {
-        this.mensagens = mensagens;
+        if (this.mensagens== null || this.mensagens.isEmpty()){
+            this.mensagens = new ArrayList<>(mensagens);
+        }
+        this.mensagens.addAll(mensagens);
     }
 
     public CaixaPostalEntity(@NotNull MensagemEntity mensagem) {
@@ -54,6 +58,14 @@ public class CaixaPostalEntity implements CaixaPostal, Serializable {
     @Override
     public Long getId() {
         return this.id;
+    }
+
+    @Override
+    public void addMensagem(Mensagem mensagem){
+        if(this.mensagens == null || this.mensagens.isEmpty()){
+            mensagens = new ArrayList<>();
+        }
+        this.mensagens.add((MensagemEntity) mensagem);
     }
 
     @Override
