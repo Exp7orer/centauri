@@ -27,8 +27,7 @@ public class MensagensTest {
     public void mensagemEnviadaAMesmaRecebida() {
         RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
         MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
-        CaixaPostalEntity caixaPostal = new CaixaPostalEntity(mensagem);
-        DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com", caixaPostal);
+        DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
         Mensageiro correio = new CorreioMensagem();
         correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.URGENTE);
         Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
@@ -39,8 +38,7 @@ public class MensagensTest {
     public void excecaoEnviarMensagemConteudoETituloEmBranco() {
         RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
         MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "");
-        CaixaPostalEntity caixaPostal = new CaixaPostalEntity(mensagem);
-        DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com", caixaPostal);
+        DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
         Mensageiro correio = new CorreioMensagem();
         MensagemException mensagemException = assertThrows(MensagemException.class, () -> {
             correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.URGENTE);
@@ -49,22 +47,19 @@ public class MensagensTest {
 
     @Test
     public void enviar1000MensagensAcada5MinutosDurantante20Minutos() {
-        RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
-        MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
-        CaixaPostalEntity caixaPostal = new CaixaPostalEntity(mensagem);
-        DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com", caixaPostal);
-        Mensageiro correio = new CorreioMensagem();
         Armazem armazem = new ArmazemMensagens();
-        for (int i = 0; i <= 999; i++) {
+        RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
+        DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
+        Mensageiro correio = new CorreioMensagem(armazem);
+        for (int i = 1; i <= 1000; i++) {
             System.out.println("Enquanto não enviar todas as mensagem sua aplicação ficará travada!");
             System.out.println("Quantidade de Mensagens: " + i);
-            MensagemEntity mensagemNova = new MensagemEntity("Boas Vindas!",
+            MensagemEntity mensagem = new MensagemEntity("Boas Vindas!",
                     "Bem vindo ao Centauri! numero: " + i);
             correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.URGENTE);
-            Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
         }
         List<Mensagem> listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
-        System.out.println(listaMensagem.size());
+        assertEquals(1000,listaMensagem.size());
 
     }
 
@@ -75,10 +70,9 @@ public class MensagensTest {
     public void enviar1000MensagensAcada1MinutosDurantante20Minutos() {
         RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
         MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
-        CaixaPostalEntity caixaPostal = new CaixaPostalEntity(mensagem);
-        DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com", caixaPostal);
+        DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
         Mensageiro correio = new CorreioMensagem();
-        for (int i = 0; i <= 999; i++) {
+        for (long i = 1; i <= 1000; i++) {
             System.out.println("Enquanto não enviar todas as mensagem sua aplicação ficará travada!");
             System.out.println("Quantidade de Mensagens: " + i);
             correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.URGENTE);
