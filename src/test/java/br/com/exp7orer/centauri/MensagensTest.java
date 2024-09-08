@@ -14,10 +14,13 @@ import br.com.exp7orer.centauri.service.mensagem.service.ArmazemMensagens;
 import br.com.exp7orer.centauri.service.mensagem.service.CorreioMensagem;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -50,7 +53,7 @@ public class MensagensTest {
         Armazem armazem = new ArmazemMensagens();
         RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
         DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
-        Mensageiro correio = new CorreioMensagem(armazem);
+        Mensageiro correio = new CorreioMensagem();
         for (int i = 1; i <= 1000; i++) {
             System.out.println("Enquanto não enviar todas as mensagem sua aplicação ficará travada!");
             System.out.println("Quantidade de Mensagens: " + i);
@@ -80,5 +83,100 @@ public class MensagensTest {
         }
 
     }
+    
+    /**************************************************************************/
+    
+    @Test
+    public void enviar1000MensagensPrioridadeUrgente() throws InterruptedException {
+    	
+        RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
+        MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
+        DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
+        Mensageiro correio = new CorreioMensagem();
+        for (long i = 1; i <= 1000; i++) {
+            correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.URGENTE);
+            Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
+            System.out.println("1000 msg prioridade URGENTE");
+            System.out.println("Quantidade de Mensagens: " + i);
+        }
+       
+
+    }
+    
+    @Test
+    public void enviar1000MensagensPrioridadeNormal() throws InterruptedException {
+    	
+        RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
+        MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
+        DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
+        Mensageiro correio = new CorreioMensagem();
+        
+        for (long i = 1; i <= 1000; i++) {
+            correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.NORMAL); 
+            System.out.println("1000 msg prioridade NORMAL");
+            System.out.println("Quantidade de Mensagens: " + i);
+        }
+    }
+    
+    @Test
+    public void enviar1000MensagensPrioridadeBaixa() throws InterruptedException {
+      Thread.sleep(80);
+        RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
+        MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
+        DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
+        Mensageiro correio = new CorreioMensagem();
+        for (long i = 1; i <= 1000; i++) {
+            correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.BAIXA);
+            Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
+
+            System.out.println("1000 msg prioridade BAIXA");
+            System.out.println("Quantidade de Mensagens: " + i);
+        }
+        
+
+    }
+    
+    
+    @Test
+    public void enviarMensagensEmOrdem() throws InterruptedException, FileNotFoundException {
+
+        RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
+        MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
+        DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
+        Mensageiro correio = new CorreioMensagem();
+        
+        //URGENTE
+        System.out.println("Iniciando o envio de 1000 mensagens com prioridade URGENTE");
+        for (long i = 1; i <= 1000; i++) {
+            correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.URGENTE);
+            Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
+            System.out.println("Quantidade de Mensagens URGENTE: " + i);
+        }
+        Thread.sleep(20000);
+
+        //NORMAL
+        System.out.println("Iniciando o envio de 1000 mensagens com prioridade NORMAL");
+        for (long i = 1; i <= 1000; i++) {
+            correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.NORMAL);
+            Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
+            System.out.println("Quantidade de Mensagens NORMAL: " + i);
+        }
+        
+        Thread.sleep(20000); 
+
+        //BAIXA
+        System.out.println("Iniciando o envio de 1000 mensagens com prioridade BAIXA");
+        for (long i = 1; i <= 1000; i++) {
+            correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.BAIXA);
+            Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
+            System.out.println("Quantidade de Mensagens BAIXA: " + i);
+        }
+        
+    }
+
+  
+    
+    
+    
 
 }

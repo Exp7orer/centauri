@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class CorreioMensagem implements Mensageiro {
@@ -38,50 +42,50 @@ public class CorreioMensagem implements Mensageiro {
         validarNaoBranco(remetente.getNome(), "nome do remetente");
         validarNaoBranco(remetente.getEndereco(), "remetente endereço");
 
+   
 
-        switch (prioridade) {
-            case URGENTE -> {
-                //Mensagem enviada imediatamente
-                transportadoresUrgente.add(new Transportador(destinatario, remetente, mensagem));
-                armazenamentoMensagens(transportadoresUrgente);
-            }
-            case NORMAL -> {
-                //Demora 5 minutos para enviar
-
-                Timer timer = new Timer();
-                final long cincoMinutos = (60000 * 5);
-
-                TimerTask processoNormal = new TimerTask() {
-                    @Override
-                    public void run() {
-                        transportadoresNormal.add(new Transportador(destinatario, remetente, mensagem));
-                        armazenamentoMensagens(transportadoresNormal);
-                    }
-                };
-                timer.schedule(processoNormal, cincoMinutos);
-
-            }
-            case BAIXA -> {
-                //Demorar 10 minutos para enviar
-
-                Timer timer = new Timer();
-                final long dezMinutos = (60000 * 10);
-                TimerTask processoBaixo = new TimerTask() {
-                    @Override
-                    public void run() {
-                        transportadoresBaixa.add(new Transportador(destinatario, remetente, mensagem));
-                        armazenamentoMensagens(transportadoresBaixa);
-                    }
-                };
-                timer.schedule(processoBaixo, dezMinutos);
-
-            }
-        }
-
+        gerenciamentoMensagens(prioridade, destinatario, remetente, mensagem);
+        
+        
     }
 
     @Override
-    public void gerenciamentoMensagens() {
+    public void gerenciamentoMensagens(Prioridade prioridade, Destinatario destinatario, Remetente remetente, Mensagem mensagem) {
+    	
+    	 switch (prioridade) {
+	      case URGENTE -> {
+	          //Mensagem enviada em 1 minuto
+	    	
+	    	  Runnable prioridadeUrgente = ()-> {	    		  
+	    		  transportadoresUrgente.add(new Transportador(destinatario, remetente, mensagem));
+	    		  armazenamentoMensagens(transportadoresUrgente);
+	    		  transportadoresUrgente.clear();
+	    		  
+	    	  };
+	    	  envioUrgente.schedule(prioridadeUrgente, 1, TimeUnit.MINUTES);
+	      
+	      }
+		      case NORMAL -> {
+	            //Demora 5 minutos para enviar
+		    	  Runnable prioridadeNormal = ()->{
+		    		  		    		  
+		    		  transportadoresNormal.add(new Transportador(destinatario, remetente, mensagem));
+		    		  armazenamentoMensagens(transportadoresNormal);
+		    		  transportadoresNormal.clear();
+		    	  };
+	            envioNormal.schedule(prioridadeNormal, 5, TimeUnit.MINUTES); 
+	
+	        }
+		      case BAIXA -> {
+	            //Demorar 10 minutos para enviar
+		    	  Runnable prioridadeBaixa = () ->{		    		  
+		    		  transportadoresBaixa.add(new Transportador(destinatario, remetente, mensagem));
+		    		  armazenamentoMensagens(transportadoresBaixa);		
+		    		  transportadoresBaixa.clear();
+		    	  };
+		    	  envioBaixo.schedule(prioridadeBaixa, 10, TimeUnit.MINUTES);
+	        } 
+       }
 
     }
 
@@ -117,5 +121,9 @@ public class CorreioMensagem implements Mensageiro {
         }
     }
 
-
+    private final ScheduledExecutorService envioUrgente = Executors.newScheduledThreadPool(1);
+    private final ScheduledExecutorService envioNormal = Executors.newScheduledThreadPool(1);
+    private final ScheduledExecutorService envioBaixo = Executors.newScheduledThreadPool(1);
+    
+    
 }
