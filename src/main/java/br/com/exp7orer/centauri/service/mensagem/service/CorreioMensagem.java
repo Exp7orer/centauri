@@ -4,13 +4,11 @@ import br.com.exp7orer.centauri.service.mensagem.enums.Prioridade;
 import br.com.exp7orer.centauri.service.mensagem.exceptions.MensagemException;
 import br.com.exp7orer.centauri.service.mensagem.interfaces.*;
 import br.com.exp7orer.centauri.service.mensagem.record.Transportador;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -18,10 +16,20 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class CorreioMensagem implements Mensageiro {
     //@Qualifier("amarzemMensagens")
-    Armazem armazem = new ArmazemMensagens();
+    private Armazem armazem = new ArmazemMensagens();
     private final List<Transportador> transportadoresUrgente = new ArrayList<>();
     private final List<Transportador> transportadoresNormal = new ArrayList<>();
     private final List<Transportador> transportadoresBaixa = new ArrayList<>();
+
+    public CorreioMensagem() {
+        //inicie os atributos aqui
+        this.armazem = new ArmazemMensagens();
+    }
+
+    public CorreioMensagem(@NotNull Armazem armazem) {
+        this();
+        this.armazem = armazem;
+    }
 
 
     @Override
@@ -50,6 +58,7 @@ public class CorreioMensagem implements Mensageiro {
     }
 
     @Override
+    //Reveja esse metodo ele não precisa existir
     public void gerenciamentoMensagens(Prioridade prioridade, Destinatario destinatario, Remetente remetente, Mensagem mensagem) {
     	
     	 switch (prioridade) {
@@ -95,6 +104,15 @@ public class CorreioMensagem implements Mensageiro {
     }
 
     @Override
+    //Não Pode alterar a interface nunca!
+    //sempre tem que trabalhar na sua classe e nos testes
+    //Quando mexe em uma interface vc quebra toda a aplicação
+    //uma interface é um contrato e não pode ser quebrado e nunca mudado sem um grande estudo
+    //se precisar criar um metodo pode criar ele privado dentro da sua classe
+    //Não pode mudar as posições dos parametros dos metodos da interface pois uma interface é utilizada para classe em abstraçao.
+    //Por favor voltar o codigo da forma anterior eu digo a interface.
+
+    //Deixar esse metodo privado ele não exite na interface
     public void armazenamentoMensagens(List<Transportador> transportador) {
         armazem.armazenar(transportador);
     }
@@ -121,6 +139,10 @@ public class CorreioMensagem implements Mensageiro {
         }
     }
 
+    //Mantenha os atributos sem no inicio da classe para sempre sabemos o que estamos usando
+    //Porfavor colocar no inicio da classe
+    // sempre inicie o atribuitos no contrutor
+    // isso é uma boa pratica.
     private final ScheduledExecutorService envioUrgente = Executors.newScheduledThreadPool(1);
     private final ScheduledExecutorService envioNormal = Executors.newScheduledThreadPool(1);
     private final ScheduledExecutorService envioBaixo = Executors.newScheduledThreadPool(1);
