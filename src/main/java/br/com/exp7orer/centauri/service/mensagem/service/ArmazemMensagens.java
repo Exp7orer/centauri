@@ -6,9 +6,9 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Component
 public class ArmazemMensagens implements Armazem {
@@ -17,7 +17,7 @@ public class ArmazemMensagens implements Armazem {
 
     @Override
     public void armazenar(@NotNull @NotEmpty List<Transportador> transportadores) {
-
+        System.out.println("Entrei no metodo"+ LocalDateTime.now());
         if (destinatarios.isEmpty()) {
             for (Transportador transportador : transportadores) {
                 Destinatario destinatario = transportador.destinatario();

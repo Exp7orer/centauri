@@ -7,6 +7,6 @@ import br.com.exp7orer.centauri.service.mensagem.record.Transportador;
 //Não mexer em Interfaces nunca!
 public interface Mensageiro {
     void recebeMensagem(Destinatario destinatario, Remetente remetente, Mensagem mensagem, Prioridade prioridade) ;
-    void gerenciamentoCaixasPostais();
+    void gerenciarMensagens();
     Mensagem buscaMensagem(Destinatario destinatario, Mensagem mensagem);
 }
