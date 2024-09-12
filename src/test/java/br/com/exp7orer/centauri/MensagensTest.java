@@ -28,7 +28,7 @@ public class MensagensTest {
         Armazem armazem = new ArmazemMensagens();
         Mensageiro correio = new CorreioMensagem(armazem);
         correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.URGENTE);
-        Thread.sleep(60000*2);
+        Thread.sleep(70000);
         Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
         assertEquals(mensagem, mensagemRetorno);
     }
@@ -56,7 +56,7 @@ public class MensagensTest {
             correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.URGENTE);
             Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
         }
-        Thread.sleep(60000*3);
+        Thread.sleep(70000);
         List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
         assertEquals(10,listaMensagem.size());
 
@@ -69,12 +69,12 @@ public class MensagensTest {
         DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
         Armazem armazem = new ArmazemMensagens();
         Mensageiro correio = new CorreioMensagem(armazem);
-        for (long i = 1; i <= 10; i++) {
+        for (long i = 1; i <= 11; i++) {
             correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.NORMAL);
         }
         Thread.sleep(60000*6);
         List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
-        assertEquals(10,listaMensagem.size());
+        assertEquals(11,listaMensagem.size());
     }
     
     @Test
@@ -84,13 +84,13 @@ public class MensagensTest {
         DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
         Armazem armazem = new ArmazemMensagens();
         Mensageiro correio = new CorreioMensagem(armazem);
-        for (long i = 1; i <= 10; i++) {
+        for (long i = 1; i <= 12; i++) {
             correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.BAIXA);
             Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
         }
         Thread.sleep(60000*11);
         List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
-        assertEquals(10,listaMensagem.size());
+        assertEquals(12,listaMensagem.size());
     }
 
 }

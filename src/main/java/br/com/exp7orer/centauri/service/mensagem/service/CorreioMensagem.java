@@ -4,15 +4,13 @@ import br.com.exp7orer.centauri.service.mensagem.enums.Prioridade;
 import br.com.exp7orer.centauri.service.mensagem.exceptions.MensagemException;
 import br.com.exp7orer.centauri.service.mensagem.interfaces.*;
 import br.com.exp7orer.centauri.service.mensagem.record.Transportador;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -21,149 +19,73 @@ import java.util.concurrent.TimeUnit;
 public class CorreioMensagem implements Mensageiro {
     //@Qualifier("amarzemMensagens")
     private Armazem armazem = new ArmazemMensagens();
-    private final List<Transportador> transportadoresUrgente = new ArrayList<>();
-    private final List<Transportador> transportadoresNormal = new ArrayList<>();
-    private final List<Transportador> transportadoresBaixa = new ArrayList<>();
-    
-    private final ScheduledExecutorService envioUrgente;
-    private final ScheduledExecutorService envioNormal;
-    private final ScheduledExecutorService envioBaixo; 
+    private final Queue<Transportador> transportadoresUrgente;
+    private final Queue<Transportador> transportadoresNormal;
+    private final Queue<Transportador> transportadoresBaixa;
+    private final ScheduledExecutorService scheduledExecutorService;
 
     public CorreioMensagem() {
-        
         this.armazem = new ArmazemMensagens();
-        this.envioUrgente = Executors.newScheduledThreadPool(1);
-        this.envioNormal = Executors.newScheduledThreadPool(1);
-        this.envioBaixo = Executors.newScheduledThreadPool(1);
-
+        this.transportadoresUrgente = new ConcurrentLinkedQueue<Transportador>();
+        this.transportadoresNormal = new ConcurrentLinkedQueue<Transportador>();
+        this.transportadoresBaixa = new ConcurrentLinkedQueue<Transportador>();
+        this.scheduledExecutorService = Executors.newScheduledThreadPool(4);
+        this.gerenciarMensagens();
     }
 
     public CorreioMensagem(@NotNull Armazem armazem) {
         this();
         this.armazem = armazem;
-
     }
 
 
     @Override
-    public void recebeMensagem(@NotNull @NotBlank Destinatario destinatario, Remetente remetente, Mensagem mensagem, Prioridade prioridade) {
-        validarNulo(mensagem, "mensagem");
-        validarNulo(mensagem.getConteudo(), "conteúdo da mensagem");
-        validarNulo(mensagem.getTitulo(), "Mensagem titulo");
+    public void recebeMensagem(Destinatario destinatario, Remetente remetente, Mensagem mensagem, Prioridade prioridade) {
+        validarMensagem(mensagem);
+        validarDestinatario(destinatario);
+        validarRemetente(remetente);
 
-        validarNaoBranco(mensagem.getTitulo(), "titulo mensagem");
-        validarNaoBranco(mensagem.getConteudo(), "conteudo mensagem");
-
-        validarNulo(destinatario, "destinatario");
-        validarNulo(destinatario.caixaPostal(), "caixa postal");
-        validarNaoBranco(destinatario.getNome(), "destinatario nome");
-        validarNaoBranco(destinatario.getEndereco(), "destinatario endereço");
-
-        validarNulo(remetente, "remetente");
-        validarNaoBranco(remetente.getNome(), "nome do remetente");
-        validarNaoBranco(remetente.getEndereco(), "remetente endereço");
-  
-
-      switch (prioridade) {
-      case URGENTE -> {    	  
-      //Demorar 1 minuto     	
-    	transportadoresUrgente.add(new Transportador(destinatario, remetente, mensagem)); 
-    	Runnable tarefaUrgente = criarProcessoEnvioMensagem(destinatario, remetente, mensagem, prioridade);
-        agendarEnvioTemporizador(prioridade, tarefaUrgente);
-
-      }
-  	  case NORMAL -> {	    	 
-      //Demora 5 minutos para enviar
-  		transportadoresNormal.add(new Transportador(destinatario, remetente, mensagem)); 
-  	    Runnable tarefaNormal = criarProcessoEnvioMensagem(destinatario, remetente, mensagem, prioridade);
-  	    agendarEnvioTemporizador(prioridade, tarefaNormal);
-  	  }   
-  	  case BAIXA -> {
-      //Demorar 10 minutos para enviar
-  		transportadoresBaixa.add(new Transportador(destinatario, remetente, mensagem)); 
-  	    Runnable tarefaBaixa = criarProcessoEnvioMensagem(destinatario, remetente, mensagem, prioridade);
-  	    agendarEnvioTemporizador(prioridade, tarefaBaixa);
-      }     
-  }
+        switch (prioridade) {
+            case URGENTE -> {
+                transportadoresUrgente.add(new Transportador(destinatario, remetente, mensagem));
+            }
+            case NORMAL -> {
+                transportadoresNormal.add(new Transportador(destinatario, remetente, mensagem));
+            }
+            case BAIXA -> {
+                transportadoresBaixa.add(new Transportador(destinatario, remetente, mensagem));
+            }
+        }
 
     }
-    
-    
-    private void agendarEnvioTemporizador(Prioridade prioridade, Runnable tarefaEnvio) {
-    	switch (prioridade) {
-        case URGENTE:
-            envioUrgente.schedule(tarefaEnvio, 1, TimeUnit.MINUTES);
-            break;
-        case NORMAL:
-            envioNormal.schedule(tarefaEnvio, 5, TimeUnit.MINUTES);
-            break;
-        case BAIXA:
-            envioBaixo.schedule(tarefaEnvio, 10, TimeUnit.MINUTES);
-            break;
-    	}
-    }
-    
-    
-    private void processarEnvioMensagens(Destinatario destinatario, Remetente remetente, Mensagem mensagem,Prioridade prioridade) {
-    	
-    	if(prioridade == Prioridade.URGENTE) {
-             armazenamentoMensagensUrgente(transportadoresUrgente, prioridade);
-             transportadoresUrgente.clear();   
-    	}
-    	
-    	if(prioridade ==Prioridade.NORMAL) {
-            armazenamentoMensagensNormal(transportadoresNormal, prioridade);
-            transportadoresNormal.clear();
-    	}
-    	
-    	if(prioridade == Prioridade.BAIXA) {
-             armazenamentoMensagensBaixa(transportadoresBaixa, prioridade);
-             transportadoresBaixa.clear();
-    	}
-    	
-    }
-        
-   private Runnable criarProcessoEnvioMensagem(Destinatario destinatario, Remetente remetente, Mensagem mensagem, Prioridade prioridade){
-	   return ()->{
-		   switch (prioridade) {
-           case URGENTE:
-        	   if(!transportadoresUrgente.isEmpty()) {
-        	   processarEnvioMensagens(destinatario, remetente, mensagem,prioridade);
-
-        	   }
-               break;
-           case NORMAL:
-        	   if(!transportadoresNormal.isEmpty()) {
-        	   processarEnvioMensagens(destinatario, remetente, mensagem,prioridade);
-        	   }
-        	   break;
-           case BAIXA:
-        	   if(!transportadoresBaixa.isEmpty()) {
-        	   processarEnvioMensagens(destinatario, remetente, mensagem,prioridade);
-        	   }
-        	   break;
-		   }
-	   };
-   }
-
-
-    private void armazenamentoMensagensUrgente(List<Transportador> transportador , Prioridade prioridade ) {
-    	armazem.armazenar(transportador);
-    }
-    private void armazenamentoMensagensNormal(List<Transportador> transportador , Prioridade prioridade ) {
-    	armazem.armazenar(transportador);
-    }
-    private void armazenamentoMensagensBaixa(List<Transportador> transportador , Prioridade prioridade ) {
-    	armazem.armazenar(transportador);
-    }
-    
-    
 
     @Override
-    public void gerenciamentoCaixasPostais() {
-    	
+    public void gerenciarMensagens() {
+        Runnable prioridadeUrgente = () -> {
+            if (!transportadoresUrgente.isEmpty()) {
+                armazem.armazenar(transportadoresUrgente.stream().toList());
+                transportadoresUrgente.clear();
+            }
+        };
+
+        Runnable prioridadeNormal = () -> {
+            if (!transportadoresNormal.isEmpty()) {
+                armazem.armazenar(transportadoresNormal.stream().toList());
+                transportadoresNormal.clear();
+            }
+        };
+
+        Runnable prioridadeBaixa = () -> {
+            if (!transportadoresBaixa.isEmpty()) {
+                armazem.armazenar(transportadoresBaixa.stream().toList());
+                transportadoresBaixa.clear();
+            }
+        };
+        scheduledExecutorService.scheduleAtFixedRate(prioridadeUrgente, 0, 60000, TimeUnit.MILLISECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(prioridadeNormal,0 ,60000*5 , TimeUnit.MILLISECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(prioridadeBaixa, 0, 60000*10, TimeUnit.MILLISECONDS);
     }
- 
+
     @Override
     public Mensagem buscaMensagem(Destinatario destinatario, Mensagem mensagem) {
         List<Mensagem> mensagens = (List<Mensagem>) armazem.mensagens(destinatario);
@@ -174,22 +96,49 @@ public class CorreioMensagem implements Mensageiro {
                 .findFirst().orElse(null);
     }
 
-    private void validarNulo(Object obj, String nome) {
-        if (obj == null) {
-            throw new MensagemException("Erro! " + nome + " não pode ser nulo.");
+    private void validarMensagem(Mensagem mensagem) {
+
+        if (mensagem.getTitulo() == null || mensagem.getTitulo().isEmpty()) {
+            throw new MensagemException("Erro! titulo da mensagem não pode ser nulo ou em branco!");
+        }
+        if (mensagem.getConteudo() == null || mensagem.getConteudo().isEmpty() || mensagem.getConteudo().isBlank()) {
+            throw new MensagemException("Erro! conteudo da mensagem não pode ser nulo ou em branco!");
+        }
+        if (mensagem.getDataEnvio() == null) {
+            throw new MensagemException("Erro! data de envio da mensagem não pode ser nula!");
+        }
+        if (mensagem.getDataEnvio().isAfter(LocalDateTime.now())) {
+            throw new MensagemException("Erro! data de envio da mensagem não posterior a data de envia!");
         }
     }
 
-    private void validarNaoBranco(String stringObjeto, String nome) {
-        if (stringObjeto == null || stringObjeto.trim().isEmpty()) {
-            throw new MensagemException("Erro! " + nome + " não pode estar em branco.");
+    private void validarDestinatario(Destinatario destinatario) {
+
+        if (destinatario.getEndereco() == null ||
+                destinatario.getEndereco().isBlank() ||
+                destinatario.getEndereco().isEmpty()) {
+            throw new MensagemException("Erro! endereço do destinatario não pode ser nulo ou em branco!");
+        }
+        if (destinatario.getNome() == null ||
+                destinatario.getNome().isBlank() ||
+                destinatario.getNome().isEmpty()) {
+            throw new MensagemException("Erro! endereço do destinatario não pode ser nulo ou em branco!");
+        }
+
+    }
+
+    private  void validarRemetente(Remetente remetente){
+        if (remetente.getEndereco() == null ||
+                remetente.getEndereco().isBlank() ||
+                remetente.getEndereco().isEmpty()) {
+            throw new MensagemException("Erro! endereço do remetente não pode ser nulo ou em branco!");
+        }
+        if (remetente.getNome() == null ||
+                remetente.getNome().isBlank() ||
+                remetente.getNome().isEmpty()) {
+            throw new MensagemException("Erro! endereço do remetente não pode ser nulo ou em branco!");
         }
     }
 
-   
-    
-    
- 
-    
-    
+
 }
