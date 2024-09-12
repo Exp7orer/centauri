@@ -248,126 +248,126 @@ public class MensagensTest {
   
 
   
-@Test
-public void enviar1000MensagensPrioridadeBaixa() throws InterruptedException {
-    RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
-    MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
-    DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
-    Armazem armazem = new ArmazemMensagens();
-    Mensageiro correio = new CorreioMensagem(armazem);
-    for (long i = 1; i <= 1000; i++) {
-        correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.BAIXA);
-        Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
-    }
-    Thread.sleep(60000*11);
-    List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
-    assertEquals(1000,listaMensagem.size());
-}
-    
-    
-    
-@Test
-public void enviar2000MensagensPrioridadeUrgente() throws InterruptedException {
-    RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
-    MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
-    DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
-    Armazem armazem = new ArmazemMensagens();
-    Mensageiro correio = new CorreioMensagem(armazem);
-    for (long i = 1; i <= 2000; i++) {
-        correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.URGENTE);
-        Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
-    }
-    Thread.sleep(70000);
-    List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
-    assertEquals(2000,listaMensagem.size());
-}
-
-@Test
-public void enviar2000MensagensPrioridadeNormal() throws InterruptedException {
-    RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
-    MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
-    DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
-    Armazem armazem = new ArmazemMensagens();
-    Mensageiro correio = new CorreioMensagem(armazem);
-    for (long i = 1; i <= 2000; i++) {
-        correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.NORMAL);
-        Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
-    }
-    Thread.sleep(60000*6);
-    List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
-    assertEquals(2000,listaMensagem.size());
-}
-
-
-
-@Test
-public void enviar2000MensagensPrioridadeBaixa() throws InterruptedException {
-  RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
-  MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
-  DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
-  Armazem armazem = new ArmazemMensagens();
-  Mensageiro correio = new CorreioMensagem(armazem);
-  for (long i = 1; i <= 2000; i++) {
-      correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.BAIXA);
-      Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
-  }
-  Thread.sleep(60000*11);
-  List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
-  assertEquals(2000,listaMensagem.size());
-}
-    
-
-   
-
-@Test
-public void enviar3000MensagensPrioridadeUrgente() throws InterruptedException {
-    RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
-    MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
-    DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
-    Armazem armazem = new ArmazemMensagens();
-    Mensageiro correio = new CorreioMensagem(armazem);
-    for (long i = 1; i <= 3000; i++) {
-        correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.URGENTE);
-        Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
-    }
-    Thread.sleep(70000);
-    List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
-    assertEquals(3000,listaMensagem.size());
-}
-
-@Test
-public void enviar3000MensagensPrioridadeNormal() throws InterruptedException {
-    RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
-    MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
-    DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
-    Armazem armazem = new ArmazemMensagens();
-    Mensageiro correio = new CorreioMensagem(armazem);
-    for (long i = 1; i <= 3000; i++) {
-        correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.NORMAL);
-        Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
-    }
-    Thread.sleep(60000*6);
-    List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
-    assertEquals(3000,listaMensagem.size());
-}
-
-
-
-@Test
-public void enviar3000MensagensPrioridadeBaixa() throws InterruptedException {
-  RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
-  MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
-  DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
-  Armazem armazem = new ArmazemMensagens();
-  Mensageiro correio = new CorreioMensagem(armazem);
-  for (long i = 1; i <= 3000; i++) {
-      correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.BAIXA);
-      Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
-  }
-  Thread.sleep(60000*11);
-  List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
-  assertEquals(3000,listaMensagem.size());
-}
+	@Test
+	public void enviar1000MensagensPrioridadeBaixa() throws InterruptedException {
+	    RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
+	    MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
+	    DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
+	    Armazem armazem = new ArmazemMensagens();
+	    Mensageiro correio = new CorreioMensagem(armazem);
+	    for (long i = 1; i <= 1000; i++) {
+	        correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.BAIXA);
+	        Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
+	    }
+	    Thread.sleep(60000*11);
+	    List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
+	    assertEquals(1000,listaMensagem.size());
+	}
+	    
+	    
+	    
+	@Test
+	public void enviar2000MensagensPrioridadeUrgente() throws InterruptedException {
+	    RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
+	    MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
+	    DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
+	    Armazem armazem = new ArmazemMensagens();
+	    Mensageiro correio = new CorreioMensagem(armazem);
+	    for (long i = 1; i <= 2000; i++) {
+	        correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.URGENTE);
+	        Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
+	    }
+	    Thread.sleep(70000);
+	    List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
+	    assertEquals(2000,listaMensagem.size());
+	}
+	
+	@Test
+	public void enviar2000MensagensPrioridadeNormal() throws InterruptedException {
+	    RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
+	    MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
+	    DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
+	    Armazem armazem = new ArmazemMensagens();
+	    Mensageiro correio = new CorreioMensagem(armazem);
+	    for (long i = 1; i <= 2000; i++) {
+	        correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.NORMAL);
+	        Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
+	    }
+	    Thread.sleep(60000*6);
+	    List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
+	    assertEquals(2000,listaMensagem.size());
+	}
+	
+	
+	
+	@Test
+	public void enviar2000MensagensPrioridadeBaixa() throws InterruptedException {
+	  RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
+	  MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
+	  DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
+	  Armazem armazem = new ArmazemMensagens();
+	  Mensageiro correio = new CorreioMensagem(armazem);
+	  for (long i = 1; i <= 2000; i++) {
+	      correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.BAIXA);
+	      Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
+	  }
+	  Thread.sleep(60000*11);
+	  List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
+	  assertEquals(2000,listaMensagem.size());
+	}
+	    
+	
+	   
+	
+	@Test
+	public void enviar3000MensagensPrioridadeUrgente() throws InterruptedException {
+	    RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
+	    MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
+	    DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
+	    Armazem armazem = new ArmazemMensagens();
+	    Mensageiro correio = new CorreioMensagem(armazem);
+	    for (long i = 1; i <= 3000; i++) {
+	        correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.URGENTE);
+	        Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
+	    }
+	    Thread.sleep(70000);
+	    List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
+	    assertEquals(3000,listaMensagem.size());
+	}
+	
+	@Test
+	public void enviar3000MensagensPrioridadeNormal() throws InterruptedException {
+	    RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
+	    MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
+	    DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
+	    Armazem armazem = new ArmazemMensagens();
+	    Mensageiro correio = new CorreioMensagem(armazem);
+	    for (long i = 1; i <= 3000; i++) {
+	        correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.NORMAL);
+	        Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
+	    }
+	    Thread.sleep(60000*6);
+	    List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
+	    assertEquals(3000,listaMensagem.size());
+	}
+	
+	
+	
+	@Test
+	public void enviar3000MensagensPrioridadeBaixa() throws InterruptedException {
+	  RemetenteEntity remetente = new RemetenteEntity("Anderson", "email@teste.com");
+	  MensagemEntity mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
+	  DestinatarioEntity destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
+	  Armazem armazem = new ArmazemMensagens();
+	  Mensageiro correio = new CorreioMensagem(armazem);
+	  for (long i = 1; i <= 3000; i++) {
+	      correio.recebeMensagem(destinatario, remetente, mensagem, Prioridade.BAIXA);
+	      Mensagem mensagemRetorno = correio.buscaMensagem(destinatario, mensagem);
+	  }
+	  Thread.sleep(60000*11);
+	  List<Mensagem>listaMensagem = (List<Mensagem>) armazem.mensagens(destinatario);
+	  assertEquals(3000,listaMensagem.size());
+	}
 
 
 
