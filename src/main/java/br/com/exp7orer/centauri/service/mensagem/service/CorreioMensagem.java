@@ -4,22 +4,16 @@ import br.com.exp7orer.centauri.service.mensagem.enums.Prioridade;
 import br.com.exp7orer.centauri.service.mensagem.exceptions.MensagemException;
 import br.com.exp7orer.centauri.service.mensagem.interfaces.*;
 import br.com.exp7orer.centauri.service.mensagem.record.Transportador;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 
 @Service
 public class CorreioMensagem implements Mensageiro {
@@ -35,7 +29,7 @@ public class CorreioMensagem implements Mensageiro {
         this.transportadoresUrgente = new ConcurrentLinkedQueue<Transportador>();
         this.transportadoresNormal = new ConcurrentLinkedQueue<Transportador>();
         this.transportadoresBaixa = new ConcurrentLinkedQueue<Transportador>();
-        this.scheduledExecutorService = Executors.newScheduledThreadPool(3);
+        this.scheduledExecutorService = Executors.newScheduledThreadPool(4);
         this.gerenciarMensagens();
     }
 
@@ -65,8 +59,8 @@ public class CorreioMensagem implements Mensageiro {
 
     }
 
-//    @Override
-    private void gerenciarMensagens() {
+    @Override
+    public void gerenciarMensagens() {
         Runnable prioridadeUrgente = () -> {
             if (!transportadoresUrgente.isEmpty()) {
                 armazem.armazenar(transportadoresUrgente.stream().toList());
@@ -88,8 +82,8 @@ public class CorreioMensagem implements Mensageiro {
             }
         };
         scheduledExecutorService.scheduleAtFixedRate(prioridadeUrgente, 0, 60000, TimeUnit.MILLISECONDS);
-        scheduledExecutorService.scheduleAtFixedRate(prioridadeNormal, 0, 60000 * 5, TimeUnit.MILLISECONDS);
-        scheduledExecutorService.scheduleAtFixedRate(prioridadeBaixa, 0, 60000 * 10, TimeUnit.MILLISECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(prioridadeNormal,0 ,60000*5 , TimeUnit.MILLISECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(prioridadeBaixa, 0, 60000*10, TimeUnit.MILLISECONDS);
     }
 
     @Override
@@ -146,18 +140,5 @@ public class CorreioMensagem implements Mensageiro {
         }
     }
 
-	@Override
-	public void gerenciamentoCaixasPostais() {
-		// TODO Auto-generated method stub
-		
-	}
 
-
-
-
-    
-    
- 
-    
-    
 }
