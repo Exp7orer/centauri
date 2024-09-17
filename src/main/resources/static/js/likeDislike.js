@@ -1,45 +1,39 @@
 $(document).ready(function() {
-    $('.btn-like').on('click', function() {
-        var postId = $(this).data('id');
-        var botaoLike = $(this); 
+//            console.log('Script carregado e executado.');
+            $('.starIcon').on('click', function() {
+                const $icone = $(this);
+                const $estrelaLike = $icone.closest('.estrela').find('#estrela-like');
+                const $submitLike = $estrelaLike;
+                
+                if ($icone.hasClass('fa-regular')) {
+                    $icone.removeClass('fa-regular').addClass('fa-solid').css('color', 'yellow');
+                    $estrelaLike.prop('checked', true);
+                    chamarAjax('/like/' + $estrelaLike.data('id'), 'POST');
+                } else {
+                    $icone.removeClass('fa-solid').addClass('fa-regular').css('color', '#fff');
+                    $estrelaLike.prop('checked', false);
+                    chamarAjax('/dislike/' + $estrelaLike.data('id'), 'POST');
+                }
+                $submitLike.prop('disabled', true);
+                $icone.addClass('disabled');
+            });
 
-        $.ajax({
-            url: '/like/' + postId,
-            type: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            success: function(response) {  
-                botaoLike.addClass('btn-selecionado').prop('disabled', true);// desativar e destacar para evitar spam  
-                $('.btn-dislike[data-id="' + postId + '"]').addClass('btn-disabled').prop('disabled', true);// desativar o botão de dislike
-            },
-            error: function(xhr, status, error) {
-                console.error('Erro like:', error);
-                console.error('Erro like:', status);
-                console.error('Erro like:', xhr);
-
+            function chamarAjax(url, method) {
+                $.ajax({
+                    url: url,
+                    type: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    success: function(response) {
+//                        console.log('Requisição enviada com sucesso para o URL: ' + url);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Erro ao enviar requisição:', error);
+                        $('.estrela-like').prop('disabled', false);
+                        $('.starIcon').removeClass('disabled');
+                    }
+                });
             }
-        });
-    });
-
-    $('.btn-dislike').on('click', function() {
-        var postId = $(this).data('id');
-        var botaoDislike = $(this);
-        $.ajax({
-            url: '/dislike/' + postId,
-            type: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            success: function(response) {             
-                botaoDislike.addClass('btn-selecionado').prop('disabled', true); // desativar e destacar o botao de dislike               
-                $('.btn-like[data-id="' + postId + '"]').addClass('btn-disabled').prop('disabled', true); // desativar o botão de like
-            },
-            error: function(xhr, status, error) {
-                console.error('Erro dislike:', error);
-            }
-        });
-    });
-});
+ });

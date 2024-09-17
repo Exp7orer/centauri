@@ -36,28 +36,39 @@ public class HomeController {
         this.publicacaoModel = publicacaoModel;
     }
     
-    @GetMapping
+//    @GetMapping
+//    public String paginaInicial(Model model) {
+//        List<Publicacao> publicacoesBanco = publicacaoModel.listaRank();
+//        List<List<Publicacao>> publicacoes = new ArrayList<>();
+//        List<Publicacao> pub = new ArrayList<>();
+//
+////        for (Publicacao publicacao : publicacoesBanco) {
+////
+////            pub.add(publicacao);
+////
+////            if (pub.size() == 3) {
+////                publicacoes.add(new ArrayList<>(pub));
+////                pub.clear();
+////            }
+////        }
+////
+////        publicacoes.add(new ArrayList<>(pub));
+//
+//        model.addAttribute("pageTitle", "Blog");
+//        model.addAttribute("texto", "página principal");
+//        model.addAttribute("quantidadeLinhas", publicacoes);
+//        return "index";
+//    }
+    
+    @GetMapping // Alterei este para funcionar com a nova pagina
     public String paginaInicial(Model model) {
         List<Publicacao> publicacoesBanco = publicacaoModel.listaRank();
-        List<List<Publicacao>> publicacoes = new ArrayList<>();
-        List<Publicacao> pub = new ArrayList<>();
-
-        for (Publicacao publicacao : publicacoesBanco) {
-
-            pub.add(publicacao);
-
-            if (pub.size() == 3) {
-                publicacoes.add(new ArrayList<>(pub));
-                pub.clear();
-            }
-        }
-
-        publicacoes.add(new ArrayList<>(pub));
 
         model.addAttribute("pageTitle", "Blog");
         model.addAttribute("texto", "página principal");
-        model.addAttribute("quantidadeLinhas", publicacoes);
-        return "index";
+        model.addAttribute("listaPublicacao", publicacoesBanco); 
+        return "index"; 
+        
     }
 
     @GetMapping("login")

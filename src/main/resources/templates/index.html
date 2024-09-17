@@ -83,74 +83,31 @@
       </div>
     </section>
 
-
-    <section class="section-dois" th:each="publicacao:${listaPublicacao}">
-   
-        
-
-      <div class="gallery">
-
-
-
-        <!-- as imagens vao aqui dentro -->
-
-    
-
-        <div class="card reveal" >
->
-          <div class="card-inner" >
-            <div class="card-front">
-<!--             <img src="images/alien.jpg" alt="Imagem Aleatória" />  -->
-			  <img th:src="@{imagens/publicacao/{id}(id=${publicacao.id})}" alt="Imagem Aleatória" /> 
+<section class="section-dois">
+        <div class="gallery">
+            <div th:each="publicacao : ${listaPublicacao}" class="card reveal">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img th:src="@{imagens/publicacao/{id}(id=${publicacao.id})}" alt="Imagem Aleatória" />
+                    </div>
+                    <div class="card-back">
+                        <textarea readonly id="textoCard" th:text="${publicacao.titulo + publicacao.texto}" > 
+						
+                        </textarea>
+                    </div>
+                </div>
+                <div class="like">
+					<p  th:text="${publicacao.usuario.nome}"></p>
+                    <div class="estrela">
+                        <input type="button" id="estrela-like" class="estrela-like" th:attr="data-id=${publicacao.id}">
+                        <i class="starIcon fa-regular fa-star"></i>
+<!--                        <input type="checkbox" id="estrela-save">-->
+<!--                        <i id="save-icon" class="saveIcon fa-regular fa-bookmark"></i>-->
+                    </div>
+                </div>
             </div>
-            <div class="card-back">
-				
-			<!--	
-              <textarea readonly
-                id="textoCard">Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic nemo vero fugit nobis reprehenderit 
-				</textarea>
-				-->	
-				
-				<!-- TEstei para ver se aparece as publicações, mas o código acima é do Lorem ipsum-->
-				<textarea readonly id="textoCard"> 
-				   <h5 class="card-title" th:text="${publicacao.titulo}"></h5>
-				   <p class="card-text" th:text="${publicacao.texto}"></p>
-				</textarea>
-            </div>
-          </div>
-
-          <div class="like">
-        <!--    <p th:text="${publicacao.usuario.nome}" ></p> -->
-            <div class="estrela">
-              <input type="checkbox" id="estrela-like">
-		<!--  <input type="checkbox" id="estrela-like"  th:attr="data-id=${publicacao.id}"> -->
-              <i class="starIcon fa-regular fa-star"></i>
-              <input type="checkbox" id="estrela-save">
-              <i id="save-icon" class="saveIcon fa-regular fa-bookmark"></i>
-            </div>
-          </div>
         </div>
-
-
-    
-
-
-
-
-
-          <!-- as imagens vao aqui dentro -->
-
-
-      </div>
-
-
-
-
-
-
-
     </section>
-
 
   </main>
 
@@ -165,11 +122,11 @@
   <script th:src="@{/fontawesome/js/all.js}"></script>
   <script th:src="@{/js/bootstrap.js}"></script>
  <script th:src="@{/js/centauri.js}" th:type="module"></script> 
-   <script th:src="@{/js/likeDislike.js}"></script>
 
   <script th:src="@{/js/navbar.js}"></script>
   <script th:src="@{/js/section-dois.js}"></script>
 
+   <script th:src="@{/js/likeDislike.js}"></script>
 
 </body>
 
