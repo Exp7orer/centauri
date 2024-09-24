@@ -1,40 +1,26 @@
-package br.com.exp7orer.centauri.service.mensagem.entity;
+package br.com.exp7orer.centauri.beans;
 
-import br.com.exp7orer.centauri.service.mensagem.interfaces.Mensagem;
-import jakarta.persistence.*;
-import jakarta.validation.Valid;
+import br.com.exp7orer.centauri.interfaces.Mensagem;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.validation.annotation.Validated;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Entity
-@Table(name = "mensagem")
-public class MensagemEntity implements Mensagem, Serializable {
-    @Serial
+
+public class MensagemBean implements Mensagem, Serializable {
+
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime dataEnvio;
     private LocalDateTime dataLeitura;
-    @Column(length = 150)
     private String titulo;
-    @Column(length = 1000)
     private String conteudo;
     private boolean lida = false;
 
 
-    @Deprecated
-    protected MensagemEntity() {
-        //Obrigatorio JPA
-    }
-
-    public MensagemEntity(@NotNull @NotBlank String titulo, @NotNull @NotBlank String conteudo) {
+    public MensagemBean(@NotNull @NotBlank String titulo, @NotNull @NotBlank String conteudo) {
         this.dataEnvio = LocalDateTime.now();
         this.titulo = titulo;
         this.conteudo = conteudo;
@@ -99,26 +85,23 @@ public class MensagemEntity implements Mensagem, Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MensagemEntity that = (MensagemEntity) o;
-        return lida == that.lida && Objects.equals(id, that.id) && Objects.equals(dataEnvio, that.dataEnvio)
-                && Objects.equals(dataLeitura, that.dataLeitura) && Objects.equals(titulo, that.titulo)
-                && Objects.equals(conteudo, that.conteudo);
+        MensagemBean that = (MensagemBean) o;
+        return lida == that.lida && Objects.equals(id, that.id) && Objects.equals(dataEnvio, that.dataEnvio) && Objects.equals(dataLeitura, that.dataLeitura) && Objects.equals(titulo, that.titulo) && Objects.equals(conteudo, that.conteudo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dataEnvio, dataLeitura, titulo, conteudo,lida);
+        return Objects.hash(id, dataEnvio, dataLeitura, titulo, conteudo, lida);
     }
 
     @Override
     public String toString() {
-        return "MensagemEntity{" +
+        return "MensagemBean{" +
                 "id=" + id +
                 ", dataEnvio=" + dataEnvio +
                 ", dataLeitura=" + dataLeitura +
                 ", titulo='" + titulo + '\'' +
                 ", conteudo='" + conteudo + '\'' +
-                ", remetente=" +
                 ", lida=" + lida +
                 '}';
     }

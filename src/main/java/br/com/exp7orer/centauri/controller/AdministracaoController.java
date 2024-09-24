@@ -1,6 +1,6 @@
 package br.com.exp7orer.centauri.controller;
 
-import br.com.exp7orer.centauri.service.adminstracao.UsuarioService;
+import br.com.exp7orer.centauri.service.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

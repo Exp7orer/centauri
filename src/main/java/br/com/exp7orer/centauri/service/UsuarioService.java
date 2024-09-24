@@ -1,9 +1,9 @@
-package br.com.exp7orer.centauri.service.adminstracao;
+package br.com.exp7orer.centauri.service;
 
 import br.com.exp7orer.centauri.entity.Publicacao;
 import br.com.exp7orer.centauri.repository.PublicacaoRepository;
 import br.com.exp7orer.centauri.repository.UsuarioRepository;
-import br.com.exp7orer.centauri.service.mensagem.repository.TransportadorRepository;
+import br.com.exp7orer.centauri.repository.TransportadorRepository;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

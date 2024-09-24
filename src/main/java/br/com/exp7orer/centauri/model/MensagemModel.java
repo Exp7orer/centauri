@@ -3,7 +3,7 @@ package br.com.exp7orer.centauri.model;
 import br.com.exp7orer.centauri.beans.CaixaMensagem;
 import br.com.exp7orer.centauri.entity.MensagemUsuario;
 import br.com.exp7orer.centauri.entity.Usuario;
-import br.com.exp7orer.centauri.service.mensagem.interfaces.Mensagem;
+import br.com.exp7orer.centauri.interfaces.Mensagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;

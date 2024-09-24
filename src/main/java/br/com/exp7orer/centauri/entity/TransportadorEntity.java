@@ -1,6 +1,6 @@
-package br.com.exp7orer.centauri.service.mensagem.entity;
+package br.com.exp7orer.centauri.entity;
 
-import br.com.exp7orer.centauri.service.mensagem.record.Transportador;
+import br.com.exp7orer.centauri.record.Transportador;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -17,6 +17,8 @@ public class TransportadorEntity implements Serializable {
     private String enderecoRemetente;
     @Column(length = 150,nullable = false)
     private String enderecoDestinatario;
+    @Column(length = 200,nullable = false)
+    private String titulo;
     @Column(length = 3000,nullable = false)
     private String conteudo;
     private LocalDateTime dataEnvio;
@@ -29,8 +31,9 @@ public class TransportadorEntity implements Serializable {
     }
 
     public TransportadorEntity(@NotNull Transportador transportador){
-        this.enderecoRemetente = transportador.remetente().getEndereco();
-        this.enderecoDestinatario = transportador.destinatario().getEndereco();
+        this.enderecoRemetente = transportador.remetente().endereco();
+        this.enderecoDestinatario = transportador.destinatario().endereco();
+        this.titulo = transportador.mensagem().getTitulo();
         this.conteudo = transportador.mensagem().getConteudo();
         this.dataEnvio = transportador.mensagem().getDataEnvio();
     }
@@ -57,6 +60,14 @@ public class TransportadorEntity implements Serializable {
 
     public void setEnderecoDestinatario(String enderecoDestinatario) {
         this.enderecoDestinatario = enderecoDestinatario;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public String getConteudo() {
@@ -95,13 +106,13 @@ public class TransportadorEntity implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TransportadorEntity that = (TransportadorEntity) o;
-        return avisoRecebimento == that.avisoRecebimento && Objects.equals(id, that.id) && Objects.equals(enderecoRemetente, that.enderecoRemetente) && Objects.equals(enderecoDestinatario, that.enderecoDestinatario) && Objects.equals(conteudo, that.conteudo) && Objects.equals(dataEnvio, that.dataEnvio) && Objects.equals(dataRecebimento, that.dataRecebimento);
+        TransportadorEntity entity = (TransportadorEntity) o;
+        return avisoRecebimento == entity.avisoRecebimento && Objects.equals(id, entity.id) && Objects.equals(enderecoRemetente, entity.enderecoRemetente) && Objects.equals(enderecoDestinatario, entity.enderecoDestinatario) && Objects.equals(titulo, entity.titulo) && Objects.equals(conteudo, entity.conteudo) && Objects.equals(dataEnvio, entity.dataEnvio) && Objects.equals(dataRecebimento, entity.dataRecebimento);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, enderecoRemetente, enderecoDestinatario, conteudo, dataEnvio, dataRecebimento, avisoRecebimento);
+        return Objects.hash(id, enderecoRemetente, enderecoDestinatario, titulo, conteudo, dataEnvio, dataRecebimento, avisoRecebimento);
     }
 
     @Override
@@ -110,6 +121,7 @@ public class TransportadorEntity implements Serializable {
                 "id=" + id +
                 ", enderecoRemetente='" + enderecoRemetente + '\'' +
                 ", enderecoDestinatario='" + enderecoDestinatario + '\'' +
+                ", titulo='" + titulo + '\'' +
                 ", conteudo='" + conteudo + '\'' +
                 ", dataEnvio=" + dataEnvio +
                 ", dataRecebimento=" + dataRecebimento +

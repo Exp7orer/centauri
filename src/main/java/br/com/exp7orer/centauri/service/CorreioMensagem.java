@@ -1,11 +1,14 @@
-package br.com.exp7orer.centauri.service.mensagem.service;
+package br.com.exp7orer.centauri.service;
 
-import br.com.exp7orer.centauri.service.mensagem.enums.Prioridade;
-import br.com.exp7orer.centauri.service.mensagem.exceptions.MensagemException;
-import br.com.exp7orer.centauri.service.mensagem.interfaces.*;
-import br.com.exp7orer.centauri.service.mensagem.record.Transportador;
+import br.com.exp7orer.centauri.enumeradores.Prioridade;
+import br.com.exp7orer.centauri.exceptions.MensagemException;
+import br.com.exp7orer.centauri.interfaces.*;
+import br.com.exp7orer.centauri.record.Transportador;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.ApplicationScope;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,26 +19,23 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Service
+@ApplicationScope
 public class CorreioMensagem implements Mensageiro {
-    //@Qualifier("amarzemMensagens")
-    private Armazem armazem = new ArmazemMensagens();
+    @Qualifier("amarzemMensagens")
+    private final Armazem armazem;
     private final Queue<Transportador> transportadoresUrgente;
     private final Queue<Transportador> transportadoresNormal;
     private final Queue<Transportador> transportadoresBaixa;
     private final ScheduledExecutorService scheduledExecutorService;
 
-    public CorreioMensagem() {
-        this.armazem = new ArmazemMensagens();
+    @Autowired
+    public CorreioMensagem(@NotNull Armazem armazem) {
         this.transportadoresUrgente = new ConcurrentLinkedQueue<Transportador>();
         this.transportadoresNormal = new ConcurrentLinkedQueue<Transportador>();
         this.transportadoresBaixa = new ConcurrentLinkedQueue<Transportador>();
         this.scheduledExecutorService = Executors.newScheduledThreadPool(4);
-        this.gerenciarMensagens();
-    }
-
-    public CorreioMensagem(@NotNull Armazem armazem) {
-        this();
         this.armazem = armazem;
+        this.gerenciarMensagens();
     }
 
 
@@ -114,28 +114,28 @@ public class CorreioMensagem implements Mensageiro {
 
     private void validarDestinatario(Destinatario destinatario) {
 
-        if (destinatario.getEndereco() == null ||
-                destinatario.getEndereco().isBlank() ||
-                destinatario.getEndereco().isEmpty()) {
+        if (destinatario.endereco() == null ||
+                destinatario.endereco().isBlank() ||
+                destinatario.endereco().isEmpty()) {
             throw new MensagemException("Erro! endereço do destinatario não pode ser nulo ou em branco!");
         }
-        if (destinatario.getNome() == null ||
-                destinatario.getNome().isBlank() ||
-                destinatario.getNome().isEmpty()) {
+        if (destinatario.nome() == null ||
+                destinatario.nome().isBlank() ||
+                destinatario.nome().isEmpty()) {
             throw new MensagemException("Erro! endereço do destinatario não pode ser nulo ou em branco!");
         }
 
     }
 
     private  void validarRemetente(Remetente remetente){
-        if (remetente.getEndereco() == null ||
-                remetente.getEndereco().isBlank() ||
-                remetente.getEndereco().isEmpty()) {
+        if (remetente.endereco() == null ||
+                remetente.endereco().isBlank() ||
+                remetente.endereco().isEmpty()) {
             throw new MensagemException("Erro! endereço do remetente não pode ser nulo ou em branco!");
         }
-        if (remetente.getNome() == null ||
-                remetente.getNome().isBlank() ||
-                remetente.getNome().isEmpty()) {
+        if (remetente.nome() == null ||
+                remetente.nome().isBlank() ||
+                remetente.nome().isEmpty()) {
             throw new MensagemException("Erro! endereço do remetente não pode ser nulo ou em branco!");
         }
     }
