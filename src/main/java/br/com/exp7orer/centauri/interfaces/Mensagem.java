@@ -1,4 +1,4 @@
-package br.com.exp7orer.centauri.service.mensagem.interfaces;
+package br.com.exp7orer.centauri.interfaces;
 
 import java.time.LocalDateTime;
 

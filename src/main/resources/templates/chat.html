@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagens - JavD</title>
+    <link rel="stylesheet" th:href="@{/css/chat.css}">
+</head>
+<body>
+
+<div class="main-container">
+    <!-- Barra lateral com lista de remetentes -->
+    <div class="sidebar">
+        <h2>Contatos</h2>
+        <p th:if="${#lists.isEmpty(remetentes)}">Você não tem contatos cadastrados!</p>
+        <div th:each="remetente : ${remetentes}">
+            <div class="contact"    th:data-nome="${remetente.nome}" th:data-endereco="${remetente.endereco}"
+                 onclick="selectContact(this.dataset.nome,this.dataset.endereco)">
+                <img src="https://via.placeholder.com/40" th:alt="${remetente.nome}">
+                <span th:text="${remetente.nome}"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Área de chat principal -->
+    <div class="chat-area">
+        <div class="chat-header" id="chat-header">
+            <!-- Nome do contato selecionado -->
+            <img src="https://via.placeholder.com/40" alt="Contato">
+            <span id="contact-name">Escolha um contato</span>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- Mensagens dinâmicas serão exibidas aqui -->
+        </div>
+        <div class="message-input-container">
+            <input type="text" id="message-input" class="message-input" placeholder="Digite sua mensagem..." disabled>
+            <button class="message-send-btn" onclick="sendMessage()" disabled>Enviar</button>
+        </div>
+    </div>
+</div>
+<script src="/js/chat.js"></script>
+</body>
+</html>

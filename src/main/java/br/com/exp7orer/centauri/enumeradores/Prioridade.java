@@ -1,4 +1,4 @@
-package br.com.exp7orer.centauri.service.mensagem.enums;
+package br.com.exp7orer.centauri.enumeradores;
 
 public enum Prioridade {
     URGENTE("URGENTE"),

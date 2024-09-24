@@ -1,6 +1,6 @@
-package br.com.exp7orer.centauri.service.mensagem.interfaces;
+package br.com.exp7orer.centauri.interfaces;
 
-import br.com.exp7orer.centauri.service.mensagem.record.Transportador;
+import br.com.exp7orer.centauri.record.Transportador;
 
 import java.util.List;
 

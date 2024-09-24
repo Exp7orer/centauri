@@ -27,9 +27,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/dislike/**", "/like/**").permitAll()
                         .requestMatchers("/imagens/publicacao/**").permitAll()
                         .requestMatchers("/static/**", "/css/**", "/js/**", "/fontaweasome/**").permitAll()
-                        .requestMatchers("/cadastro", "/cadastro/ativar","cadastro/verificarNomeUsuario").permitAll()       
-                        
-
+                        .requestMatchers("/cadastro", "/cadastro/ativar","cadastro/verificarNomeUsuario").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.loginPage("/login")

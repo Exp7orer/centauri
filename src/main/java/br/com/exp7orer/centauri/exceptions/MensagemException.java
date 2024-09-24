@@ -1,4 +1,4 @@
-package br.com.exp7orer.centauri.service.mensagem.exceptions;
+package br.com.exp7orer.centauri.exceptions;
 
 public class MensagemException extends RuntimeException{
 

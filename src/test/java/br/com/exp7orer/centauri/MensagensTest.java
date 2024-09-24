@@ -1,15 +1,12 @@
 package br.com.exp7orer.centauri;
 
-import br.com.exp7orer.centauri.service.mensagem.entity.DestinatarioEntity;
-import br.com.exp7orer.centauri.service.mensagem.entity.MensagemEntity;
-import br.com.exp7orer.centauri.service.mensagem.entity.RemetenteEntity;
-import br.com.exp7orer.centauri.service.mensagem.enums.Prioridade;
-import br.com.exp7orer.centauri.service.mensagem.exceptions.MensagemException;
-import br.com.exp7orer.centauri.service.mensagem.interfaces.Armazem;
-import br.com.exp7orer.centauri.service.mensagem.interfaces.Mensageiro;
-import br.com.exp7orer.centauri.service.mensagem.interfaces.Mensagem;
-import br.com.exp7orer.centauri.service.mensagem.service.ArmazemMensagens;
-import br.com.exp7orer.centauri.service.mensagem.service.CorreioMensagem;
+import br.com.exp7orer.centauri.beans.MensagemBean;
+import br.com.exp7orer.centauri.enumeradores.Prioridade;
+import br.com.exp7orer.centauri.exceptions.MensagemException;
+import br.com.exp7orer.centauri.interfaces.*;
+import br.com.exp7orer.centauri.record.DestinatarioRecord;
+import br.com.exp7orer.centauri.record.RemetenteRecord;
+import br.com.exp7orer.centauri.service.CorreioMensagem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,24 +19,23 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class MensagensTest {
     private Armazem armazem;
     private Mensageiro correio;
-    private RemetenteEntity remetente;
-    DestinatarioEntity destinatario;
-    MensagemEntity mensagem;
+    private Destinatario destinatario;
+    private Remetente remetente;
+    private Mensagem mensagem;
 
     @BeforeEach
     public void init() {
-        this.armazem = new ArmazemMensagens();
         this.correio = new CorreioMensagem(armazem);
-        this.remetente = new RemetenteEntity("Anderson", "email@teste.com");
-        this.destinatario = new DestinatarioEntity("Douglas", "douglas@teste.com");
-        this.mensagem = new MensagemEntity("Boas Vindas!", "Bem vindo ao Centauri!");
+        this.destinatario = new DestinatarioRecord("Anderson","anderson@teste.com");
+        this.remetente = new RemetenteRecord("Douglas","teste@teste.com");
+        this.mensagem = new MensagemBean("Olá Mundo","Tudo Bem?");
         envioMensagem();
     }
 
     @Test
     public void excecaoEnviarMensagemConteudoETituloEmBranco() {
         MensagemException mensagemException = assertThrows(MensagemException.class, () -> {
-            correio.recebeMensagem(destinatario, remetente,new MensagemEntity("Boas Vindas!", ""), Prioridade.URGENTE);
+            correio.recebeMensagem(destinatario, remetente,new MensagemBean("Boas Vindas!", ""), Prioridade.URGENTE);
         });
     }
 

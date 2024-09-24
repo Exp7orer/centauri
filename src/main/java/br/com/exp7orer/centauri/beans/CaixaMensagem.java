@@ -1,7 +1,7 @@
 package br.com.exp7orer.centauri.beans;
 
 import br.com.exp7orer.centauri.entity.Usuario;
-import br.com.exp7orer.centauri.service.mensagem.interfaces.Mensagem;
+import br.com.exp7orer.centauri.interfaces.Mensagem;
 
 import java.io.Serial;
 import java.io.Serializable;

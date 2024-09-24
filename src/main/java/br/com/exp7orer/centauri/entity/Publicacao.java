@@ -15,9 +15,9 @@ public class Publicacao implements Serializable {
     private Long id;
     @Column(length = 255)
     private String urlImagem;
-    @Column(length = 150, nullable = false)
+    @Column(length = 300, nullable = false)
     private String titulo;
-    @Column(length = 500, nullable = false)
+    @Column(length = 5000, nullable = false)
     private String texto;
     private LocalDateTime dataPublicacao;
     private boolean ativa = true;
