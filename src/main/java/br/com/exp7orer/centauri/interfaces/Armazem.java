@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface Armazem {
     public void armazenar(List<Transportador> transportadores);
-    public Object mensagens(Destinatario destinatario);
+    public List<Mensagem> mensagens(Destinatario destinatario);
+    public List<Mensagem> mensagens(Remetente remetente);
 }
