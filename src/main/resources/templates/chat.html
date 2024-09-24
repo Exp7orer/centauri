@@ -14,7 +14,7 @@
         <h2>Contatos</h2>
         <p th:if="${#lists.isEmpty(remetentes)}">Você não tem contatos cadastrados!</p>
         <div th:each="remetente : ${remetentes}">
-            <div class="contact"    th:data-nome="${remetente.nome}" th:data-endereco="${remetente.endereco}"
+            <div class="contact" th:data-nome="${remetente.nome}" th:data-endereco="${remetente.endereco}"
                  onclick="selectContact(this.dataset.nome,this.dataset.endereco)">
                 <img src="https://via.placeholder.com/40" th:alt="${remetente.nome}">
                 <span th:text="${remetente.nome}"></span>
@@ -29,9 +29,12 @@
             <img src="https://via.placeholder.com/40" alt="Contato">
             <span id="contact-name">Escolha um contato</span>
         </div>
-        <div class="chat-messages" id="chat-messages">
-            <!-- Mensagens dinâmicas serão exibidas aqui -->
-        </div>
+        <p th:if="${#lists.isEmpty(mensagens)}">
+            Não existem mensagens!
+        </p>
+            <div class="chat-messages" id="chat-messages">
+                <!-- Mensagens dinâmicas serão exibidas aqui -->
+            </div>
         <div class="message-input-container">
             <input type="text" id="message-input" class="message-input" placeholder="Digite sua mensagem..." disabled>
             <button class="message-send-btn" onclick="sendMessage()" disabled>Enviar</button>

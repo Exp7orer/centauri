@@ -88,12 +88,30 @@ public class CorreioMensagem implements Mensageiro {
 
     @Override
     public Mensagem buscaMensagem(Destinatario destinatario, Mensagem mensagem) {
-        List<Mensagem> mensagens = (List<Mensagem>) armazem.mensagens(destinatario);
+        var mensagens =  armazem.mensagens(destinatario);
         return mensagens.stream()
                 .filter(m -> m.getConteudo().equals(mensagem.getConteudo()))
                 .filter(m -> m.getTitulo().equals(mensagem.getTitulo()))
                 .filter(m -> m.getDataEnvio().isEqual(mensagem.getDataEnvio()))
                 .findFirst().orElse(null);
+    }
+
+    @Override
+    public List<Mensagem> mensagens(Destinatario destinatario) {
+        var mensagens = armazem.mensagens(destinatario);
+        if(mensagens.isEmpty()){
+            return List.of();
+        }
+        return mensagens;
+    }
+
+    @Override
+    public List<Mensagem> mensagens(Remetente remetente) {
+        var mensagens = armazem.mensagens(remetente);
+        if(mensagens.isEmpty()){
+            return List.of();
+        }
+        return mensagens;
     }
 
     private void validarMensagem(Mensagem mensagem) {
