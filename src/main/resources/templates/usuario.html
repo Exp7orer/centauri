@@ -16,7 +16,7 @@
 <header>
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" th:href="@{/}">
-            <img th:src="@{/images/logo.jpg}" width="30" height="30" class="d-inline-block align-top" alt="">
+            <img th:src="@{/images/Logo-Exp7orer-redux.png}" width="50" height="50" class="d-inline-block align-top" alt="">
             Exp7orer
         </a>
        <section class="cabecalho-container">
@@ -41,14 +41,23 @@
 				 
 				</button>
 	        </form>
-	        <form class="form-inline">
-	            <button type="button" class="btn btn-outline-primary btn-custom" data-toggle="modal" data-target="#modal-mensagem">
-	                 <i class="fas fa-envelope fa-2x"></i> 
-	                <span class="badge badge-light"
-	                                th:if='${not caixaDeMensagem.mensagens.get(0).texto.contains("Você não tem mensagens!")}'
-	                                th:text="${caixaDeMensagem.mensagens.size()}"></span>
-	            </button>
-	        </form>
+<!--	        <form class="form-inline">-->
+<!--	            <button type="button" class="btn btn-outline-primary btn-custom" data-toggle="modal" data-target="#modal-mensagem">-->
+<!--	                 <i class="fas fa-envelope fa-2x"></i> -->
+<!--	                <span class="badge badge-light"-->
+<!--	                                th:if='${not caixaDeMensagem.mensagens.get(0).texto.contains("Você não tem mensagens!")}'-->
+<!--	                                th:text="${caixaDeMensagem.mensagens.size()}"></span>-->
+<!--	            </button>-->
+<!--	        </form>-->
+
+		<form class="form-inline">
+		    <a th:href="@{/chat/principal}" class="btn btn-outline-primary btn-custom">
+		        <i class="fas fa-envelope fa-2x"></i>
+		        <span class="badge badge-light"
+		              th:if='${not caixaDeMensagem.mensagens.get(0).texto.contains("Você não tem mensagens!")}'
+		              th:text="${caixaDeMensagem.mensagens.size()}"></span>
+		    </a>
+		</form>
       </section>  
     </nav>
 
@@ -63,7 +72,7 @@
                         Minhas Publicações
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive" style="height:20rem;overflow:auto;">
+                        <div class="table-responsive styled-table" style="height:20rem;overflow:auto;">
                             <table class="table table-borderless">
                                 <thead>
                                 <tr>
@@ -120,7 +129,7 @@
                             <div class="col-3">
                                 <form th:action="@{/publicacao}" method="post">
                                     <input hidden="hidden" th:value="${usuario.codigo}" name="codigo">
-                                    <button type="submit" class="btn btn-outline-success btn-block">Publicar</button>
+                                    <button type="submit" class="btn btn-outline-success btn-block publicar-btn">Publicar</button>
                                 </form>
                             </div>
                             <div class="col-6">
@@ -136,64 +145,16 @@
             </div>
         </div>
         <hr>
-        <div class="row">
-            <div class="card-deck">
-                <div class="card">
-                    <img class="card-img-top" src="/images/dia-da-gastronomia-mineira.jpg"
-                         alt="Imagem de capa do card">
-                    <div class="card-body">
-                        <h5 class="card-title">Título do card</h5>
-                        <p class="card-text">Este é um card maior com suporte a texto embaixo, que funciona como uma
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Atualizados 3 minutos atrás</small>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top" src="/images/fotos-de-paisagens.jpg" alt="Imagem de capa do card">
-                    <div class="card-body">
-                        <h5 class="card-title">Título do card</h5>
-                        <p class="card-text">Este é um card maior com suporte a texto embaixo, que funciona como uma
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Atualizados 3 minutos atrás</small>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top" src="/images/fotos-de-paisagens_1.jpg" alt="Imagem de capa do card">
-                    <div class="card-body">
-                        <h5 class="card-title">Título do card</h5>
-                        <p class="card-text">Este é um card maior com suporte a texto embaixo, que funciona como uma
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Atualizados 3 minutos atrás</small>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top" src="/images/fotos-de-paisagens_2.jpg" alt="Imagem de capa do card">
-                    <div class="card-body">
-                        <h5 class="card-title">Título do card</h5>
-                        <p class="card-text">Este é um card maior com suporte a texto embaixo, que funciona como uma
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Atualizados 3 minutos atrás</small>
-                    </div>
-                </div>
-            </div>
 
-        </div>
     </div>
     <hr>
 </main>
+	<div class="conteiner-data">
+        <p class="text-right" id="dataRodape"></p>
+	</div>
 <footer class="bg-body-tertiary text-center">
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0);">
-        <p class="text-right" id="dataRodape"></p>
-        © 2024 Copyright:
-        <a class="text-body" href="/">Exp7orer</a>
+        © 2024 Copyright: Exp7orer
     </div>
 </footer>
 
@@ -304,3 +265,4 @@
 <script>
 </script>
 </body>
+</html>

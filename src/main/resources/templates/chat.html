@@ -16,7 +16,9 @@
         <div th:each="remetente : ${remetentes}">
             <div class="contact" th:data-nome="${remetente.nome}" th:data-endereco="${remetente.endereco}"
                  onclick="selectContact(this.dataset.nome,this.dataset.endereco)">
-                <img src="https://via.placeholder.com/40" th:alt="${remetente.nome}">
+<!--                <img src="https://via.placeholder.com/40" th:alt="${remetente.nome}">-->
+				<img src="/images/Logo-Exp7orer-redux.png" th:alt="${remetente.nome}">
+				
                 <span th:text="${remetente.nome}"></span>
             </div>
         </div>
@@ -26,12 +28,16 @@
     <div class="chat-area">
         <div class="chat-header" id="chat-header">
             <!-- Nome do contato selecionado -->
-            <img src="https://via.placeholder.com/40" alt="Contato">
-            <span id="contact-name">Escolha um contato</span>
+			<div class="container-header-chat">
+<!--	            <img src="https://via.placeholder.com/40" alt="Contato">-->
+				<img src="/images/Logo-Exp7orer-redux.png" >
+	            <span id="contact-name">Escolha um contato</span>
+			</div>
+			<a th:href="@{/}" class="btn-voltar-app">Voltar</a>
         </div>
-        <p th:if="${#lists.isEmpty(mensagens)}">
-            Não existem mensagens!
-        </p>
+<!--        <p th:if="${#lists.isEmpty(mensagens)}">-->
+<!--            Não existem mensagens!-->
+<!--        </p>-->
             <div class="chat-messages" id="chat-messages">
                 <!-- Mensagens dinâmicas serão exibidas aqui -->
             </div>

@@ -201,11 +201,14 @@
 
 #estrela-like , #estrela-save {
     display: none;
+
 }
 .starIcon.disabled {
     color: yellow; 
-    cursor: not-allowed; 
+/*    cursor: not-allowed; */
 }
+
+
 
 
 @media (max-width: 840px) {

@@ -16,8 +16,8 @@
 
 
   <script src="https://unpkg.com/scrollreveal"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://kit.fontawesome.com/42dd8431f9.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
 
@@ -27,7 +27,7 @@
 
     <a href="" class="logo">
       <h1>
-        <img th:src="@{images/Logo-Exp7orer.png}" alt="Explorer">
+        <img th:src="@{images/Logo-Exp7orer-redux.png}" alt="Explorer">
       </h1>
     </a>
 	
@@ -42,7 +42,7 @@
     <button class="hamburger"></button>
 
     <ul class="nav-list">
-      <li><a class="links" href="#">Inicio</a></li>
+      <li><a class="links" href="">Inicio</a></li>
       <li><a class="links" th:href="login">Login</a></li>
       <li><a class="links" th:href="cadastro">Cadastrar</a></li>
     </ul>
@@ -65,7 +65,7 @@
 
 
         <div class="planeta-1">
-          <img src="images/planeta_1.gif" alt="" ondragstart="return false;" oncontextmenu="return false;">
+<!--          <img src="images/planeta_1.gif" alt="" ondragstart="return false;" oncontextmenu="return false;">-->
         </div>
         <div class="planeta-2">
           <img src="images/planeta_2.gif" alt="" ondragstart="return false;" oncontextmenu="return false;">
@@ -88,7 +88,10 @@
             <div th:each="publicacao : ${listaPublicacao}" class="card reveal">
                 <div class="card-inner">
                     <div class="card-front">
-                        <img th:src="@{imagens/publicacao/{id}(id=${publicacao.id})}" alt="Imagem Aleatória" />
+<!--                        <img th:src="@{imagens/publicacao/{id}(id=${publicacao.id})}" alt="Imagem Aleatória" />-->
+						
+						<img src="/images/alien.jpg" alt="Imagem Aleatória" />
+
                     </div>
                     <div class="card-back">
                         <textarea readonly id="textoCard" th:text="${publicacao.titulo + publicacao.texto}" > 
@@ -101,6 +104,8 @@
                     <div class="estrela">
                         <input type="button" id="estrela-like" class="estrela-like" th:attr="data-id=${publicacao.id}">
                         <i class="starIcon fa-regular fa-star"></i>
+
+					
 <!--                        <input type="checkbox" id="estrela-save">-->
 <!--                        <i id="save-icon" class="saveIcon fa-regular fa-bookmark"></i>-->
                     </div>

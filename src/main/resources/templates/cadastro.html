@@ -12,7 +12,7 @@
 <body class="text-center">
 
     <form form class="form-signin" th:action="@{/cadastro}" method="post" id="form-cadastro" name="form-cadastro" autocomplete="off">
-        <img class="mb-4" th:src="@{/images/logo.jpg}" alt="" width="72" height="72">
+        <img class="mb-4" th:src="@{/images/Logo-Exp7orer-redux.png}" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Cadastro</h1>
         <div class="form-group row">
             <div class="col-sm-12">
@@ -46,7 +46,7 @@
                        placeholder="Digite a senha..." required>
             </div>
         </div>
-        <button class="btn btn-outline-primary" th:type="submit">Cadastrar</button>
+        <button class="btn btn-outline-primary btn-cadastrar" th:type="submit">Cadastrar</button>
         <br>
         <br>
         <div class="alert alert-danger" role="alert" th:if="${erroCadastro}">
