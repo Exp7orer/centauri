@@ -71,34 +71,34 @@ document.addEventListener('DOMContentLoaded', function() {
 //        });
 //    });
 
-    const saveIcons = document.querySelectorAll('.saveIcon');
-
-    if (saveIcons.length === 0) {
-        console.warn('Nenhum ícone de salvar (.saveIcon) foi encontrado.');
-    }
-
-    saveIcons.forEach(icon => {
-        icon.addEventListener('click', () => {
-            const estrelaSave = icon.closest('.estrela')?.querySelector('#estrela-save');
-
-            if (!estrelaSave) {
-                console.error('Elemento #estrela-save não encontrado dentro do .estrela.', icon);
-                return;
-            }
-
-            if (icon.classList.contains('fa-regular')) {
-                icon.classList.remove('fa-regular');
-                icon.classList.add('fa-solid');
-                icon.style.color = '#fff';
-                estrelaSave.checked = true;
-            } else {
-                icon.classList.remove('fa-solid');
-                icon.classList.add('fa-regular');
-                icon.style.color = '#fff';
-                estrelaSave.checked = false;
-            }
-        });
-    });
+//    const saveIcons = document.querySelectorAll('.saveIcon');
+//
+//    if (saveIcons.length === 0) {
+//        console.warn('Nenhum ícone de salvar (.saveIcon) foi encontrado.');
+//    }
+//
+//    saveIcons.forEach(icon => {
+//        icon.addEventListener('click', () => {
+//            const estrelaSave = icon.closest('.estrela')?.querySelector('#estrela-save');
+//
+//            if (!estrelaSave) {
+//                console.error('Elemento #estrela-save não encontrado dentro do .estrela.', icon);
+//                return;
+//            }
+//
+//            if (icon.classList.contains('fa-regular')) {
+//                icon.classList.remove('fa-regular');
+//                icon.classList.add('fa-solid');
+//                icon.style.color = '#fff';
+//                estrelaSave.checked = true;
+//            } else {
+//                icon.classList.remove('fa-solid');
+//                icon.classList.add('fa-regular');
+//                icon.style.color = '#fff';
+//                estrelaSave.checked = false;
+//            }
+//        });
+//    });
 
     const images = document.querySelectorAll('.reveal');
 

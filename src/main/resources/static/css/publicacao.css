@@ -1,7 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+*{
+
+	   margin: 0;
+	   padding: 0;
+	   box-sizing: border-box;
+}
+
+html, body {
+    height: 100%; /* Garante que o body ocupe toda a altura da tela */
+}
+main {
+    flex: 1; /* Permite que o main ocupe todo o espaço disponível */
+    padding: 20px; /* Adiciona um pouco de espaçamento interno */
+}
+
+body {
+    background-color: #000228;
+	display: flex;
+	flex-direction: column;
+	
+}
 .navbar.navbar-light.bg-light {
- background-color: #DAF0EE !important;
+ background-color: #000 !important;
  
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px; 
 	border:none;
@@ -20,15 +43,16 @@
 
 
 .navbar-brand{
-  font-family: "Fondamento", cursive;
-  font-weight: 400;
-  font-style: normal;
+	font-size: 2rem;
+	font-weight: 500;
+	font-family: "Space Grotesk", sans-serif;
+	
 }
 .navbar .navbar-brand {
-    color: #115C4B;
+    color: #fff;
 }
 .navbar .navbar-brand:hover {
-    color: #1FA687;
+    color: #CD1CFE;
 }
 .navbar {
     display: flex;
@@ -41,13 +65,14 @@
     align-items: center;
     justify-content: right;
    gap: 20px;
+   color: #fff
 }
 
 
 .btn-icon{
 	border: none;
     background: transparent;
-    color: #0056b3;
+    color: #fff;
    
 }
 .btn-icon:focus {
@@ -56,8 +81,9 @@
 }
 
 .btn-icon:hover {
-    color: #1FA687;
-    border-color: #1FA687;
+    color: #CD1CFE;
+    border-color: #CD1CFE;
+
 }
 
 
@@ -65,7 +91,7 @@
 
 
 .text-body{
-	font-family: "Fondamento", cursive;
+  font-family: "Fondamento", cursive;
   font-weight: 400;
   font-style: normal;
 }
@@ -101,12 +127,12 @@ border:none;
     background: transparent; 
     padding: 0; 
     outline: none; 
-    color: #0056b3;
+    color: #fff;
 }
 
 
 .btn-custom:hover .fa-envelope {
-    color: #1FA687; 
+    color: #CD1CFE; 
 }
 
 
@@ -115,3 +141,245 @@ border:none;
     box-shadow: none;
 }
 
+
+/**********************Entrando a parte de publicações*****************************************************/
+.card-deck{
+	background-color: transparent;
+	
+	
+}
+.card .card-header{
+	border-radius: 10px 10px 0px 0px;
+	font-size: 1.3rem;
+	font-weight: 500;
+	font-family: "Space Grotesk", sans-serif;
+	color: #000228;
+		background-color: rgb(194, 194, 194);
+/*	width: 30%;*/
+	text-align: center;
+}
+.card .card-footer{
+	border-radius: 0px 0px 10px 10px;
+	font-size: 1rem;
+		font-weight: 500;
+		font-family: "Space Grotesk", sans-serif;
+		background-color: rgb(194, 194, 194);
+}
+.card{
+/*	box-shadow: */
+/*		2px 2px 20px 1px darkgoldenrod,   */
+/*		-2px 2px 20px 1px rgb(255, 0, 0);   */
+	font-weight: 500;
+	font-family: "Space Grotesk", sans-serif;
+	box-shadow: 
+	    rgba(255, 255, 255, 0.25) 0px 2px 15px -1px,
+	    rgba(255, 255, 255, 0.3) 0px 1px 13px -1px;   
+/*background-color: rgb(194, 194, 194);*/
+	background-color: rgb(194, 194, 194);
+}
+
+.card-body{
+	
+	
+}
+.styled-table{
+	background-color: rgb(194, 194, 194);
+	color: #000228;
+}
+
+
+.publicar-btn{
+	font-weight: 500;
+	font-family: "Space Grotesk", sans-serif;
+	
+	border-color: #000228;
+	color: #000228;
+}
+.publicar-btn:hover{
+	background-color: #000228;
+	border-color: #CD1CFE;
+	color: #CD1CFE;		
+	box-shadow: 0 0 10px rgba(205, 28, 254, 0.8), 0 0 20px rgba(205, 28, 254, 0.6);
+	
+}
+
+
+
+ 
+ 
+ 
+ /*************************Modal do editar***************************/
+ 
+ /* Estilo para o modal */
+ .modal-content {
+     background-color: #000228; /* Cor de fundo do modal */
+	 font-weight: 500;
+	 font-family: "Space Grotesk", sans-serif;
+	 color: #fff;
+ }
+
+ /* Estilo para os títulos */
+ .modal-header .modal-title {
+     color: #fff; /* Cor do título */
+ }
+
+ /* Estilo para os inputs */
+ .modal-body .form-control {
+/*     background-color: #495057; */
+     color: #000; /* Cor do texto dos inputs */
+/*     border: 1px solid #6c757d; */
+ }
+
+ /* Estilo para os botões */
+ .modal-footer .btn-primary {
+     background-color: #000228; /* Cor de fundo do botão "Alterar" */
+     border-color: #007bff; /* Cor da borda do botão */
+ }
+
+ .modal-footer .btn-secondary {
+     background-color: #000228; /* Cor de fundo do botão "Cancelar" */
+     border-color: red; /* Cor da borda do botão */
+ }
+
+ /* Estilo para os botões ao passar o mouse */
+ .modal-footer .btn-primary:hover{
+	background-color: #000228;
+		border-color: #CD1CFE;
+		color: #CD1CFE;		
+		box-shadow: 0 0 10px rgba(205, 28, 254, 0.8), 0 0 20px rgba(205, 28, 254, 0.6);
+ }
+ .modal-footer .btn-secondary:hover {
+     opacity: 0.9; /* Efeito de hover */
+	 background-color: #000228;
+	 	border-color: red;
+	 	color: red;		
+	 	box-shadow: 0 0 10px rgb(255, 0, 0), 0 0 20px rgb(255, 0, 0);
+ }
+ 
+ 
+/**************************cria-publicacao****************************************/
+.voltar-btn{
+	font-weight: 500;
+	font-family: "Space Grotesk", sans-serif;		
+	border-color: #000228;
+	color: #000228;
+	
+}
+
+.voltar-btn:hover{
+	background-color: #000228;
+	border-color: #CD1CFE;
+	color: #CD1CFE;		
+	box-shadow: 0 0 10px rgba(205, 28, 254, 0.8), 0 0 20px rgba(205, 28, 254, 0.6);
+	
+}
+
+.btn-criar{
+	font-weight: 500;
+	font-family: "Space Grotesk", sans-serif;		
+	border-color: #000228;
+	color: #000228;
+	width: 35%;
+	margin-left: 35%;
+}
+.btn-criar:hover{
+	background-color: #000228;
+	border-color: #CD1CFE;
+	color: #CD1CFE;		
+	box-shadow: 0 0 10px rgba(205, 28, 254, 0.8), 0 0 20px rgba(205, 28, 254, 0.6);
+}
+
+
+.col-9 .card .card-body{
+/*	background-color: #fff;*/
+	border-radius: 10px;
+}
+.card-body{
+	font-weight: 500;
+		font-family: "Space Grotesk", sans-serif;
+}
+
+
+
+.col-9 .card .card-body textarea {
+    background-color: transparent;
+    border-color: #000228;
+    transition: width 0.3s ease, margin 0.3s ease, transform 0.3s ease; 
+    width: calc(100% - 20px); 
+    margin: 0; 
+    transform: scale(1); 
+    border-radius: 4px; 
+}
+
+.col-9 .card .card-body textarea:focus {
+    border-color: #000228;
+    box-shadow: #000228 0px 10px 20px, #CD1CFE 0px 6px 6px;
+    background-color: #fff;
+    width: calc(100% + 20px); 
+    transform: scale(1.15); 
+    z-index: 1;
+}
+
+
+
+/**************footer*************/
+
+footer{
+	font-weight: 500;
+	font-family: "Space Grotesk", sans-serif;
+	color: #fff;
+	background-color: #000;
+	
+	
+	
+}
+
+.rodape {
+ color: #fff;
+ }
+ 
+.conteiner-data{
+	font-weight: 500;
+		font-family: "Space Grotesk", sans-serif;
+		color: #fff;
+		margin-right: 1%;
+ }
+ 
+ /**************************************************************/
+ @media (max-width: 768px) {
+     .navbar-brand {
+         font-size: 1.5rem; /* Diminui o tamanho da fonte em telas menores */
+     }
+
+     .cabecalho-container {
+         flex-direction: column; /* Muda para coluna em telas menores */
+         align-items: flex-start; /* Alinhamento à esquerda */
+     }
+
+     .card {
+         width: 100%; /* Card ocupa toda a largura em telas menores */
+     }
+
+     .btn-criar {
+         width: 100%; /* Botão ocupa toda a largura */
+         margin-left: 0; /* Remove margem esquerda */
+     }
+
+     .btn-custom {
+         width: 100%; /* Botões ocupam toda a largura */
+     }
+ }
+
+ @media (max-width: 576px) {
+     .navbar-brand {
+         font-size: 1.2rem; /* Diminui ainda mais o tamanho da fonte em telas muito pequenas */
+     }
+
+     .cabecalho-container {
+         gap: 10px; /* Reduz o espaço entre os itens */
+     }
+
+     .col-9 .card .card-body textarea {
+         font-size: 0.9rem; /* Ajusta o tamanho da fonte do textarea */
+     }
+ }
